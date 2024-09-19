@@ -1,5 +1,18 @@
 package by.bsuir;
 
+import by.bsuir.service.AuthService;
+import by.bsuir.service.LibraryService;
+import by.bsuir.service.MenuService;
+import by.bsuir.service.impl.AuthServiceImpl;
+import by.bsuir.service.impl.LibraryServiceImpl;
+import by.bsuir.service.impl.MenuServiceImpl;
+
+//import java.io.*;
+//import java.nio.charset.StandardCharsets;
+//import java.nio.file.Files;
+//import java.nio.file.Path;
+//import java.nio.file.Paths;
+
 /*
 * Задание: создать однопоточное консольное приложение “Учет книг в домашней библиотеке”
 * Общие требования к заданию:
@@ -15,6 +28,12 @@ package by.bsuir;
 * */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        AuthService authService = new AuthServiceImpl();
+        MenuService menuService = new MenuServiceImpl();
+        LibraryService libraryService = new LibraryServiceImpl();
+//        menuService.showAuthMenu();
+//        authService.registration();
+        //authService.login();
+        libraryService.addBook();
     }
 }

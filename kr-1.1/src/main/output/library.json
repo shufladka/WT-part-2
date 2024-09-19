@@ -1,0 +1,50 @@
+[
+  {
+    "id": 0,
+    "title": "sdfsdf",
+    "description": "sdfse",
+    "author": "sefse",
+    "publisher": "sefse",
+    "isbn": "2sdf",
+    "pages": 100,
+    "genre": "COMEDY",
+    "publicationDate": "Feb 1, 2003, 12:00:00 AM",
+    "bookType": "PAPER"
+  },
+  {
+    "id": 1,
+    "title": "sdfe",
+    "description": "sdf",
+    "author": "sdf",
+    "publisher": "sdf",
+    "isbn": "sef",
+    "pages": 210,
+    "genre": "ROMANCE",
+    "publicationDate": "Jan 1, 2003, 12:00:00 AM",
+    "bookType": "PAPER"
+  },
+  {
+    "id": 2,
+    "title": "test",
+    "description": "kvest",
+    "author": "prisest",
+    "publisher": "pepec",
+    "isbn": "yunec",
+    "pages": 99,
+    "genre": "COMEDY",
+    "publicationDate": "Feb 1, 2003, 12:00:00 AM",
+    "bookType": "PAPER"
+  },
+  {
+    "id": 3,
+    "title": "aaaaaaa",
+    "description": "aaaaaaaa",
+    "author": "aaaaaaa",
+    "publisher": "aaaaaaa",
+    "isbn": "aaaaa",
+    "pages": 219,
+    "genre": "COMEDY",
+    "publicationDate": "Mar 2, 2004, 12:00:00 AM",
+    "bookType": "PAPER"
+  }
+]
