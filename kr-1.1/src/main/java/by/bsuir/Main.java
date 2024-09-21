@@ -37,6 +37,7 @@ public class Main {
         LibraryService libraryService = new LibraryServiceImpl();
         PostService postService = new PostServiceImpl();
         System.out.println(postService.getEmailAddresses(authService).toString());
+        postService.sendEmail("olegolegolegoleg88@gmail.com", "Тема письма", "Текст письма.");
 //        menuService.showAuthMenu();
 //        authService.registration();
 //        authService.login();
