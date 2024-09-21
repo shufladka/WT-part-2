@@ -12,18 +12,6 @@
     "bookType": "PAPER"
   },
   {
-    "id": 1,
-    "title": "sdfe",
-    "description": "sdf",
-    "author": "sdf",
-    "publisher": "sdf",
-    "isbn": "sef",
-    "pages": 210,
-    "genre": "ROMANCE",
-    "publicationDate": "Jan 1, 2003, 12:00:00 AM",
-    "bookType": "PAPER"
-  },
-  {
     "id": 2,
     "title": "test",
     "description": "kvest",

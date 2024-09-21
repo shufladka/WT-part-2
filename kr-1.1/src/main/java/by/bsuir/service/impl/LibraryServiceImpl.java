@@ -18,16 +18,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class LibraryServiceImpl implements LibraryService {
-
+    private static final int BOOKS_PER_PAGE = 5; // Количество книг на одной странице
     private static final String filePath = "kr-1.1/src/main/output/library.json";
     private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     @Override
-    public void addBook() {
-        setBooksFields(true);
+    public void addBook(Role role) {
+        setBooksFields(true, role);
     }
 
-    private void setBooksFields(boolean isNewFile) {
+    private void setBooksFields(boolean isNewFile, Role role) {
         Scanner scanner = new Scanner(System.in);
         Book book = new Book();
 
@@ -69,7 +69,9 @@ public class LibraryServiceImpl implements LibraryService {
         book.setBookType(BookType.valueOf(bookTypeInput.toUpperCase()));
 
         // Добавляем новую книгу в библиотеку
-        saveBookToFile(book, isNewFile);
+        if (role.equals(Role.ADMIN)) {
+            saveBookToFile(book, isNewFile);
+        }
     }
 
     // Функция для сохранения книги в JSON файл
@@ -142,12 +144,101 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public void updateBook() {
-        setBooksFields(false);
+    public SecurityCode updateBook(Role role) {
+
+        // Операция доступна только Администратору
+        if (role.equals(Role.ADMIN)) {
+            setBooksFields(false, role);
+            return SecurityCode.ALLOWED;
+        }
+
+        System.out.println("\tОперация доступна только администратору.");
+        return SecurityCode.DENIED;
     }
 
     @Override
-    public void removeBook(Integer id) {
+    public SecurityCode removeBook(Integer id, Role role) {
 
+        // Операция доступна только Администратору
+        if (role.equals(Role.ADMIN)) {
+
+            // Получаем список всех книг
+            List<Book> books = getAllBooks();
+
+            // Находим и удаляем книгу по ID
+            boolean removed = books.removeIf(book -> book.getId().equals(id));
+
+            if (removed) {
+                try {
+                    // Сериализация обновленного списка книг в JSON
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    try (FileWriter writer = new FileWriter(filePath)) {
+                        gson.toJson(books, writer);
+                        System.out.println("Книга успешно удалена.");
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException("Ошибка при сохранении файла после удаления книги", e);
+                }
+            } else {
+                System.out.println("Книга с ID " + id + " не найдена.");
+            }
+
+            return SecurityCode.ALLOWED;
+        }
+
+        System.out.println("\tОперация доступна только администратору.");
+        return SecurityCode.DENIED;
+    }
+
+    // Функция для вывода книг с постраничным просмотром (пагинацией)
+    public void displayBooksWithPagination() {
+        List<Book> books = getAllBooks();
+
+        if (books.isEmpty()) {
+            System.out.println("Книги отсутствуют.");
+            return;
+        }
+
+        int totalPages = (int) Math.ceil((double) books.size() / BOOKS_PER_PAGE);
+        Scanner scanner = new Scanner(System.in);
+
+        int currentPage = 1;
+        while (true) {
+            // Выводим книги на текущей странице
+            displayPage(books, currentPage, totalPages);
+
+            System.out.println("\n\tВведите номер страницы (1-" + totalPages + ") или 0 для выхода:");
+            int selectedPage = scanner.nextInt();
+
+            if (selectedPage == 0) {
+                System.out.println("\tВыход из постраничного просмотра.");
+                break;
+            } else if (selectedPage >= 1 && selectedPage <= totalPages) {
+                currentPage = selectedPage;
+            } else {
+                System.out.println("\tНеверный номер страницы, попробуйте снова.");
+            }
+        }
+    }
+
+    // Функция для вывода одной страницы
+    private void displayPage(List<Book> books, int currentPage, int totalPages) {
+        System.out.println("\n\tСтраница " + currentPage + " из " + totalPages + ":");
+
+        int start = (currentPage - 1) * BOOKS_PER_PAGE;
+        int end = Math.min(start + BOOKS_PER_PAGE, books.size());
+
+        for (int i = start; i < end; i++) {
+            Book book = books.get(i);
+            System.out.println("\t" + (i + 1) + ". \"" + book.getTitle() + "\",");
+            System.out.println("\t\tАвтор: " + book.getAuthor() + ",");
+            System.out.println("\t\tОписание: " + "\"" + book.getDescription() + "\",");
+            System.out.println("\t\tЖанр: " + book.getGenre().getName() + ",");
+            System.out.println("\t\tНоситель: " + book.getBookType().getDescription() + ",");
+            System.out.println("\t\tОпубликовал: " + book.getPublisher() + ",");
+            System.out.println("\t\tОпубликовано: " + book.getPublicationDate() + ",");
+            System.out.println("\t\tISBN: " + book.getIsbn() + ",");
+            System.out.println("\t\tСтраниц: " + book.getPages() + ".");
+        }
     }
 }

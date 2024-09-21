@@ -1,5 +1,6 @@
 package by.bsuir;
 
+import by.bsuir.domain.Role;
 import by.bsuir.service.AuthService;
 import by.bsuir.service.LibraryService;
 import by.bsuir.service.MenuService;
@@ -34,6 +35,7 @@ public class Main {
 //        menuService.showAuthMenu();
 //        authService.registration();
         //authService.login();
-        libraryService.addBook();
+        //libraryService.displayBooksWithPagination();
+        libraryService.addBook(Role.ADMIN);
     }
 }

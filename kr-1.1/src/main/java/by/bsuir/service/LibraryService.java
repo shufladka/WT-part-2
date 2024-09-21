@@ -1,13 +1,16 @@
 package by.bsuir.service;
 
 import by.bsuir.domain.Book;
+import by.bsuir.domain.Role;
+import by.bsuir.domain.SecurityCode;
 
 import java.util.List;
 
 public interface LibraryService {
-    void addBook();
+    void addBook(Role role);
     Book getBookById(Integer id);
     List<Book> getAllBooks();
-    void updateBook();
-    void removeBook(Integer id);
+    SecurityCode updateBook(Role role);
+    SecurityCode removeBook(Integer id, Role role);
+    void displayBooksWithPagination();
 }
