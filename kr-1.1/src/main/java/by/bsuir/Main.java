@@ -5,9 +5,11 @@ import by.bsuir.domain.Role;
 import by.bsuir.service.AuthService;
 import by.bsuir.service.LibraryService;
 import by.bsuir.service.MenuService;
+import by.bsuir.service.PostService;
 import by.bsuir.service.impl.AuthServiceImpl;
 import by.bsuir.service.impl.LibraryServiceImpl;
 import by.bsuir.service.impl.MenuServiceImpl;
+import by.bsuir.service.impl.PostServiceImpl;
 
 //import java.io.*;
 //import java.nio.charset.StandardCharsets;
@@ -33,12 +35,14 @@ public class Main {
         AuthService authService = new AuthServiceImpl();
         MenuService menuService = new MenuServiceImpl();
         LibraryService libraryService = new LibraryServiceImpl();
+        PostService postService = new PostServiceImpl();
+        System.out.println(postService.getEmailAddresses(authService).toString());
 //        menuService.showAuthMenu();
 //        authService.registration();
-        //authService.login();
+//        authService.login();
         //libraryService.displayBooksWithPagination();
         //libraryService.displayBooksWithPagination();
         //libraryService.getAllBooks();
-        libraryService.addBook(Role.ADMIN);
+        //libraryService.addBook(Role.ADMIN);
     }
 }

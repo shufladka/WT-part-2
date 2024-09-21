@@ -3,25 +3,34 @@ package by.bsuir.domain;
 import java.util.Date;
 
 public class User {
+    private Integer id;
     private String username;
     private String password;
     private String name;
     private String surname;
     private Role role;
-    private Date dateOfBirth;
     private String email;
 
-    public User(String username, String password, String name, String surname, Role role, Date dateOfBirth, String email) {
+    public User(Integer id, String username, String password,
+                String name, String surname, Role role, String email) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.role = role;
-        this.dateOfBirth = dateOfBirth;
         this.email = email;
     }
 
     public User() {}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -63,14 +72,6 @@ public class User {
         this.role = role;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -85,7 +86,6 @@ public class User {
                 ", name: " + this.name +
                 ", surname: " + this.surname +
                 ", role: " + this.role +
-                ", birthday: " + this.dateOfBirth +
                 ", email: " + this.email + "]";
     }
 }
