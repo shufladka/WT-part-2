@@ -1,5 +1,6 @@
 package by.bsuir;
 
+import by.bsuir.domain.Book;
 import by.bsuir.domain.Role;
 import by.bsuir.service.AuthService;
 import by.bsuir.service.LibraryService;
@@ -36,6 +37,8 @@ public class Main {
 //        authService.registration();
         //authService.login();
         //libraryService.displayBooksWithPagination();
+        //libraryService.displayBooksWithPagination();
+        //libraryService.getAllBooks();
         libraryService.addBook(Role.ADMIN);
     }
 }
