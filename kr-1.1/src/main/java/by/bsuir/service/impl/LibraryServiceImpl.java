@@ -26,13 +26,14 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void addBook(AuthService authService, PostService postService, Role role) {
-        setBooksFields(authService, postService, role, OperationType.CREATION);
+        Book book = new Book();
+        setBooksFields(book, authService, postService, role, OperationType.CREATION);
     }
 
     // Функция для заполнения полей книги (вводить только латиницей)
-    private void setBooksFields(AuthService authService, PostService postService, Role role, OperationType operationType) {
+    private void setBooksFields(Book book, AuthService authService, PostService postService,
+                                Role role, OperationType operationType) {
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
-        Book book = new Book();
 
         System.out.print("Введите название книги (заголовок): ");
         book.setTitle(escapeCyrillicSymbol(scanner.nextLine()));
@@ -150,12 +151,6 @@ public class LibraryServiceImpl implements LibraryService {
         return connection.getResponseCode();
     }
 
-    @Override
-    public Book getBookById(Integer id) {
-        List<Book> books = getAllBooks();
-        return books.stream().filter(book -> book.getId().equals(id)).findFirst().orElse(null);
-    }
-
     // Функция для загрузки списка книг из JSON файла
     @Override
     public List<Book> getAllBooks() {
@@ -186,11 +181,18 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public SecurityCode updateBook(AuthService authService, PostService postService, Role role) {
+    public Book getBookById(Integer id) {
+        List<Book> books = getAllBooks();
+        return books.stream().filter(book -> book.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    @Override
+    public SecurityCode updateBook(Integer id, AuthService authService, PostService postService, Role role) {
 
         // Операция доступна только Администратору
         if (role.equals(Role.ADMIN)) {
-            setBooksFields(authService, postService, role, OperationType.UPDATE);
+            Book book = getBookById(id);
+            setBooksFields(book, authService, postService, role, OperationType.UPDATE);
             return SecurityCode.ALLOWED;
         }
 

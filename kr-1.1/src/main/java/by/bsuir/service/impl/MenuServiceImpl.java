@@ -55,11 +55,12 @@ public class MenuServiceImpl implements MenuService {
             System.out.println("\t1. Просмотр всей библиотеки");
             System.out.println("\t2. Поиск книги по идентификатору");
             System.out.println("\t3. Предложить новую книгу");
-            System.out.println("\t4. Удалить книгу из библиотеки");
+            System.out.println("\t4. Обновить информацию о книге из библиотеки");
+            System.out.println("\t5. Удалить книгу из библиотеки");
             System.out.println("\t0. Выйти из аккаунта");
             System.out.println("\t==================================");
 
-            System.out.print("\n\tВведите пункт меню (1-4) или 0 для выхода: ");
+            System.out.print("\n\tВведите пункт меню (1-5) или 0 для выхода: ");
             int selectedPage = scanner.nextInt();
 
             switch (selectedPage) {
@@ -78,6 +79,11 @@ public class MenuServiceImpl implements MenuService {
                     libraryService.addBook(authService, postService, role);
                     break;
                 case 4:
+                    System.out.print("\tВведите идентификатор интересующей книги: ");
+                    selectedBook = scanner.nextInt();
+                    libraryService.updateBook(selectedBook, authService, postService, role);
+                    break;
+                case 5:
                     System.out.print("\tВведите идентификатор интересующей книги: ");
                     selectedBook = scanner.nextInt();
                     libraryService.removeBook(selectedBook, role);

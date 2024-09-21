@@ -10,7 +10,7 @@ public interface LibraryService {
     void addBook(AuthService authService, PostService postService, Role role);
     Book getBookById(Integer id);
     List<Book> getAllBooks();
-    SecurityCode updateBook(AuthService authService, PostService postService, Role role);
+    SecurityCode updateBook(Integer id, AuthService authService, PostService postService, Role role);
     SecurityCode removeBook(Integer id, Role role);
     void displayBooksWithPagination();
 }
