@@ -1,7 +1,9 @@
 package by.bsuir.service.impl;
 
 import by.bsuir.domain.*;
+import by.bsuir.service.AuthService;
 import by.bsuir.service.LibraryService;
+import by.bsuir.service.PostService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -12,6 +14,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 public class LibraryServiceImpl implements LibraryService {
@@ -20,12 +25,12 @@ public class LibraryServiceImpl implements LibraryService {
     private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     @Override
-    public void addBook(Role role) {
-        setBooksFields(role, OperationType.CREATION);
+    public void addBook(AuthService authService, PostService postService, Role role) {
+        setBooksFields(authService, postService, role, OperationType.CREATION);
     }
 
     // Функция для заполнения полей книги (вводить только латиницей)
-    private void setBooksFields(Role role, OperationType operationType) {
+    private void setBooksFields(AuthService authService, PostService postService, Role role, OperationType operationType) {
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
         Book book = new Book();
 
@@ -70,12 +75,18 @@ public class LibraryServiceImpl implements LibraryService {
 
             // Добавляем новую книгу в библиотеку
             if (operationType.equals(OperationType.CREATION)) {
-                saveBookToServer(book);
+                saveBookToServer(authService, postService, book);
             } else
 
                 // Обновляем поля книги
                 if (operationType.equals(OperationType.UPDATE)) {
                 updateBookOnServer(book);
+            }
+        } else {
+            if (role.equals(Role.USER)) {
+
+                // Уведомляем администратора о просьбе добавить новую книгу
+                postService.notificationForAdmin(book);
             }
         }
     }
@@ -98,7 +109,7 @@ public class LibraryServiceImpl implements LibraryService {
         return escapedJson.toString();
     }
 
-    private void saveBookToServer(Book book) {
+    private void saveBookToServer(AuthService authService, PostService postService, Book book) {
 
         // Сериализация новой книги в JSON
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -112,6 +123,7 @@ public class LibraryServiceImpl implements LibraryService {
             // Отправка новой книги на сервер
             int responseCode = getResponseCode(libraryUrl, "POST", unicodeBookJson);
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
+                postService.notificationForUsers(authService);
                 System.out.println("Книга успешно добавлена на сервере.");
             } else {
                 System.out.println("Ошибка при добавлении книги на сервере. Код ответа: " + responseCode);
@@ -174,11 +186,11 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public SecurityCode updateBook(Role role) {
+    public SecurityCode updateBook(AuthService authService, PostService postService, Role role) {
 
         // Операция доступна только Администратору
         if (role.equals(Role.ADMIN)) {
-            setBooksFields(role, OperationType.UPDATE);
+            setBooksFields(authService, postService, role, OperationType.UPDATE);
             return SecurityCode.ALLOWED;
         }
 
@@ -256,7 +268,7 @@ public class LibraryServiceImpl implements LibraryService {
             // Выводим книги на текущей странице
             displayPage(books, currentPage, totalPages);
 
-            System.out.println("\n\tВведите номер страницы (1-" + totalPages + ") или 0 для выхода:");
+            System.out.print("\n\tВведите номер страницы (1-" + totalPages + ") или 0 для выхода: ");
             int selectedPage = scanner.nextInt();
 
             if (selectedPage == 0) {
@@ -272,22 +284,28 @@ public class LibraryServiceImpl implements LibraryService {
 
     // Функция для вывода одной страницы
     private void displayPage(List<Book> books, int currentPage, int totalPages) {
-        System.out.println("\n\tСтраница " + currentPage + " из " + totalPages + ":");
+        System.out.println("\n\tСтраница " + currentPage + " из " + totalPages + ": ");
 
         int start = (currentPage - 1) * BOOKS_PER_PAGE;
         int end = Math.min(start + BOOKS_PER_PAGE, books.size());
 
         for (int i = start; i < end; i++) {
             Book book = books.get(i);
-            System.out.println("\t" + book.getId() + ". \"" + book.getTitle() + "\",");
-            System.out.println("\t\tАвтор: " + book.getAuthor() + ",");
-            System.out.println("\t\tОписание: " + "\"" + book.getDescription() + "\",");
-            System.out.println("\t\tЖанр: " + book.getGenre().getName() + ",");
-            System.out.println("\t\tНоситель: " + book.getBookType().getDescription() + ",");
-            System.out.println("\t\tОпубликовал: " + book.getPublisher() + ",");
-            System.out.println("\t\tОпубликовано: " + book.getPublicationDate() + ",");
-            System.out.println("\t\tISBN: " + book.getIsbn() + ",");
-            System.out.println("\t\tСтраниц: " + book.getPages() + ".");
+
+            LocalDate localDate = Instant.ofEpochMilli(book.getPublicationDate().getTime())
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            int year = localDate.getYear();
+
+            System.out.println("\n\t" + book.getId() + ". \"" + book.getTitle() + "\",");
+            System.out.println("\tАвтор: " + book.getAuthor() + ",");
+            System.out.println("\tОписание: " + "\"" + book.getDescription() + "\",");
+            System.out.println("\tЖанр: " + book.getGenre().getName() + ",");
+            System.out.println("\tНоситель: " + book.getBookType().getDescription() + ",");
+            System.out.println("\tОпубликовал: " + book.getPublisher() + ",");
+            System.out.println("\tОпубликовано: " + year + ",");
+            System.out.println("\tISBN: " + book.getIsbn() + ",");
+            System.out.println("\tСтраниц: " + book.getPages() + ".");
         }
     }
 }

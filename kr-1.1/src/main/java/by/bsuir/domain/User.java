@@ -82,10 +82,14 @@ public class User {
 
     @Override
     public String toString() {
-        return "[User: username: " + this.username +
-                ", name: " + this.name +
-                ", surname: " + this.surname +
-                ", role: " + this.role +
-                ", email: " + this.email + "]";
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", role=" + role +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

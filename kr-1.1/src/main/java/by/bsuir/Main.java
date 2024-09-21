@@ -1,7 +1,5 @@
 package by.bsuir;
 
-import by.bsuir.domain.Book;
-import by.bsuir.domain.Role;
 import by.bsuir.service.AuthService;
 import by.bsuir.service.LibraryService;
 import by.bsuir.service.MenuService;
@@ -10,12 +8,6 @@ import by.bsuir.service.impl.AuthServiceImpl;
 import by.bsuir.service.impl.LibraryServiceImpl;
 import by.bsuir.service.impl.MenuServiceImpl;
 import by.bsuir.service.impl.PostServiceImpl;
-
-//import java.io.*;
-//import java.nio.charset.StandardCharsets;
-//import java.nio.file.Files;
-//import java.nio.file.Path;
-//import java.nio.file.Paths;
 
 /*
 * Задание: создать однопоточное консольное приложение “Учет книг в домашней библиотеке”
@@ -36,14 +28,8 @@ public class Main {
         MenuService menuService = new MenuServiceImpl();
         LibraryService libraryService = new LibraryServiceImpl();
         PostService postService = new PostServiceImpl();
-        System.out.println(postService.getEmailAddresses(authService).toString());
-        postService.sendEmail("olegolegolegoleg88@gmail.com", "Тема письма", "Текст письма.");
-//        menuService.showAuthMenu();
-//        authService.registration();
-//        authService.login();
-        //libraryService.displayBooksWithPagination();
-        //libraryService.displayBooksWithPagination();
-        //libraryService.getAllBooks();
-        //libraryService.addBook(Role.ADMIN);
+
+        menuService.showAuthMenu(authService);
+        menuService.showMainMenu(authService, libraryService, postService);
     }
 }

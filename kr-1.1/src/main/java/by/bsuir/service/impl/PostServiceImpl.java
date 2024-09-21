@@ -1,5 +1,6 @@
 package by.bsuir.service.impl;
 
+import by.bsuir.domain.Book;
 import by.bsuir.domain.User;
 import by.bsuir.service.AuthService;
 import by.bsuir.service.PostService;
@@ -15,15 +16,25 @@ import java.util.Properties;
 public class PostServiceImpl implements PostService {
 
     @Override
-    public List<String> getEmailAddresses(AuthService authService) {
-        List<User> userList = authService.loadUsersFromApi();
-        List<String> emailAddresses = new ArrayList<>();
-        userList.stream().forEach(userItem -> emailAddresses.add(userItem.getEmail()));
-        return emailAddresses;
+    public void notificationForUsers(AuthService authService) {
+        List<String> emailAddresses = getEmailAddresses(authService);
+        emailAddresses.forEach(email -> sendEmail(email, "КР 1.1", "Добавлена новая книга."));
     }
 
     @Override
-    public void sendEmail(String recipient, String subject, String messageBody) {
+    public void notificationForAdmin(Book book) {
+        String messageBody = "Предложена новая книга: " + book.toString();
+        sendEmail("olegolegolegoleg88@gmail.com", "КР 1.1", messageBody);
+    }
+
+    private List<String> getEmailAddresses(AuthService authService) {
+        List<User> userList = authService.loadUsersFromApi();
+        List<String> emailAddresses = new ArrayList<>();
+        userList.forEach(userItem -> emailAddresses.add(userItem.getEmail()));
+        return emailAddresses;
+    }
+
+    private void sendEmail(String recipient, String subject, String messageBody) {
         // Настройка свойств для подключения к SMTP-серверу
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.mail.ru");   // SMTP-сервер
@@ -62,6 +73,4 @@ public class PostServiceImpl implements PostService {
             throw new RuntimeException("Ошибка при отправке письма: " + e.getMessage(), e);
         }
     }
-
-
 }

@@ -1,10 +1,8 @@
 package by.bsuir.service;
 
-import by.bsuir.domain.User;
-
-import java.util.List;
+import by.bsuir.domain.Book;
 
 public interface PostService {
-    List<String> getEmailAddresses(AuthService authService);
-    void sendEmail(String recipient, String subject, String messageBody);
+    void notificationForUsers(AuthService authService);
+    void notificationForAdmin(Book book);
 }

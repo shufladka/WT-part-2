@@ -7,10 +7,10 @@ import by.bsuir.domain.SecurityCode;
 import java.util.List;
 
 public interface LibraryService {
-    void addBook(Role role);
+    void addBook(AuthService authService, PostService postService, Role role);
     Book getBookById(Integer id);
     List<Book> getAllBooks();
-    SecurityCode updateBook(Role role);
+    SecurityCode updateBook(AuthService authService, PostService postService, Role role);
     SecurityCode removeBook(Integer id, Role role);
     void displayBooksWithPagination();
 }

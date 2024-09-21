@@ -1,6 +1,5 @@
 package by.bsuir.service.impl;
 
-import by.bsuir.domain.Book;
 import by.bsuir.domain.Role;
 import by.bsuir.domain.User;
 import by.bsuir.service.AuthService;
@@ -9,7 +8,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -29,23 +27,23 @@ public class AuthServiceImpl implements AuthService {
         Scanner scanner = new Scanner(System.in);
         User user = new User();
 
-        System.out.print("Введите имя пользователя (username): ");
+        System.out.print("\n\tВведите имя пользователя (username): ");
         user.setUsername(scanner.nextLine());
 
-        System.out.print("Введите пароль: ");
+        System.out.print("\tВведите пароль: ");
         user.setPassword(hashPassword(scanner.nextLine()));
 
-        System.out.print("Введите имя: ");
+        System.out.print("\tВведите имя: ");
         user.setName(scanner.nextLine());
 
-        System.out.print("Введите фамилию: ");
+        System.out.print("\tВведите фамилию: ");
         user.setSurname(scanner.nextLine());
 
-        System.out.print("Введите роль (например, ADMIN или USER): ");
+        System.out.print("\tВведите роль (например, ADMIN или USER): ");
         String roleInput = scanner.nextLine();
         user.setRole(Role.valueOf(roleInput.toUpperCase())); // Преобразование строки в enum Role
 
-        System.out.print("Введите email: ");
+        System.out.print("\tВведите email: ");
         user.setEmail(scanner.nextLine());
         scanner.close();
 
@@ -84,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
         try {
 
             // Отправка новой книги на сервер
-            int responseCode = getResponseCode(credentialsUrl, "POST", unicodeBookJson);
+            int responseCode = getResponseCode(unicodeBookJson);
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
                 System.out.println("Пользователь успешно добавлена на сервере.");
             } else {
@@ -95,10 +93,10 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    private static int getResponseCode(String libraryUrl, String POST, String unicodeUserJson) throws IOException {
-        URL url = new URL(libraryUrl);
+    private static int getResponseCode(String unicodeUserJson) throws IOException {
+        URL url = new URL(AuthServiceImpl.credentialsUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod(POST); // Используем POST для создания нового пользователя
+        connection.setRequestMethod("POST"); // Используем POST для создания нового пользователя
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setDoOutput(true);
 
@@ -144,10 +142,10 @@ public class AuthServiceImpl implements AuthService {
     public void login() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Введите имя пользователя (username): ");
+        System.out.print("\n\tВведите имя пользователя (username): ");
         String username = scanner.nextLine();
 
-        System.out.println("Введите пароль: ");
+        System.out.print("\tВведите пароль: ");
         String password = scanner.nextLine();
 
         List<User> users = loadUsersFromApi();
@@ -155,10 +153,7 @@ public class AuthServiceImpl implements AuthService {
         users.stream()
                 .filter(userItem -> userItem.getUsername().equals(username))
                 .filter(userItem -> verifyPassword(password, userItem.getPassword()))
-                .forEach(userItem -> {
-                    System.out.println("атлишна");
-                    setAuthentificatedUser(userItem);
-        });
+                .forEach(this::setAuthentificatedUser);
     }
 
     @Override
