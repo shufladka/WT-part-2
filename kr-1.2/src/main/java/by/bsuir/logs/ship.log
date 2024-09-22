@@ -1,0 +1,6 @@
+2024-09-22 18:56:26 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №1 added to the dock "first dock"
+2024-09-22 18:56:27 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 added to the dock "second dock"
+2024-09-22 18:56:29 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №1 left the port
+2024-09-22 18:56:30 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 added to the dock "first dock"
+2024-09-22 18:56:32 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 left the port
+2024-09-22 18:56:34 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 left the port
