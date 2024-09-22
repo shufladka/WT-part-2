@@ -12,4 +12,5 @@ public interface AuthService {
     boolean isAdmin(User user);
     User getAuthentificatedUser();
     void setAuthentificatedUser(User authentificatedUser);
+    List<User> loadUsersFromApi();
 }

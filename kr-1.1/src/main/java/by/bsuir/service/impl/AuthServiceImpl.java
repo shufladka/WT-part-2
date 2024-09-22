@@ -8,23 +8,17 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
-import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class AuthServiceImpl implements AuthService {
     private User authentificatedUser = new User();
-    private static final String filePath = "kr-1.1/src/main/output/credentials.json";
-    private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    private static final String credentialsUrl = "https://6a821cd8fdaa5103.mokky.dev/credentials";
 
     public AuthServiceImpl() {}
 
@@ -33,82 +27,114 @@ public class AuthServiceImpl implements AuthService {
         Scanner scanner = new Scanner(System.in);
         User user = new User();
 
-        System.out.print("Введите имя пользователя (username): ");
+        System.out.print("\n\tВведите имя пользователя (username): ");
         user.setUsername(scanner.nextLine());
 
-        System.out.print("Введите пароль: ");
+        System.out.print("\tВведите пароль: ");
         user.setPassword(hashPassword(scanner.nextLine()));
 
-        System.out.print("Введите имя: ");
+        System.out.print("\tВведите имя: ");
         user.setName(scanner.nextLine());
 
-        System.out.print("Введите фамилию: ");
+        System.out.print("\tВведите фамилию: ");
         user.setSurname(scanner.nextLine());
 
-        System.out.print("Введите роль (например, ADMIN или USER): ");
+        System.out.print("\tВведите роль (например, ADMIN или USER): ");
         String roleInput = scanner.nextLine();
         user.setRole(Role.valueOf(roleInput.toUpperCase())); // Преобразование строки в enum Role
 
-        System.out.print("Введите дату рождения (в формате ДД.ММ.ГГГГ): ");
-        String dateOfBirthInput = scanner.nextLine();
-        try {
-            user.setDateOfBirth(dateFormat.parse(dateOfBirthInput));
-        } catch (Exception e) {
-            System.out.print("Неверный формат даты! Пожалуйста, повторите регистрацию.");
-            return;
-        }
-
-        System.out.print("Введите email: ");
+        System.out.print("\tВведите email: ");
         user.setEmail(scanner.nextLine());
         scanner.close();
 
-        // Сохранение данных пользователя в файл JSON
-        saveUserToFile(user);
+        // Сохранение данных пользователя в файл на mokky.dev
+        saveUserToApi(user);
     }
 
-    // Функция для сохранения пользователя в JSON файл
-    private void saveUserToFile(User user) {
-        List<User> users = loadUsersFromFile();
+    private String escapeCyrillicSymbol(String json) {
+        StringBuilder escapedJson = new StringBuilder();
 
-        // Добавляем нового пользователя в список
-        users.add(user);
+        for (char c : json.toCharArray()) {
+
+            // Если символ — кириллический, экранируем его
+            if (Character.UnicodeScript.of(c) == Character.UnicodeScript.CYRILLIC) {
+                escapedJson.append(String.format("\\u%04x", (int) c));
+            } else {
+
+                // В противном случае просто добавляем символ
+                escapedJson.append(c);
+            }
+        }
+
+        return escapedJson.toString();
+    }
+
+    // Функция для сохранения пользователя в файл на mokky.dev
+    private void saveUserToApi(User user) {
+
+        // Сериализация новой книги в JSON
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String userJson = gson.toJson(user);
+
+        // Преобразование только кириллицы в Unicode
+        String unicodeBookJson = escapeCyrillicSymbol(userJson);
 
         try {
-            // Проверяем и создаем директорию, если она не существует
-            Path directoryPath = Paths.get("kr-1.1/src/main/output");
-            if (Files.notExists(directoryPath)) {
-                Files.createDirectories(directoryPath);  // Создаем директории
-            }
 
-            // Сериализация данных в JSON
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            try (FileWriter writer = new FileWriter(filePath)) {
-                gson.toJson(users, writer);
-                System.out.println("Пользователь успешно сохранен в файл.");
+            // Отправка новой книги на сервер
+            int responseCode = getResponseCode(unicodeBookJson);
+            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
+                System.out.println("Пользователь успешно добавлена на сервере.");
+            } else {
+                System.out.println("Ошибка при добавлении пользователя на сервере. Код ответа: " + responseCode);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Ошибка при отправке пользователя на сервер", e);
         }
+    }
+
+    private static int getResponseCode(String unicodeUserJson) throws IOException {
+        URL url = new URL(AuthServiceImpl.credentialsUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST"); // Используем POST для создания нового пользователя
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setDoOutput(true);
+
+        // Отправка данных
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8))) {
+            writer.write(unicodeUserJson);
+            writer.flush();
+        }
+
+        // Проверка кода ответа от сервера
+        return connection.getResponseCode();
     }
 
     // Функция для загрузки списка пользователей из JSON файла
-    private List<User> loadUsersFromFile() {
+    public List<User> loadUsersFromApi() {
         Gson gson = new Gson();
-        File file = new File("kr-1.1/src/main/output/credentials.json");
 
-        // Если файл не существует, создаем новый список пользователей
-        if (!file.exists()) {
-            System.out.println("Файл не найден, создается новый файл.");
-            return new ArrayList<>();
-        }
+        try {
+            // Открываем соединение для получения списка книг
+            URL url = new URL(credentialsUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
 
-        // Читаем файл, если он существует
-        try (Reader reader = new FileReader(filePath)) {
-            Type userListType = new TypeToken<ArrayList<User>>() {}.getType();
-            return gson.fromJson(reader, userListType);
+            // Проверяем код ответа от сервера
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+
+                // Читаем JSON
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    return gson.fromJson(reader, new TypeToken<List<User>>() {}.getType());
+                }
+            } else {
+                System.out.println("Ошибка: сервер вернул код " + responseCode);
+                return List.of();
+            }
         } catch (IOException e) {
-            System.out.println("Ошибка чтения файла: " + e.getMessage());
-            return new ArrayList<>();
+            System.out.println("Ошибка при получении данных: " + e.getMessage());
+            return List.of();
         }
     }
 
@@ -116,22 +142,18 @@ public class AuthServiceImpl implements AuthService {
     public void login() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Введите имя пользователя (username): ");
+        System.out.print("\n\tВведите имя пользователя (username): ");
         String username = scanner.nextLine();
 
-        System.out.println("Введите пароль: ");
+        System.out.print("\tВведите пароль: ");
         String password = scanner.nextLine();
 
-        List<User> users = loadUsersFromFile();
+        List<User> users = loadUsersFromApi();
 
-        for (User userItem : users) {
-            if (userItem.getUsername().equals(username)) {
-                if (verifyPassword(password, userItem.getPassword())) {
-                    System.out.println("атлишна");
-                    setAuthentificatedUser(userItem);
-                }
-            }
-        }
+        users.stream()
+                .filter(userItem -> userItem.getUsername().equals(username))
+                .filter(userItem -> verifyPassword(password, userItem.getPassword()))
+                .forEach(this::setAuthentificatedUser);
     }
 
     @Override

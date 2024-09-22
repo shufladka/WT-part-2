@@ -1,50 +1,54 @@
 package by.bsuir.service.impl;
 
 import by.bsuir.domain.*;
+import by.bsuir.service.AuthService;
 import by.bsuir.service.LibraryService;
+import by.bsuir.service.PostService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
-import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 public class LibraryServiceImpl implements LibraryService {
-
-    private static final String filePath = "kr-1.1/src/main/output/library.json";
+    private static final int BOOKS_PER_PAGE = 5; // Количество книг на одной странице
+    private static final String libraryUrl = "https://6a821cd8fdaa5103.mokky.dev/library";
     private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     @Override
-    public void addBook() {
-        setBooksFields(true);
+    public void addBook(AuthService authService, PostService postService, Role role) {
+        Book book = new Book();
+        setBooksFields(book, authService, postService, role, OperationType.CREATION);
     }
 
-    private void setBooksFields(boolean isNewFile) {
-        Scanner scanner = new Scanner(System.in);
-        Book book = new Book();
+    // Функция для заполнения полей книги (вводить только латиницей)
+    private void setBooksFields(Book book, AuthService authService, PostService postService,
+                                Role role, OperationType operationType) {
+        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
         System.out.print("Введите название книги (заголовок): ");
-        book.setTitle(scanner.nextLine());
+        book.setTitle(escapeCyrillicSymbol(scanner.nextLine()));
 
         System.out.print("Введите описание книги: ");
-        book.setDescription(scanner.nextLine());
+        book.setDescription(escapeCyrillicSymbol(scanner.nextLine()));
 
         System.out.print("Введите ФИО автора: ");
-        book.setAuthor(scanner.nextLine());
+        book.setAuthor(escapeCyrillicSymbol(scanner.nextLine()));
 
         System.out.print("Введите название компании-издателя: ");
-        book.setPublisher(scanner.nextLine());
+        book.setPublisher(escapeCyrillicSymbol(scanner.nextLine()));
 
         System.out.print("Введите идентификатор ISBN: ");
-        book.setIsbn(scanner.nextLine());
+        book.setIsbn(escapeCyrillicSymbol(scanner.nextLine()));
 
         System.out.print("Введите количество страниц: ");
         String pages = scanner.nextLine();
@@ -67,50 +71,113 @@ public class LibraryServiceImpl implements LibraryService {
         System.out.print("Введите тип носителя (например, PAPER или ELECTRONIC): ");
         String bookTypeInput = scanner.nextLine();
         book.setBookType(BookType.valueOf(bookTypeInput.toUpperCase()));
+        
+        if (role.equals(Role.ADMIN)) {
 
-        // Добавляем новую книгу в библиотеку
-        saveBookToFile(book, isNewFile);
+            // Добавляем новую книгу в библиотеку
+            if (operationType.equals(OperationType.CREATION)) {
+                saveBookToServer(authService, postService, book);
+            } else
+
+                // Обновляем поля книги
+                if (operationType.equals(OperationType.UPDATE)) {
+                updateBookOnServer(book);
+            }
+        } else {
+            if (role.equals(Role.USER)) {
+
+                // Уведомляем администратора о просьбе добавить новую книгу
+                postService.notificationForAdmin(book);
+            }
+        }
     }
 
-    // Функция для сохранения книги в JSON файл
-    private void saveBookToFile(Book book, boolean isNewRecord) {
-        List<Book> books = getAllBooks();
+    private String escapeCyrillicSymbol(String json) {
+        StringBuilder escapedJson = new StringBuilder();
 
-        // Присваиваем индекс последней добавленной книге
-        if (isNewRecord) {
-            book.setId(getLastBookIndex(books));
+        for (char c : json.toCharArray()) {
+            
+            // Если символ — кириллический, экранируем его
+            if (Character.UnicodeScript.of(c) == Character.UnicodeScript.CYRILLIC) {
+                escapedJson.append(String.format("\\u%04x", (int) c));
+            } else {
+                
+                // В противном случае просто добавляем символ
+                escapedJson.append(c);
+            }
         }
 
-        // Добавляем новую книгу в список
-        books.add(book);
+        return escapedJson.toString();
+    }
+
+    private void saveBookToServer(AuthService authService, PostService postService, Book book) {
+
+        // Сериализация новой книги в JSON
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String bookJson = gson.toJson(book);
+
+        // Преобразование только кириллицы в Unicode
+        String unicodeBookJson = escapeCyrillicSymbol(bookJson);
 
         try {
-            // Проверяем и создаем директорию, если она не существует
-            Path directoryPath = Paths.get("kr-1.1/src/main/output");
-            if (Files.notExists(directoryPath)) {
-                Files.createDirectories(directoryPath);  // Создаем директории
-            }
-
-            // Сериализация данных в JSON
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            try (FileWriter writer = new FileWriter(filePath)) {
-                gson.toJson(books, writer);
-                System.out.println("Пользователь успешно сохранен в файл.");
+            
+            // Отправка новой книги на сервер
+            int responseCode = getResponseCode(libraryUrl, "POST", unicodeBookJson);
+            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
+                postService.notificationForUsers(authService);
+                System.out.println("Книга успешно добавлена на сервере.");
+            } else {
+                System.out.println("Ошибка при добавлении книги на сервере. Код ответа: " + responseCode);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Ошибка при отправке книги на сервер", e);
         }
     }
 
-    // Функция получения индекса последней по списку книги
-    private Integer getLastBookIndex(List<Book> books) {
-        int index = 0;
+    private static int getResponseCode(String libraryUrl, String POST, String unicodeBookJson) throws IOException {
+        URL url = new URL(libraryUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod(POST); // Используем POST для создания новой книги
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setDoOutput(true);
 
-        if (!books.isEmpty()) {
-           index = (books.get(books.size() - 1).getId()) + 1;
+        // Отправка данных
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8))) {
+            writer.write(unicodeBookJson);
+            writer.flush();
         }
 
-        return index;
+        // Проверка кода ответа от сервера
+        return connection.getResponseCode();
+    }
+
+    // Функция для загрузки списка книг из JSON файла
+    @Override
+    public List<Book> getAllBooks() {
+        Gson gson = new Gson();
+
+        try {
+            // Открываем соединение для получения списка книг
+            URL url = new URL(libraryUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            // Проверяем код ответа от сервера
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                
+                // Читаем JSON
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    return gson.fromJson(reader, new TypeToken<List<Book>>() {}.getType());
+                }
+            } else {
+                System.out.println("Ошибка: сервер вернул код " + responseCode);
+                return List.of();
+            }
+        } catch (IOException e) {
+            System.out.println("Ошибка при получении данных: " + e.getMessage());
+            return List.of();
+        }
     }
 
     @Override
@@ -119,35 +186,128 @@ public class LibraryServiceImpl implements LibraryService {
         return books.stream().filter(book -> book.getId().equals(id)).findFirst().orElse(null);
     }
 
-    // Функция для загрузки списка книг из JSON файла
     @Override
-    public List<Book> getAllBooks() {
-        Gson gson = new Gson();
-        File file = new File(filePath);
+    public SecurityCode updateBook(Integer id, AuthService authService, PostService postService, Role role) {
 
-        // Если файл не существует, создаем новый список пользователей
-        if (!file.exists()) {
-            System.out.println("Файл не найден, создается новый файл.");
-            return new ArrayList<>();
+        // Операция доступна только Администратору
+        if (role.equals(Role.ADMIN)) {
+            Book book = getBookById(id);
+            setBooksFields(book, authService, postService, role, OperationType.UPDATE);
+            return SecurityCode.ALLOWED;
         }
 
-        // Читаем файл, если он существует
-        try (Reader reader = new FileReader(filePath)) {
-            Type bookListType = new TypeToken<ArrayList<Book>>() {}.getType();
-            return gson.fromJson(reader, bookListType);
+        System.out.println("\tОперация доступна только администратору.");
+        return SecurityCode.DENIED;
+    }
+
+    private void updateBookOnServer(Book book) {
+        try {
+            
+            // Сериализация данных в JSON
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String bookJson = gson.toJson(book);
+
+            // Формируем URL для обновления книги по ID
+            String urlString = libraryUrl + book.getId();
+            int responseCode = getResponseCode(urlString, "PATCH", bookJson);
+            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+                System.out.println("Книга успешно обновлена на сервере.");
+            } else {
+                System.out.println("Ошибка при обновлении книги на сервере. Код ответа: " + responseCode);
+            }
         } catch (IOException e) {
-            System.out.println("Ошибка чтения файла: " + e.getMessage());
-            return new ArrayList<>();
+            throw new RuntimeException("Ошибка при обновлении книги на сервере", e);
         }
     }
 
     @Override
-    public void updateBook() {
-        setBooksFields(false);
+    public SecurityCode removeBook(Integer id, Role role) {
+
+        // Операция доступна только Администратору
+        if (role.equals(Role.ADMIN)) {
+            try {
+                // Формируем URL для удаления книги по ID
+                String urlString = libraryUrl + id;
+                URL url = new URL(urlString);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("DELETE");
+
+                // Проверка кода ответа от сервера
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+                    System.out.println("Книга с ID " + id + " успешно удалена.");
+                } else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
+                    System.out.println("Книга с ID " + id + " не найдена на сервере.");
+                } else {
+                    System.out.println("Ошибка при удалении книги. Код ответа: " + responseCode);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Ошибка при удалении книги с сервера", e);
+            }
+
+            return SecurityCode.ALLOWED;
+        }
+
+        System.out.println("\tОперация доступна только администратору.");
+        return SecurityCode.DENIED;
     }
 
-    @Override
-    public void removeBook(Integer id) {
+    // Функция для вывода книг с постраничным просмотром (пагинацией)
+    public void displayBooksWithPagination() {
+        List<Book> books = getAllBooks();
 
+        if (books.isEmpty()) {
+            System.out.println("Книги отсутствуют.");
+            return;
+        }
+
+        int totalPages = (int) Math.ceil((double) books.size() / BOOKS_PER_PAGE);
+        Scanner scanner = new Scanner(System.in);
+
+        int currentPage = 1;
+        while (true) {
+            
+            // Выводим книги на текущей странице
+            displayPage(books, currentPage, totalPages);
+
+            System.out.print("\n\tВведите номер страницы (1-" + totalPages + ") или 0 для выхода: ");
+            int selectedPage = scanner.nextInt();
+
+            if (selectedPage == 0) {
+                System.out.println("\tВыход из постраничного просмотра.");
+                break;
+            } else if (selectedPage >= 1 && selectedPage <= totalPages) {
+                currentPage = selectedPage;
+            } else {
+                System.out.println("\tНеверный номер страницы, попробуйте снова.");
+            }
+        }
+    }
+
+    // Функция для вывода одной страницы
+    private void displayPage(List<Book> books, int currentPage, int totalPages) {
+        System.out.println("\n\tСтраница " + currentPage + " из " + totalPages + ": ");
+
+        int start = (currentPage - 1) * BOOKS_PER_PAGE;
+        int end = Math.min(start + BOOKS_PER_PAGE, books.size());
+
+        for (int i = start; i < end; i++) {
+            Book book = books.get(i);
+
+            LocalDate localDate = Instant.ofEpochMilli(book.getPublicationDate().getTime())
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            int year = localDate.getYear();
+
+            System.out.println("\n\t" + book.getId() + ". \"" + book.getTitle() + "\",");
+            System.out.println("\tАвтор: " + book.getAuthor() + ",");
+            System.out.println("\tОписание: " + "\"" + book.getDescription() + "\",");
+            System.out.println("\tЖанр: " + book.getGenre().getName() + ",");
+            System.out.println("\tНоситель: " + book.getBookType().getDescription() + ",");
+            System.out.println("\tОпубликовал: " + book.getPublisher() + ",");
+            System.out.println("\tОпубликовано: " + year + ",");
+            System.out.println("\tISBN: " + book.getIsbn() + ",");
+            System.out.println("\tСтраниц: " + book.getPages() + ".");
+        }
     }
 }
