@@ -28,7 +28,7 @@ import java.util.List;
 * **Второй вариант – возможности библиотеки java.ul.concurrent
 * */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Dock dock1 = new Dock(1, "first dock");
         Dock dock2 = new Dock(2, "second dock");
 
@@ -39,6 +39,7 @@ public class Main {
         Warehouse warehouse = new Warehouse(1, "first warehouse", 50000.0, 0.0);
 
         Port port = new Port(1, "first port", List.of(dock1, dock2), warehouse);
+
 
 
         DispatcherService dispatcherService = new DispatcherServiceImpl();
@@ -54,13 +55,8 @@ public class Main {
         thread3.start();
 
         // Ждем завершения всех потоков
-        try {
-            thread1.join();
-            thread2.join();
-            thread3.join();
-        } catch (InterruptedException e) {
-//            Thread.currentThread().interrupt(); // Восстанавливаем состояние прерывания
-//            e.printStackTrace();
-        }
+        thread1.join();
+        thread2.join();
+        thread3.join();
     }
 }

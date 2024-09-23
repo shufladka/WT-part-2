@@ -9,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class DispatcherServiceImpl implements DispatcherService {
@@ -17,12 +16,11 @@ public class DispatcherServiceImpl implements DispatcherService {
     private static final Logger logger = LogManager.getLogger(DispatcherServiceImpl.class);
     private final List<Ship> waitingShips = new ArrayList<>();
 
-
     // Назначить причал текущему кораблю
     @Override
     public void assignDockToShip(Port port, Ship ship) {
+        Dock availableDock;
 
-        Dock availableDock = null;
         try {
             synchronized (this) {
                 Thread.sleep(1000);
@@ -33,13 +31,9 @@ public class DispatcherServiceImpl implements DispatcherService {
                     ship.setDock(availableDock);
                     availableDock.setShip(ship);
                 } else {
-//                    System.out.println("is not available");
                     waitingShips.add(ship);
                 }
             }
-
-//            Thread.sleep(ship.getNeededTime());
-//            ship.setDock(null);
 
             if (availableDock != null) {
                 Thread.sleep(ship.getNeededTime());
@@ -51,9 +45,8 @@ public class DispatcherServiceImpl implements DispatcherService {
                 ship.setDock(null);
                 availableDock.setShip(null);
             }
-
         } catch (InterruptedException e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
 
         processWaitingShips(port);
@@ -62,7 +55,6 @@ public class DispatcherServiceImpl implements DispatcherService {
 
     public synchronized void processWaitingShips(Port port) {
         while (!waitingShips.isEmpty()) {
-
             try {
                 Thread.sleep(1000);
                 Dock availableDock = getAvailableDock(port);
@@ -70,20 +62,14 @@ public class DispatcherServiceImpl implements DispatcherService {
                 if (availableDock != null) {
                     Ship ship = waitingShips.remove(0); // Берем первый корабль из очереди
                     assignDockToShip(port, ship); // Пытаемся назначить ему причал
-                } else {
-//                    System.out.println("is not available");
                 }
-            } catch (InterruptedException e) {
-//                e.printStackTrace();
-            }
+            } catch (InterruptedException e) {}
         }
     }
 
     // Логирование текущего состояния порта
     @Override
-    public void logCommonInformation() {
-
-    }
+    public void logCommonInformation() {}
 
     // Получить список свободных причалов
     @Override
@@ -112,7 +98,6 @@ public class DispatcherServiceImpl implements DispatcherService {
                 break;
             }
         }
-
         return availableDock;
     }
 
