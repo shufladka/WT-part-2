@@ -23,22 +23,44 @@ import java.net.Socket;
  * модификации ее (с использованием DOM-парсера).
  */
 public class MainServer {
+    private static final int PORT = 8085;
+
     public static void main(String[] args) {
-        System.out.println("Server started...");
-        int port = 8085;
-        while (true) {
-            try (ServerSocket serverSocket = new ServerSocket(port);
-                 Socket clientSocket = serverSocket.accept();
-                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream())))
-            {
-                System.out.printf("New connection accepted [Port: %d]%n", clientSocket.getPort());
-                final String name = in.readLine();
-                out.println(String.format("Hi %s, your port is %d", name, clientSocket.getPort()));
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("Echo server started and listening on port " + PORT);
+
+            while (true) {
+                try (Socket clientSocket = serverSocket.accept();
+                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+
+                    /*
+                    // "эхо"
+                    String inputLine;
+                    while ((inputLine = in.readLine()) != null) {
+                        System.out.println("Received from client: " + inputLine);
+                        out.println("Echo: " + inputLine);  // Отправляем обратно клиенту
+                    }
+                     */
+
+                    // Чтение запроса с типом парсера и путём к XML-файлу
+                    String xmlPath = in.readLine();
+                    String parserType = in.readLine();
+
+                    System.out.println("Received XML path: " + xmlPath);
+                    System.out.println("Received parser type: " + parserType);
+
+                    // Эмуляция обработки запроса
+                    out.println("Processing XML at: " + xmlPath + " with parser: " + parserType);
+
+                    // Можно добавить логику для выполнения парсинга
+
+                } catch (IOException e) {
+                    System.out.println("Error handling client connection: " + e.getMessage());
+                }
             }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            System.out.println("Could not start server: " + e.getMessage());
         }
     }
 }
