@@ -1,11 +1,19 @@
 package by.bsuir.handler;
 
+import by.bsuir.domain.Dimensions;
+import by.bsuir.domain.EnergyEfficiency;
+import by.bsuir.domain.ControlType;
+import by.bsuir.domain.WashingMachine;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class XMLHandler extends DefaultHandler {
-    private StringBuilder parsedData = new StringBuilder();
+    private List<WashingMachine> washingMachines = new ArrayList<>();
+    private WashingMachine currentWashingMachine;
     private String currentElement = "";
     private boolean isInsideWashingMachine = false;
 
@@ -13,11 +21,11 @@ public class XMLHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         currentElement = qName;
 
-        // Если элемент WashingMachine, добавляем ID
         if (qName.equalsIgnoreCase("WashingMachine")) {
             isInsideWashingMachine = true;
-            String id = attributes.getValue("id");
-            parsedData.append("\nWashing Machine ID: ").append(id).append("\n");
+            // Создаем новый объект WashingMachine с ID
+            int id = Integer.parseInt(attributes.getValue("id"));
+            currentWashingMachine = new WashingMachine(id, null, null, null, null, 0, 0, false, null, null);
         }
     }
 
@@ -33,37 +41,52 @@ public class XMLHandler extends DefaultHandler {
         // Обрабатываем каждый элемент внутри WashingMachine
         switch (currentElement) {
             case "brand":
-                parsedData.append("Brand: ").append(value).append("\n");
+                currentWashingMachine.setBrand(value);
                 break;
             case "model":
-                parsedData.append("Model: ").append(value).append("\n");
+                currentWashingMachine.setModel(value);
                 break;
             case "maxLoad":
-                parsedData.append("Max Load (kg): ").append(value).append("\n");
+                currentWashingMachine.setMaxLoad(Double.parseDouble(value));
                 break;
             case "height":
-                parsedData.append("Height (cm): ").append(value).append("\n");
+                if (currentWashingMachine.getDimensions() == null) {
+                    currentWashingMachine.setDimensions(new Dimensions());
+                }
+                currentWashingMachine.getDimensions().setHeight(Double.parseDouble(value));
                 break;
             case "width":
-                parsedData.append("Width (cm): ").append(value).append("\n");
+                if (currentWashingMachine.getDimensions() == null) {
+                    currentWashingMachine.setDimensions(new Dimensions());
+                }
+                currentWashingMachine.getDimensions().setWidth(Double.parseDouble(value));
                 break;
             case "depth":
-                parsedData.append("Depth (cm): ").append(value).append("\n");
+                if (currentWashingMachine.getDimensions() == null) {
+                    currentWashingMachine.setDimensions(new Dimensions());
+                }
+                currentWashingMachine.getDimensions().setDepth(Double.parseDouble(value));
+                break;
+            case "weight":
+                if (currentWashingMachine.getDimensions() == null) {
+                    currentWashingMachine.setDimensions(new Dimensions());
+                }
+                currentWashingMachine.getDimensions().setWeight(Double.parseDouble(value));
                 break;
             case "angularVelocity":
-                parsedData.append("Angular Velocity (RPM): ").append(value).append("\n");
+                currentWashingMachine.setAngularVelocity(Integer.parseInt(value));
                 break;
             case "amountOfPrograms":
-                parsedData.append("Amount of Programs: ").append(value).append("\n");
+                currentWashingMachine.setAmountOfPrograms(Integer.parseInt(value));
                 break;
             case "isConnectedToPhone":
-                parsedData.append("Connected to Phone: ").append(value.equals("true") ? "Yes" : "No").append("\n");
+                currentWashingMachine.setConnectedToPhone(Boolean.parseBoolean(value));
                 break;
             case "energyEfficiency":
-                parsedData.append("Energy Efficiency: ").append(value).append("\n");
+                currentWashingMachine.setEnergyEfficiency(EnergyEfficiency.valueOf(value));
                 break;
             case "controlType":
-                parsedData.append("Control Type: ").append(value).append("\n");
+                currentWashingMachine.setControlType(ControlType.valueOf(value));
                 break;
             default:
                 break;
@@ -73,13 +96,13 @@ public class XMLHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase("WashingMachine")) {
-            isInsideWashingMachine = false;  // Заканчиваем обработку текущей стиральной машины
-            parsedData.append("====================================");
+            isInsideWashingMachine = false; // Заканчиваем обработку текущей стиральной машины
+            washingMachines.add(currentWashingMachine); // Добавляем объект в коллекцию
         }
-        currentElement = "";  // Сбрасываем текущий элемент
+        currentElement = ""; // Сбрасываем текущий элемент
     }
 
-    public String getParsedData() {
-        return parsedData.toString();
+    public List<WashingMachine> getWashingMachines() {
+        return washingMachines;
     }
 }

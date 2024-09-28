@@ -1,17 +1,25 @@
 package by.bsuir.service.impl;
 
+import by.bsuir.domain.ControlType;
+import by.bsuir.domain.Dimensions;
+import by.bsuir.domain.EnergyEfficiency;
+import by.bsuir.domain.WashingMachine;
 import by.bsuir.service.MenuService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MenuServiceImpl implements MenuService {
 
     Scanner scanner = new Scanner(System.in);
-    private String xmlFilePath;
-    private String parserType;
+    private String xmlFilePath = "E:\\IntellijIdeaProjects\\WT-part-2\\ipr-1\\src\\main\\resources\\wm.xml";
+    private String parserType = "SAX";
 
     @Override
     public void showMainMenu(BufferedReader in, PrintWriter out) {
@@ -96,7 +104,6 @@ public class MenuServiceImpl implements MenuService {
         scanner.nextLine();  // Очистка буфера
     }
 
-    // Новая функция для отправки данных на сервер
     private void sendDataToServer(BufferedReader in, PrintWriter out) {
         try {
             if (xmlFilePath == null || parserType == null) {
@@ -108,18 +115,60 @@ public class MenuServiceImpl implements MenuService {
             out.println(xmlFilePath);
             out.println(parserType);
 
+            // Ожидаем получения данных о стиральных машинах от сервера
             String input;
             while ((input = in.readLine()) != null) {
-
                 // Выход из цикла при получении специального сообщения
                 if ("END_OF_RESPONSE".equals(input)) {
                     break;
                 }
-                System.out.println(input);
+
+                List<WashingMachine> wm = deserialize(input);
+                System.out.println(wm);
             }
 
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    // Метод для разбора данных о стиральной машине из строки
+    private List<WashingMachine> deserialize(String input) {
+        List<WashingMachine> washingMachines = new ArrayList<>();
+
+        // Регулярное выражение для парсинга строки
+        String regex = "WashingMachine\\{id=(\\d+), brand='([^']+)', model='([^']+)', maxLoad=(\\d+\\.\\d+), dimensions=Dimensions\\{width=(\\d+\\.\\d+), height=(\\d+\\.\\d+), depth=(\\d+\\.\\d+), weight=(\\d+\\.\\d+)\\}, angularVelocity=(\\d+), amountOfPrograms=(\\d+), isConnectedToPhone=(true|false), energyEfficiency=([^,]+), controlType=([^}]+)\\}";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        while (matcher.find()) {
+            int id = Integer.parseInt(matcher.group(1));
+            WashingMachine washingMachine = getWashingMachine(matcher, id);
+            washingMachines.add(washingMachine);
+        }
+
+        return washingMachines;
+    }
+
+    private static WashingMachine getWashingMachine(Matcher matcher, int id) {
+        String brand = matcher.group(2);
+        String model = matcher.group(3);
+        Double maxLoad = Double.parseDouble(matcher.group(4));
+        Double width = Double.parseDouble(matcher.group(5));
+        Double height = Double.parseDouble(matcher.group(6));
+        Double depth = Double.parseDouble(matcher.group(7));
+        Double weight = Double.parseDouble(matcher.group(8));
+        int angularVelocity = Integer.parseInt(matcher.group(9));
+        int amountOfPrograms = Integer.parseInt(matcher.group(10));
+        boolean isConnectedToPhone = Boolean.parseBoolean(matcher.group(11));
+        EnergyEfficiency energyEfficiency = EnergyEfficiency.valueOf(matcher.group(12));
+        ControlType controlType = ControlType.valueOf(matcher.group(13));
+
+        Dimensions dimensions = new Dimensions(width, height, depth, weight);
+
+        return new WashingMachine(id, brand, model, maxLoad,
+                dimensions, angularVelocity, amountOfPrograms, isConnectedToPhone,
+                energyEfficiency, controlType);
     }
 }

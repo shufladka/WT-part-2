@@ -5,13 +5,16 @@ public class Dimensions {
     private Double width;
     private Double height;
     private Double depth;
-    private int weight;
+    private Double weight;
 
-    public Dimensions(Double width, Double height, Double depth, int weight) {
+    public Dimensions(Double width, Double height, Double depth, Double weight) {
         this.width = width;
         this.height = height;
         this.depth = depth;
         this.weight = weight;
+    }
+
+    public Dimensions() {
     }
 
     public Double getWidth() {
@@ -38,11 +41,11 @@ public class Dimensions {
         this.depth = depth;
     }
 
-    public int getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 

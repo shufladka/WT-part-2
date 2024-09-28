@@ -8,14 +8,15 @@
             <height>85.0</height>
             <width>60.0</width>
             <depth>60.0</depth>
+            <weight>20.3</weight>
         </dimensions>
         <angularVelocity>1400</angularVelocity>
         <amountOfPrograms>12</amountOfPrograms>
         <isConnectedToPhone>true</isConnectedToPhone>
-        <energyEfficiency>A+++</energyEfficiency>
-        <controlType>Electronic</controlType>
+        <energyEfficiency>A_3_PLUS</energyEfficiency>
+        <controlType>ELECTRONIC</controlType>
     </WashingMachine>
-	
+
 	<WashingMachine id="2">
         <brand>Samsung</brand>
         <model>WF45R6300AV</model>
@@ -24,14 +25,15 @@
             <height>85.0</height>
             <width>60.0</width>
             <depth>60.0</depth>
+            <weight>20.2</weight>
         </dimensions>
         <angularVelocity>1400</angularVelocity>
         <amountOfPrograms>12</amountOfPrograms>
         <isConnectedToPhone>true</isConnectedToPhone>
-        <energyEfficiency>A+++</energyEfficiency>
-        <controlType>Electronic</controlType>
+        <energyEfficiency>A_3_PLUS</energyEfficiency>
+        <controlType>ELECTRONIC</controlType>
     </WashingMachine>
-	
+
 	<WashingMachine id="3">
         <brand>Samsung</brand>
         <model>WF45R6300AV</model>
@@ -40,14 +42,15 @@
             <height>85.0</height>
             <width>60.0</width>
             <depth>60.0</depth>
+            <weight>20.1</weight>
         </dimensions>
         <angularVelocity>1400</angularVelocity>
         <amountOfPrograms>12</amountOfPrograms>
         <isConnectedToPhone>true</isConnectedToPhone>
-        <energyEfficiency>A+++</energyEfficiency>
-        <controlType>Electronic</controlType>
+        <energyEfficiency>A_3_PLUS</energyEfficiency>
+        <controlType>ELECTRONIC</controlType>
     </WashingMachine>
-	
+
 	<WashingMachine id="4">
         <brand>Samsung</brand>
         <model>WF45R6300AV</model>
@@ -56,11 +59,12 @@
             <height>85.0</height>
             <width>60.0</width>
             <depth>60.0</depth>
+            <weight>20.1</weight>
         </dimensions>
         <angularVelocity>1400</angularVelocity>
         <amountOfPrograms>12</amountOfPrograms>
         <isConnectedToPhone>true</isConnectedToPhone>
-        <energyEfficiency>A+++</energyEfficiency>
-        <controlType>Electronic</controlType>
+        <energyEfficiency>A_3_PLUS</energyEfficiency>
+        <controlType>ELECTRONIC</controlType>
     </WashingMachine>
 </WashingMachineList>

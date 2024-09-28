@@ -29,6 +29,9 @@ public class WashingMachine {
         this.controlType = controlType;
     }
 
+    public WashingMachine() {
+    }
+
     public int getId() {
         return id;
     }

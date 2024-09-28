@@ -1,12 +1,21 @@
 package by.bsuir.handler;
 
+import by.bsuir.domain.WashingMachine;
+
+import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
+    private static final String XSD_PATH = "E:\\IntellijIdeaProjects\\WT-part-2\\ipr-1\\src\\main\\resources\\wm.xsd";
 
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -63,9 +72,12 @@ public class ClientHandler implements Runnable {
         }
     }
 
-
-    private String parseXMLWithSAX(String xmlPath) {
+    private List<WashingMachine> parseXMLWithSAX(String xmlPath) {
         try {
+
+            // Проверяем XML перед отправкой
+            validateXml(xmlPath);
+
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
 
@@ -76,11 +88,25 @@ public class ClientHandler implements Runnable {
             parser.parse(new File(xmlPath), handler);
 
             // Возвращаем весь результат парсинга
-//            System.out.println(handler.getParsedData());
-            return handler.getParsedData();
+            return handler.getWashingMachines();
 
         } catch (Exception e) {
-            return "Error parsing XML: " + e.getMessage();
+            System.out.println("Error parsing XML: " + e.getMessage());
         }
+
+        return null;
+    }
+
+    public static void validateXml(String xmlFilePath) throws Exception {
+
+        // Создаем фабрику схем
+        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = factory.newSchema(new File(XSD_PATH));
+
+        // Создаем валидатор
+        Validator validator = schema.newValidator();
+
+        // Выполняем проверку
+        validator.validate(new StreamSource(new File(xmlFilePath)));
     }
 }
