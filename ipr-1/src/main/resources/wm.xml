@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WashingMachineList>
+    <WashingMachine id="1">
+        <brand>Samsung</brand>
+        <model>WF45R6300AV</model>
+        <maxLoad>8.5</maxLoad>
+        <dimensions>
+            <height>85.0</height>
+            <width>60.0</width>
+            <depth>60.0</depth>
+        </dimensions>
+        <angularVelocity>1400</angularVelocity>
+        <amountOfPrograms>12</amountOfPrograms>
+        <isConnectedToPhone>true</isConnectedToPhone>
+        <energyEfficiency>A+++</energyEfficiency>
+        <controlType>Electronic</controlType>
+    </WashingMachine>
+	
+	<WashingMachine id="2">
+        <brand>Samsung</brand>
+        <model>WF45R6300AV</model>
+        <maxLoad>8.5</maxLoad>
+        <dimensions>
+            <height>85.0</height>
+            <width>60.0</width>
+            <depth>60.0</depth>
+        </dimensions>
+        <angularVelocity>1400</angularVelocity>
+        <amountOfPrograms>12</amountOfPrograms>
+        <isConnectedToPhone>true</isConnectedToPhone>
+        <energyEfficiency>A+++</energyEfficiency>
+        <controlType>Electronic</controlType>
+    </WashingMachine>
+	
+	<WashingMachine id="3">
+        <brand>Samsung</brand>
+        <model>WF45R6300AV</model>
+        <maxLoad>8.5</maxLoad>
+        <dimensions>
+            <height>85.0</height>
+            <width>60.0</width>
+            <depth>60.0</depth>
+        </dimensions>
+        <angularVelocity>1400</angularVelocity>
+        <amountOfPrograms>12</amountOfPrograms>
+        <isConnectedToPhone>true</isConnectedToPhone>
+        <energyEfficiency>A+++</energyEfficiency>
+        <controlType>Electronic</controlType>
+    </WashingMachine>
+	
+	<WashingMachine id="4">
+        <brand>Samsung</brand>
+        <model>WF45R6300AV</model>
+        <maxLoad>8.5</maxLoad>
+        <dimensions>
+            <height>85.0</height>
+            <width>60.0</width>
+            <depth>60.0</depth>
+        </dimensions>
+        <angularVelocity>1400</angularVelocity>
+        <amountOfPrograms>12</amountOfPrograms>
+        <isConnectedToPhone>true</isConnectedToPhone>
+        <energyEfficiency>A+++</energyEfficiency>
+        <controlType>Electronic</controlType>
+    </WashingMachine>
+</WashingMachineList>

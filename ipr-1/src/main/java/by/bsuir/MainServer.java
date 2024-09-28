@@ -1,9 +1,7 @@
 package by.bsuir;
 
-import java.io.BufferedReader;
+import by.bsuir.handler.ClientHandler;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -27,37 +25,15 @@ public class MainServer {
 
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("Echo server started and listening on port " + PORT);
+            System.out.println("Server started and listening on port " + PORT);
 
+            // Сервер будет работать в бесконечном цикле, обрабатывая подключение клиентов
             while (true) {
-                try (Socket clientSocket = serverSocket.accept();
-                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Client connected.");
 
-                    /*
-                    // "эхо"
-                    String inputLine;
-                    while ((inputLine = in.readLine()) != null) {
-                        System.out.println("Received from client: " + inputLine);
-                        out.println("Echo: " + inputLine);  // Отправляем обратно клиенту
-                    }
-                     */
-
-                    // Чтение запроса с типом парсера и путём к XML-файлу
-                    String xmlPath = in.readLine();
-                    String parserType = in.readLine();
-
-                    System.out.println("Received XML path: " + xmlPath);
-                    System.out.println("Received parser type: " + parserType);
-
-                    // Эмуляция обработки запроса
-                    out.println("Processing XML at: " + xmlPath + " with parser: " + parserType);
-
-                    // Можно добавить логику для выполнения парсинга
-
-                } catch (IOException e) {
-                    System.out.println("Error handling client connection: " + e.getMessage());
-                }
+                // Обработка клиента в отдельном потоке
+                new Thread(new ClientHandler(clientSocket)).start();
             }
         } catch (IOException e) {
             System.out.println("Could not start server: " + e.getMessage());
