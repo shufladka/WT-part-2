@@ -19,7 +19,7 @@ public class MenuServiceImpl implements MenuService {
 
     Scanner scanner = new Scanner(System.in);
     private String xmlFilePath = "E:\\IntellijIdeaProjects\\WT-part-2\\ipr-1\\src\\main\\resources\\wm.xml";
-    private String parserType = "SAX";
+    private String parserType;
 
     @Override
     public void showMainMenu(BufferedReader in, PrintWriter out) {
@@ -125,6 +125,8 @@ public class MenuServiceImpl implements MenuService {
 
                 List<WashingMachine> wm = deserialize(input);
                 System.out.println(wm);
+                System.out.println("\n");
+                System.out.println(wm.get(0));
             }
 
         } catch (IOException e) {
