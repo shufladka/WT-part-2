@@ -36,7 +36,7 @@
 	
 	<WashingMachine id="2">
         <brand>ATLANT</brand>
-        <model>СМА 40М102-00</model>
+        <model>CMA 40M102-00</model>
         <maxLoad>4.0</maxLoad>
         <dimensions>
             <height>84.6</height>
@@ -53,7 +53,7 @@
 	
 	<WashingMachine id="3">
         <brand>ATLANT</brand>
-        <model>СМА 60У810</model>
+        <model>CMA 60Y810</model>
         <maxLoad>4.0</maxLoad>
         <dimensions>
             <height>84.6</height>

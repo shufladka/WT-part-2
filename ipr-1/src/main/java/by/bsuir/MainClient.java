@@ -38,21 +38,6 @@ public class MainClient {
             MenuServiceImpl menuService = new MenuServiceImpl();
             menuService.showMainMenu(in, out);  // Клиент запрашивает ввод и отправляет данные серверу
 
-            // Чтение ответа от сервера
-//            String response = in.readLine(); // Чтение единого ответа от сервера
-//            System.out.println(response);  // Выводим ответ от сервера
-
-            /*
-            // "эхо"
-            String input;
-            while ((input = userInput.readLine()) != null) {
-                out.println(input);  // Отправляем введённый текст на сервер
-                String response = in.readLine();  // Получаем ответ сервера
-                System.out.println("Server echoed: " + response);
-            }
-             */
-
-
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }

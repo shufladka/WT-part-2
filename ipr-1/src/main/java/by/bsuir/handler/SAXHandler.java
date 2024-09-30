@@ -5,20 +5,19 @@ import by.bsuir.domain.EnergyEfficiency;
 import by.bsuir.domain.ControlType;
 import by.bsuir.domain.WashingMachine;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLHandler extends DefaultHandler {
-    private List<WashingMachine> washingMachines = new ArrayList<>();
+public class SAXHandler extends DefaultHandler {
+    private final List<WashingMachine> washingMachines = new ArrayList<>();
     private WashingMachine currentWashingMachine;
     private String currentElement = "";
     private boolean isInsideWashingMachine = false;
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         currentElement = qName;
 
         if (qName.equalsIgnoreCase("WashingMachine")) {
@@ -30,7 +29,7 @@ public class XMLHandler extends DefaultHandler {
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) {
         String value = new String(ch, start, length).trim();
 
         // Игнорируем пустые значения
@@ -94,7 +93,7 @@ public class XMLHandler extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         if (qName.equalsIgnoreCase("WashingMachine")) {
             isInsideWashingMachine = false; // Заканчиваем обработку текущей стиральной машины
             washingMachines.add(currentWashingMachine); // Добавляем объект в коллекцию
