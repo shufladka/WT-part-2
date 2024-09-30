@@ -1,3 +1,5 @@
 rootProject.name = 'WT-part-2'
 include 'kr-1.1'
+include 'kr-1.2'
+include 'ipr-1'
 

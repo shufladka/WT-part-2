@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'org.example'
+group = 'by.bsuir'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -10,10 +10,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    implementation 'com.google.code.gson:gson:2.8.9'
-    implementation 'com.sun.mail:jakarta.mail:2.0.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.23.1'
 }
 
 test {
