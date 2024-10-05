@@ -1,7 +1,7 @@
-package by.bsuir.dao.mapper.impl;
+package by.bsuir.mapper.impl;
 
-import by.bsuir.dao.mapper.Attributes;
-import by.bsuir.dao.mapper.RecordMapper;
+import by.bsuir.mapper.Attributes;
+import by.bsuir.mapper.RecordMapper;
 import by.bsuir.entity.Person;
 import by.bsuir.entity.Role;
 

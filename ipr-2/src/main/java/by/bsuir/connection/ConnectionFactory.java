@@ -1,4 +1,4 @@
-package by.bsuir.dao.connection;
+package by.bsuir.connection;
 
 import by.bsuir.exceptions.ConnectionException;
 import io.github.cdimascio.dotenv.Dotenv;

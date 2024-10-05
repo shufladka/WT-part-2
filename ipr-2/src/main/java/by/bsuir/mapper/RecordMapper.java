@@ -1,4 +1,4 @@
-package by.bsuir.dao.mapper;
+package by.bsuir.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

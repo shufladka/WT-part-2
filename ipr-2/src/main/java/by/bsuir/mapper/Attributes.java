@@ -1,4 +1,4 @@
-package by.bsuir.dao.mapper;
+package by.bsuir.mapper;
 
 public final class Attributes {
 
