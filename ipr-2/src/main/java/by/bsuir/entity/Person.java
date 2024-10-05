@@ -10,11 +10,11 @@ public class Person {
     private String lastName;
     private LocalDate birthDate;
     private String email;
-    private Role role;
+    private int roleId;
 
     public Person(int id, String username, String password,
                   String firstName, String lastName,
-                  LocalDate birthDate, String email, Role role) {
+                  LocalDate birthDate, String email, int roleId) {
 
         this.id = id;
         this.username = username;
@@ -23,7 +23,7 @@ public class Person {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.email = email;
-        this.role = role;
+        this.roleId = roleId;
     }
 
     public Person() {}
@@ -84,12 +84,12 @@ public class Person {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class Person {
                 ", lastName='" + lastName + '\'' +
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
-                ", role=" + role + '\'' +
+                ", roleId=" + roleId + '\'' +
                 '}';
     }
 }

@@ -51,9 +51,10 @@ create table if not exists rooms (
 );
 
 -- [1] заполнение таблицы адресов
-insert into addresses (id, region, city, street, building, zip) values (0, 'Минская область','Солигорск', 'улица Ленина', '38', '223710'),
-                                                           (1, 'Минская область','Солигорск', 'улица Ленина', '38', '223710'),
-                                                           (2,'Минская область','Солигорск', 'улица Ленина', '38', '223710');
+insert into addresses (id, region, city, street, building, zip)
+            values (0, 'Минская область','Солигорск', 'улица Ленина', '38', '223710'),
+                   (1, 'Минская область','Солигорск', 'улица Ленина', '38', '223710'),
+                   (2,'Минская область','Солигорск', 'улица Ленина', '38', '223710');
 
 -- [2] заполнение таблицы ролей
 insert into roles (id, name, description) values (0, 'ADMIN', 'Администратор'), (1,'USER', 'Пользователь');
@@ -69,5 +70,3 @@ insert into hotels (id, name, description, adderess_id, level, available_to_book
 -- [5] заполнение таблицы комнат
 insert into rooms (id, name, capacity, floor, basic_price, weekend_price, image_path, hotel_id)
            values (0, '10', 2, 3, 150.00, 200.00, '', 0);
-
-select * from people where first_name='Вася' and last_name='Пупкин';

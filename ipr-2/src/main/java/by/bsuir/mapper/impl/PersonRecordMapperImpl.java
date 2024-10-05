@@ -1,5 +1,6 @@
 package by.bsuir.mapper.impl;
 
+import by.bsuir.entity.Role;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.mapper.Attributes;
 import by.bsuir.mapper.RecordMapper;
@@ -21,6 +22,7 @@ public class PersonRecordMapperImpl implements RecordMapper<Person> {
         person.setLastName(resultSet.getString(Attributes.LAST_NAME));
         person.setBirthDate(resultSet.getObject(Attributes.BIRTH_DATE, LocalDate.class));
         person.setEmail(resultSet.getString(Attributes.EMAIL));
+        person.setRoleId(resultSet.getInt(Attributes.ROLE_ID));
         return person;
     }
 }

@@ -60,9 +60,7 @@
             try {
                 out.println("<tbody>");
                 out.println("<tr>");
-                out.println("<th>" + book.getFirstName() + "</th>");
-                out.println("<th>" + book.getLastName() + "</td>");
-
+                out.println("<th>" + book.toString() + "</th>");
                 out.println("</tr>");
                 out.println("</tbody><br>");
             } catch (Exception exc) {

@@ -49,15 +49,16 @@ public class HomeController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-//        RoleDaoImpl roleDao = new RoleDaoImpl();
-//        List<Role> roles;
+        RoleDaoImpl roleDao = new RoleDaoImpl();
+        List<Role> roles;
 
         PersonDaoImpl personDao = new PersonDaoImpl();
         List<Person> persons;
         try {
-            persons = personDao.findByBirthDate(LocalDate.now());
+//            persons = personDao.findByBirthDate(LocalDate.now());
 //            persons = personDao.findByName("Вася", "Пупкин");
-//            persons = personDao.findAll();
+            Role role = roleDao.findById(1);
+            persons = personDao.findByRole(role);
 //            roles = roleDao.findAll();
         } catch (DaoException e) {
             throw new RuntimeException(e);

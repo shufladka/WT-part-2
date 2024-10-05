@@ -16,8 +16,6 @@ public class PersonDaoImpl extends AbstractDaoImpl<Person> implements PersonDao 
     private static final String SAVE = "insert into " + Tables.PEOPLE +
             " (id, username, password, first_name, last_name, birth_date, email, role_id) " +
             "values (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String FIND_ALL = "select * from " + Tables.PEOPLE;
-    private static final String FIND_BY_ID = "select * from " + Tables.PEOPLE + " where id=?";
     private static final String FIND_BY_USERNAME = "select * from " + Tables.PEOPLE + " where username=?";
     private static final String FIND_BY_NAME = "select * from " + Tables.PEOPLE + " where first_name=? and last_name=?";
     private static final String FIND_BY_BIRTH_DATE = "select * from " + Tables.PEOPLE + " where birth_date=?";
@@ -25,7 +23,6 @@ public class PersonDaoImpl extends AbstractDaoImpl<Person> implements PersonDao 
     private static final String FIND_BY_ROLE = "select * from " + Tables.PEOPLE + " where role_id=?";
     private static final String UPDATE = "update " + Tables.PEOPLE +
             " set username=?, password=?, first_name=?, last_name=?, birth_date=?, email=?, role_id=? where id=?";
-    private static final String DELETE = "delete from " + Tables.PEOPLE + " where id=?";
 
     public PersonDaoImpl() {
         super(RecordMapperSingleton.getInstance().getPersonRecordMapper(), Tables.PEOPLE);
@@ -36,16 +33,6 @@ public class PersonDaoImpl extends AbstractDaoImpl<Person> implements PersonDao 
         executeInsertQuery(SAVE, person.getId(), person.getUsername(), person.getPassword(),
                 person.getFirstName(), person.getLastName(), person.getBirthDate(),
                 person.getEmail(), role.getId());
-    }
-
-    @Override
-    public List<Person> findAll() throws DaoException {
-        return executeQuery(FIND_ALL);
-    }
-
-    @Override
-    public Person findById(int id) throws DaoException {
-        return executeQuerySingleton(FIND_BY_ID, id);
     }
 
     @Override
@@ -78,10 +65,5 @@ public class PersonDaoImpl extends AbstractDaoImpl<Person> implements PersonDao 
         executeInsertQuery(UPDATE, person.getUsername(), person.getPassword(),
                 person.getFirstName(), person.getLastName(), person.getBirthDate(),
                 person.getEmail(), role.getId(), person.getId());
-    }
-
-    @Override
-    public void delete(int id) throws DaoException {
-        executeUpdateQuery(DELETE, id);
     }
 }
