@@ -70,3 +70,5 @@ insert into hotels (id, name, description, adderess_id, level, available_to_book
 -- [5] заполнение таблицы комнат
 insert into rooms (id, name, capacity, floor, basic_price, weekend_price, image_path, hotel_id)
            values (0, '10', 2, 3, 150.00, 200.00, '', 0);
+
+select * from rooms where basic_price>=10.00 and basic_price<=160 or weekend_price>=10.00 and weekend_price<=180;
