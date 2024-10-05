@@ -16,9 +16,8 @@ public class HotelRecordMapperImpl implements RecordMapper<Hotel> {
         hotel.setId(resultSet.getInt(Attributes.ID));
         hotel.setName(resultSet.getString(Attributes.NAME));
         hotel.setDescription(resultSet.getString(Attributes.DESCRIPTION));
-        hotel.setAddress(resultSet.getObject(Attributes.ADDRESS_ID, Address.class));
+        hotel.setAddressId(resultSet.getInt(Attributes.ADDRESS_ID));
         hotel.setLevel(resultSet.getInt(Attributes.LEVEL));
-        // список комнат в отеле берется из таблицы комнат, эту строку пропускаем
         hotel.setAvailableToBook(resultSet.getBoolean(Attributes.AVAILABLE_TO_BOOK));
         hotel.setImagePath(resultSet.getString(Attributes.IMAGE_PATH));
         return hotel;

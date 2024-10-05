@@ -55,8 +55,8 @@
 <%
     Object booksObj = request.getAttribute("books");
     if (booksObj != null) {
-        List<Person> books = (List<Person>)request.getAttribute("books");
-        for (Person book : books) {
+        List<Object> books = (List<Object>)request.getAttribute("books");
+        for (Object book : books) {
             try {
                 out.println("<tbody>");
                 out.println("<tr>");

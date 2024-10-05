@@ -16,8 +16,8 @@ public interface HotelDao extends Dao<Hotel> {
     List<Hotel> findByDescription(String description) throws DaoException;
     Hotel findByAddress(Address address) throws DaoException;
     List<Hotel> findByLevel(int level) throws DaoException;
-    Hotel findByRoom(Room room) throws DaoException;
-    List<Hotel> findByAvailable() throws DaoException;
+    List<Hotel> findByRoom(Room room) throws DaoException;
+    List<Hotel> findByAvailable(boolean flag) throws DaoException;
     void update(Hotel hotel) throws DaoException;
     void delete(int id) throws DaoException;
 }

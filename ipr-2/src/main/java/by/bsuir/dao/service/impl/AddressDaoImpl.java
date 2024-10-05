@@ -9,7 +9,7 @@ import by.bsuir.mapper.RecordMapperSingleton;
 
 import java.util.List;
 
-public class AddressesDaoImpl extends AbstractDaoImpl<Address> implements AddressDao {
+public class AddressDaoImpl extends AbstractDaoImpl<Address> implements AddressDao {
 
     private static final String SAVE = "insert into " + Tables.ADDRESSES +
             " (id, region, city, street, building, zip) " +
@@ -22,7 +22,7 @@ public class AddressesDaoImpl extends AbstractDaoImpl<Address> implements Addres
     private static final String UPDATE =  "update " + Tables.ADDRESSES +
             " set region=?, city=?, street=?, building=?, zip=? where id=?";
 
-    public AddressesDaoImpl() {
+    public AddressDaoImpl() {
         super(RecordMapperSingleton.getInstance().getAddressRecordMapper(), Tables.ADDRESSES);
     }
 

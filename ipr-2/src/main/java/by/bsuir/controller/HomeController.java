@@ -1,22 +1,21 @@
 package by.bsuir.controller;
 
 import by.bsuir.connection.ConnectionPool;
+import by.bsuir.dao.service.impl.AddressDaoImpl;
 import by.bsuir.dao.service.impl.PersonDaoImpl;
 import by.bsuir.dao.service.impl.RoleDaoImpl;
+import by.bsuir.entity.Address;
 import by.bsuir.entity.Person;
 import by.bsuir.entity.Role;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet("/")
@@ -49,6 +48,9 @@ public class HomeController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
+        AddressDaoImpl addressesDao = new AddressDaoImpl();
+        List<Address> addresses;
+
         RoleDaoImpl roleDao = new RoleDaoImpl();
         List<Role> roles;
 
@@ -57,13 +59,14 @@ public class HomeController extends HttpServlet {
         try {
 //            persons = personDao.findByBirthDate(LocalDate.now());
 //            persons = personDao.findByName("Вася", "Пупкин");
+            addresses = addressesDao.findAll();
             Role role = roleDao.findById(1);
             persons = personDao.findByRole(role);
 //            roles = roleDao.findAll();
         } catch (DaoException e) {
             throw new RuntimeException(e);
         }
-        req.setAttribute("books", persons);
+        req.setAttribute("books", addresses);
         req.getRequestDispatcher("WEB-INF/view/home.jsp").forward(req,resp);
 
     }

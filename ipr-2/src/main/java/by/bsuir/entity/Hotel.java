@@ -6,21 +6,18 @@ public class Hotel {
     private int id;
     private String name;
     private String description;
-    private Address address;
+    private int addressId;
     private int level;
-    private List<Room> roomList;
     private boolean availableToBook;
     private String imagePath;
 
     public Hotel(int id, String name, String description,
-                 Address address, int level, List<Room> roomList,
-                 boolean availableToBook, String imagePath) {
+                 int addressId, int level, boolean availableToBook, String imagePath) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.address = address;
+        this.addressId = addressId;
         this.level = level;
-        this.roomList = roomList;
         this.availableToBook = availableToBook;
         this.imagePath = imagePath;
     }
@@ -51,12 +48,12 @@ public class Hotel {
         this.description = description;
     }
 
-    public Address getAddress() {
-        return address;
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public int getLevel() {
@@ -65,14 +62,6 @@ public class Hotel {
 
     public void setLevel(int level) {
         this.level = level;
-    }
-
-    public List<Room> getRoomList() {
-        return roomList;
-    }
-
-    public void setRoomList(List<Room> roomList) {
-        this.roomList = roomList;
     }
 
     public boolean isAvailableToBook() {
@@ -97,9 +86,8 @@ public class Hotel {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", address=" + address +
+                ", addressId=" + addressId +
                 ", rating=" + level +
-                ", roomList=" + roomList +
                 ", availableToBook=" + availableToBook +
                 ", imagePath='" + imagePath + '\'' +
                 '}';
