@@ -1,5 +1,6 @@
 package by.bsuir.dao.service;
 
+import by.bsuir.dao.Dao;
 import by.bsuir.entity.Address;
 import by.bsuir.entity.Hotel;
 import by.bsuir.entity.Room;
@@ -7,7 +8,7 @@ import by.bsuir.exceptions.DaoException;
 
 import java.util.List;
 
-public interface HotelDao {
+public interface HotelDao extends Dao<Hotel> {
     void save(Hotel hotel) throws DaoException;
     List<Hotel> findAll() throws DaoException;
     Hotel findById(int id) throws DaoException;

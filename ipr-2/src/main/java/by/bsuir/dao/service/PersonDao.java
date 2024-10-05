@@ -1,12 +1,13 @@
 package by.bsuir.dao.service;
 
+import by.bsuir.dao.Dao;
 import by.bsuir.entity.Person;
 import by.bsuir.exceptions.DaoException;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface PersonDao {
+public interface PersonDao extends Dao<Person> {
     void save(Person person) throws DaoException;
     List<Person> findAll() throws DaoException;
     Person findById(int id) throws DaoException;

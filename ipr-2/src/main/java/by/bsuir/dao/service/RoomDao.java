@@ -1,11 +1,13 @@
 package by.bsuir.dao.service;
 
+import by.bsuir.dao.Dao;
 import by.bsuir.entity.Room;
 import by.bsuir.exceptions.DaoException;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface RoomDao {
+public interface RoomDao extends Dao<Room> {
     void save(Room room) throws DaoException;
     List<Room> findAll() throws DaoException;
     Room findById(int id) throws DaoException;

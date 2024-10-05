@@ -1,11 +1,13 @@
 package by.bsuir.dao.service;
 
+import by.bsuir.dao.Dao;
 import by.bsuir.entity.Address;
 import by.bsuir.exceptions.DaoException;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface AddressDao {
+public interface AddressDao extends Dao<Address> {
     void save(Address address) throws DaoException;
     List<Address> findAll() throws DaoException;
     Address findById(int id) throws DaoException;
