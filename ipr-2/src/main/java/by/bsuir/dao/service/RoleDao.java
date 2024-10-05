@@ -5,7 +5,6 @@ import by.bsuir.entity.Role;
 import by.bsuir.exceptions.DaoException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface RoleDao extends Dao<Role> {
     void save(Role role) throws DaoException;

@@ -53,9 +53,8 @@ public class ConnectionPool {
 
     public void releaseConnection(ProxyConnection proxy) throws ConnectionException {
         if (proxy != null) {
-
-            usedConnectionsList.remove(proxy);
             try {
+                usedConnectionsList.remove(proxy);
                 availableConnectionsList.put(proxy);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

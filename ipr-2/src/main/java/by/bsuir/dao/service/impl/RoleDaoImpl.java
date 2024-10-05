@@ -7,16 +7,11 @@ import by.bsuir.entity.Role;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.mapper.RecordMapperSingleton;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RoleDaoImpl extends AbstractDaoImpl<Role> implements RoleDao {
 
-    private static final String SAVE = "insert into " + Tables.ROLES + " (name) values (?, ?)";
+    private static final String SAVE = "insert into " + Tables.ROLES + " (id, name, description) values (?, ?, ?)";
     private static final String FIND_ALL = "select * from " + Tables.ROLES;
     private static final String FIND_BY_ID = "select * from " + Tables.ROLES + " where id=?";
     private static final String FIND_BY_NAME = "select * from " + Tables.ROLES + " where name=?";
@@ -30,7 +25,7 @@ public class RoleDaoImpl extends AbstractDaoImpl<Role> implements RoleDao {
 
     @Override
     public void save(Role role) throws DaoException {
-        executeInsertQuery(SAVE, role.getName(), role.getDescription());
+        executeInsertQuery(SAVE, role.getId(), role.getName(), role.getDescription());
     }
 
     @Override
@@ -55,7 +50,7 @@ public class RoleDaoImpl extends AbstractDaoImpl<Role> implements RoleDao {
 
     @Override
     public void update(Role role) throws DaoException {
-        executeUpdateQuery(UPDATE, role.getName(), role.getDescription());
+        executeUpdateQuery(UPDATE, role.getName(), role.getDescription(), role.getId());
     }
 
     @Override

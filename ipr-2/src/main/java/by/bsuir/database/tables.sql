@@ -22,7 +22,7 @@ create table if not exists people (
     password varchar not null,           -- пароль (хешированный)
     first_name varchar not null,         -- имя
     last_name varchar not null,          -- фамилия
-    birthday date not null,              -- день рождения
+    birth_date date not null,            -- дата рождения
     email varchar not null,              -- адрес электронной почты
     role_id int constraint fk_roles references roles(id)  -- ключ соответствующей колонки в таблице ролей
 );
@@ -59,7 +59,7 @@ insert into addresses (id, region, city, street, building, zip) values (0, 'Ми
 insert into roles (id, name, description) values (0, 'ADMIN', 'Администратор'), (1,'USER', 'Пользователь');
 
 -- [3] заполнение таблицы пользователей
-insert into people (id, username, password, first_name, last_name, birthday, email, role_id)
+insert into people (id, username, password, first_name, last_name, birth_date, email, role_id)
            values (0, 'user1', '', 'Вася', 'Пупкин', '01.01.2001', 'vasya@pup.kin', 1);
 
 -- [4] заполнение таблицы отелей
@@ -69,3 +69,5 @@ insert into hotels (id, name, description, adderess_id, level, available_to_book
 -- [5] заполнение таблицы комнат
 insert into rooms (id, name, capacity, floor, basic_price, weekend_price, image_path, hotel_id)
            values (0, '10', 2, 3, 150.00, 200.00, '', 0);
+
+select * from people where first_name='Вася' and last_name='Пупкин';

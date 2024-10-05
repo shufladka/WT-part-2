@@ -5,7 +5,6 @@ import by.bsuir.entity.Address;
 import by.bsuir.exceptions.DaoException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AddressDao extends Dao<Address> {
     void save(Address address) throws DaoException;

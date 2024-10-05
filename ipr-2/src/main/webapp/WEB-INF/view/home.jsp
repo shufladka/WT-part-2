@@ -1,6 +1,7 @@
 <%@ page import="by.bsuir.entity.Role" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.awt.print.Book" %><%--
+<%@ page import="java.awt.print.Book" %>
+<%@ page import="by.bsuir.entity.Person" %><%--
   Created by IntelliJ IDEA.
   User: klezo
   Date: 04.10.2024
@@ -30,28 +31,45 @@
                 <a class="nav-link disabled">Disabled</a>
             </div>
         </div>
-
-        <%
-            Object booksObj = request.getAttribute("books");
-            if (booksObj != null) {
-                List<Role> books = (List<Role>)request.getAttribute("books");
-                for (Role book : books) {
-                    try {
-                        out.println("<tbody>");
-                        out.println("<tr>");
-                        out.println("<th>" + book.getName() + "</th>");
-                        out.println("<th>" + book.getDescription() + "</td>");
-
-                        out.println("</tr>");
-                        out.println("</tbody>");
-                    } catch (Exception exc) {
-                        request.getRequestDispatcher("/error.jsp").forward(request,response);
-                    }
-                }
-            }
-        %>
-
     </div>
 </nav>
+
+<%--<%--%>
+<%--    Object booksObj = request.getAttribute("books");--%>
+<%--    if (booksObj != null) {--%>
+<%--        Role book = (Role)request.getAttribute("books");--%>
+<%--        try {--%>
+<%--            out.println("<tbody>");--%>
+<%--            out.println("<tr>");--%>
+<%--            out.println("<th>" + book.getName() + "</th>");--%>
+<%--            out.println("<th>" + book.getDescription() + "</td>");--%>
+
+<%--            out.println("</tr>");--%>
+<%--            out.println("</tbody><br>");--%>
+<%--        } catch (Exception exc) {--%>
+<%--            request.getRequestDispatcher("/error.jsp").forward(request,response);--%>
+<%--        }--%>
+<%--    }--%>
+<%--%>--%>
+
+<%
+    Object booksObj = request.getAttribute("books");
+    if (booksObj != null) {
+        List<Person> books = (List<Person>)request.getAttribute("books");
+        for (Person book : books) {
+            try {
+                out.println("<tbody>");
+                out.println("<tr>");
+                out.println("<th>" + book.getFirstName() + "</th>");
+                out.println("<th>" + book.getLastName() + "</td>");
+
+                out.println("</tr>");
+                out.println("</tbody><br>");
+            } catch (Exception exc) {
+                request.getRequestDispatcher("/error.jsp").forward(request,response);
+            }
+        }
+    }
+%>
 </body>
 </html>

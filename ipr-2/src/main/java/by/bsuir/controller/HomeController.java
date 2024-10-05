@@ -1,7 +1,9 @@
 package by.bsuir.controller;
 
 import by.bsuir.connection.ConnectionPool;
+import by.bsuir.dao.service.impl.PersonDaoImpl;
 import by.bsuir.dao.service.impl.RoleDaoImpl;
+import by.bsuir.entity.Person;
 import by.bsuir.entity.Role;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet("/")
@@ -46,22 +49,22 @@ public class HomeController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-//        req.getRequestDispatcher("WEB-INF/view/home.jsp").forward(req, resp);
-        RoleDaoImpl roleDao = new RoleDaoImpl();
-        List<Role> roles;
+//        RoleDaoImpl roleDao = new RoleDaoImpl();
+//        List<Role> roles;
+
+        PersonDaoImpl personDao = new PersonDaoImpl();
+        List<Person> persons;
         try {
-            roles = roleDao.findAll();
+            persons = personDao.findByBirthDate(LocalDate.now());
+//            persons = personDao.findByName("Вася", "Пупкин");
+//            persons = personDao.findAll();
+//            roles = roleDao.findAll();
         } catch (DaoException e) {
             throw new RuntimeException(e);
         }
-
-
-        req.setAttribute("books", roles);
-
+        req.setAttribute("books", persons);
         req.getRequestDispatcher("WEB-INF/view/home.jsp").forward(req,resp);
 
-//        PrintWriter writer = resp.getWriter();
-//        writer.println("Hello from FirstServlet " + roles.size() + " roles");
     }
 
     @Override
