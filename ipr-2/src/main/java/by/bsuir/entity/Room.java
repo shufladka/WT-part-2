@@ -7,15 +7,17 @@ public class Room {
     private int floor;
     private Double basicPrice;
     private Double weekendPrice;
+    private String imagePath;
 
     public Room(int id, String name, Integer capacity, Integer floor,
-                Double basicPrice, Double weekendPrice) {
+                Double basicPrice, Double weekendPrice, String imagePath) {
         this.id = id;
         this.name = name;
         this.capacity = capacity;
         this.floor = floor;
         this.basicPrice = basicPrice;
         this.weekendPrice = weekendPrice;
+        this.imagePath = imagePath;
     }
 
     public Room() {}
@@ -68,6 +70,14 @@ public class Room {
         this.weekendPrice = weekendPrice;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     @Override
     public String toString() {
         return "Room{" +
@@ -77,6 +87,7 @@ public class Room {
                 ", floor=" + floor +
                 ", basicPrice=" + basicPrice +
                 ", weekendPrice=" + weekendPrice +
+                ", imagePath='" + imagePath +
                 '}';
     }
 }
