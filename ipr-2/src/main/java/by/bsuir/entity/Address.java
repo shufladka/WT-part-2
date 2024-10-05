@@ -1,13 +1,15 @@
 package by.bsuir.entity;
 
 public class Address {
+    private int id;
     private String region;
     private String city;
     private String street;
     private String building;
     private String zip;
 
-    public Address(String region, String city, String street, String building, String zip) {
+    public Address(int id, String region, String city, String street, String building, String zip) {
+        this.id = id;
         this.region = region;
         this.city = city;
         this.street = street;
@@ -16,6 +18,14 @@ public class Address {
     }
 
     public Address() {}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getRegion() {
         return region;

@@ -1,6 +1,7 @@
 -- [1] таблица для хранения адресов
 create table if not exists addresses (
     id int auto_increment primary key,   -- идентификатор адреса
+    region varchar not null,             -- название области
     city varchar not null,               -- название города
     street varchar not null,             -- название улицы
     building varchar not null,           -- название дома
