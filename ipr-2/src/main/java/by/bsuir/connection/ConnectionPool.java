@@ -9,41 +9,43 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class ConnectionPool {
-    private static final String POOL_SIZE = "db.default-pool-size";
-    private static final String DB_CONNECTION_PATH = "connection/dbConnection.properties";
-
-    private BlockingQueue<ProxyConnection> availableConnections;
-    private BlockingQueue<ProxyConnection> usedConnections;
+    private static final String DB_PROPERTIES = "db.properties";
+    private static final String POOL_SIZE = "POOL_SIZE";
+    private BlockingQueue<ProxyConnection> availableConnectionsList;
+    private BlockingQueue<ProxyConnection> usedConnectionsList;
 
     public static ConnectionPool getInstance() {
         return Holder.INSTANCE;
     }
 
-    private ConnectionPool() {
-    }
+    private ConnectionPool() {}
 
     public void initialize() throws ConnectionException {
         try {
-            Properties dbProperties = new Properties();
-            dbProperties.load(ConnectionFactory.class.getClassLoader().getResourceAsStream(DB_CONNECTION_PATH));
-            int poolSize = Integer.parseInt(dbProperties.getProperty(POOL_SIZE));
-            availableConnections = new ArrayBlockingQueue<>(poolSize);
-            usedConnections = new ArrayBlockingQueue<>(poolSize);
+            Properties properties = new Properties();
+            properties.load(ConnectionFactory.class.getClassLoader().getResourceAsStream(DB_PROPERTIES));
+
+            int poolSize = Integer.parseInt(properties.getProperty(POOL_SIZE));
+
+            availableConnectionsList = new ArrayBlockingQueue<>(poolSize);
+            usedConnectionsList = new ArrayBlockingQueue<>(poolSize);
+
             for (int i = 0; i < poolSize; i++) {
-                ProxyConnection connection = ConnectionFactory.createConnection(dbProperties);
-                availableConnections.add(connection);
+                ProxyConnection connection = ConnectionFactory.createConnection(properties);
+                availableConnectionsList.add(connection);
             }
+
         } catch (IOException e) {
             throw new ConnectionException(e.getMessage(), e);
         }
-
     }
 
-    public void releaseConnection(ProxyConnection proxyConnection) throws ConnectionException {
-        if (proxyConnection != null) {
-            usedConnections.remove(proxyConnection);
+    public void releaseConnection(ProxyConnection proxy) throws ConnectionException {
+        if (proxy != null) {
+
+            usedConnectionsList.remove(proxy);
             try {
-                availableConnections.put(proxyConnection);
+                availableConnectionsList.put(proxy);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 throw new ConnectionException(e.getMessage(), e);
@@ -54,8 +56,8 @@ public class ConnectionPool {
     public ProxyConnection getConnection() throws ConnectionException {
         ProxyConnection connection;
         try {
-            connection = availableConnections.take();
-            usedConnections.put(connection);
+            connection = availableConnectionsList.take();
+            usedConnectionsList.put(connection);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new ConnectionException(e.getMessage(), e);
@@ -65,10 +67,10 @@ public class ConnectionPool {
 
     public void destroy() throws ConnectionException {
         try {
-            for (ProxyConnection connection : availableConnections) {
+            for (ProxyConnection connection : availableConnectionsList) {
                 connection.closeConnection();
             }
-            for (ProxyConnection connection : usedConnections) {
+            for (ProxyConnection connection : usedConnectionsList) {
                 connection.closeConnection();
             }
         } catch (SQLException e) {

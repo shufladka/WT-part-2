@@ -1,7 +1,6 @@
 package by.bsuir.connection;
 
 import by.bsuir.exceptions.ConnectionException;
-import io.github.cdimascio.dotenv.Dotenv;
 import org.postgresql.Driver;
 
 import java.sql.DriverManager;
@@ -17,20 +16,14 @@ public class ConnectionFactory {
         }
     }
 
-    static ProxyConnection createConnection(Properties dbProperties) throws ConnectionException {
-        ProxyConnection proxy;
-
+    static ProxyConnection createConnection(Properties properties) throws ConnectionException {
         try {
-            Dotenv dotenv = Dotenv.load();
-
-            String url = dbProperties.getProperty(dotenv.get("DB_URL"));
-            String user = dbProperties.getProperty(dotenv.get("DB_USER"));
-            String password = dbProperties.getProperty(dotenv.get("DB_PASSWORD"));
-            proxy = new ProxyConnection(DriverManager.getConnection(url, user, password));
+            String url = properties.getProperty("URL");
+            String username = properties.getProperty("USERNAME");
+            String password = properties.getProperty("PASSWORD");
+            return new ProxyConnection(DriverManager.getConnection(url, username, password));
         } catch (SQLException e) {
             throw new ConnectionException(e.getMessage(), e);
         }
-
-        return proxy;
     }
 }

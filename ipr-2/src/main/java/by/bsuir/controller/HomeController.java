@@ -1,5 +1,11 @@
 package by.bsuir.controller;
 
+import by.bsuir.connection.ConnectionPool;
+import by.bsuir.dao.service.impl.RoleDaoImpl;
+import by.bsuir.entity.Role;
+import by.bsuir.exceptions.ConnectionException;
+import by.bsuir.exceptions.DaoException;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,14 +14,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet("/")
 public class HomeController extends HttpServlet {
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init() throws ServletException {
         System.out.println("Hello from HomeServlet INIT");
-        super.init(config);
+
+        try {
+            ConnectionPool.getInstance().initialize();
+        } catch (ConnectionException e) {
+            throw new RuntimeException(e);
+        }
+        super.init();
     }
 
     @Override
@@ -33,12 +46,33 @@ public class HomeController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        req.getRequestDispatcher("WEB-INF/view/home.jsp").forward(req, resp);
+//        req.getRequestDispatcher("WEB-INF/view/home.jsp").forward(req, resp);
+        RoleDaoImpl roleDao = new RoleDaoImpl();
+        List<Role> roles;
+        try {
+            roles = roleDao.findAll();
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        req.setAttribute("books", roles);
+
+        req.getRequestDispatcher("WEB-INF/view/home.jsp").forward(req,resp);
+
+//        PrintWriter writer = resp.getWriter();
+//        writer.println("Hello from FirstServlet " + roles.size() + " roles");
     }
 
     @Override
     public void destroy() {
-        System.out.println("Hello from HomeServlet DESTROY");
+        try {
+            System.out.println("Hello from HomeServlet DESTROY");
+            ConnectionPool.getInstance().destroy();
+        } catch (ConnectionException e) {
+            throw new RuntimeException(e);
+        }
+
         super.destroy();
     }
 }

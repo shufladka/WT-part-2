@@ -1,6 +1,6 @@
 -- [1] таблица для хранения адресов
 create table if not exists addresses (
-    id int auto_increment primary key,   -- идентификатор адреса
+    id int primary key,   -- идентификатор адреса
     region varchar not null,             -- название области
     city varchar not null,               -- название города
     street varchar not null,             -- название улицы
@@ -10,13 +10,14 @@ create table if not exists addresses (
 
 -- [2] таблица для хранения данных о ролях
 create table if not exists roles (
-    id int auto_increment primary key,   -- идентификатор роли
-    name varchar not null                -- имя роли
+    id int primary key,   -- идентификатор роли
+    name varchar not null,               -- имя роли
+    description varchar not null         -- описание роли
 );
 
 -- [3] таблица для хранения данных о пользователях
 create table if not exists people (
-    id int auto_increment primary key,   -- идентификатор пользователя
+    id int primary key,   -- идентификатор пользователя
     username varchar not null,           -- псевдоним
     password varchar not null,           -- пароль (хешированный)
     first_name varchar not null,         -- имя
@@ -28,7 +29,7 @@ create table if not exists people (
 
 -- [4] таблица для хранения данных об отелях
 create table if not exists hotels (
-    id int auto_increment primary key,    -- идентификатор отеля
+    id int primary key,    -- идентификатор отеля
     name varchar not null,                -- название отеля
     description varchar not null,         -- описание отеля
     adderess_id int constraint fk_addresses references addresses(id),  -- ключ соответствующей колонки в таблице адресов
@@ -39,7 +40,7 @@ create table if not exists hotels (
 
 -- [5] таблица для хранения данных о комнатах
 create table if not exists rooms (
-    id int auto_increment primary key,     -- идентификатор отеля
+    id int primary key,     -- идентификатор отеля
     name varchar not null,                 -- название комнаты
     capacity int not null,                 -- вместимость комнаты
     floor int not null,                    -- этаж
@@ -50,23 +51,21 @@ create table if not exists rooms (
 );
 
 -- [1] заполнение таблицы адресов
-insert into addresses (city, street, building, zip) values ('Солигорск', 'улица Ленина', '38', '223710'),
-                                                           ('Солигорск', 'улица Ленина', '38', '223710'),
-                                                           ('Солигорск', 'улица Ленина', '38', '223710'),
-                                                           ('Солигорск', 'улица Ленина', '38', '223710'),
-                                                           ('Солигорск', 'улица Ленина', '38', '223710');
+insert into addresses (id, region, city, street, building, zip) values (0, 'Минская область','Солигорск', 'улица Ленина', '38', '223710'),
+                                                           (1, 'Минская область','Солигорск', 'улица Ленина', '38', '223710'),
+                                                           (2,'Минская область','Солигорск', 'улица Ленина', '38', '223710');
 
 -- [2] заполнение таблицы ролей
-insert into roles (name) values ('ADMIN'), ('USER');
+insert into roles (id, name, description) values (0, 'ADMIN', 'Администратор'), (1,'USER', 'Пользователь');
 
 -- [3] заполнение таблицы пользователей
-insert into people (username, password, first_name, last_name, birthday, email, role_id)
-           values ('user1', '', 'Вася', 'Пупкин', '01.01.2001', 'vasya@pup.kin', 1);
+insert into people (id, username, password, first_name, last_name, birthday, email, role_id)
+           values (0, 'user1', '', 'Вася', 'Пупкин', '01.01.2001', 'vasya@pup.kin', 1);
 
 -- [4] заполнение таблицы отелей
-insert into hotels (name, description, adderess_id, level, available_to_book, image_path)
-           values ('Алеся', 'Самый крутой отель', 0, 5, true, '');
+insert into hotels (id, name, description, adderess_id, level, available_to_book, image_path)
+           values (0, 'Алеся', 'Самый крутой отель', 0, 5, true, '');
 
 -- [5] заполнение таблицы комнат
-insert into rooms (name, capacity, floor, basic_price, weekend_price, image_path, hotel_id)
-           values ('10', 2, 3, 150.00, 200.00, '', 0);
+insert into rooms (id, name, capacity, floor, basic_price, weekend_price, image_path, hotel_id)
+           values (0, '10', 2, 3, 150.00, 200.00, '', 0);

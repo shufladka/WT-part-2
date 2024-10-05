@@ -1,4 +1,6 @@
-<%--
+<%@ page import="by.bsuir.entity.Role" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.awt.print.Book" %><%--
   Created by IntelliJ IDEA.
   User: klezo
   Date: 04.10.2024
@@ -28,6 +30,27 @@
                 <a class="nav-link disabled">Disabled</a>
             </div>
         </div>
+
+        <%
+            Object booksObj = request.getAttribute("books");
+            if (booksObj != null) {
+                List<Role> books = (List<Role>)request.getAttribute("books");
+                for (Role book : books) {
+                    try {
+                        out.println("<tbody>");
+                        out.println("<tr>");
+                        out.println("<th>" + book.getName() + "</th>");
+                        out.println("<th>" + book.getDescription() + "</td>");
+
+                        out.println("</tr>");
+                        out.println("</tbody>");
+                    } catch (Exception exc) {
+                        request.getRequestDispatcher("/error.jsp").forward(request,response);
+                    }
+                }
+            }
+        %>
+
     </div>
 </nav>
 </body>
