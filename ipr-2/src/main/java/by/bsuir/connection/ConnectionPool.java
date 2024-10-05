@@ -1,5 +1,6 @@
 package by.bsuir.connection;
 
+import by.bsuir.dao.DaoSingleton;
 import by.bsuir.exceptions.ConnectionException;
 
 import java.io.IOException;
@@ -9,13 +10,23 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class ConnectionPool {
+    private static ConnectionPool INSTANCE;
     private static final String DB_PROPERTIES = "db.properties";
     private static final String POOL_SIZE = "POOL_SIZE";
     private BlockingQueue<ProxyConnection> availableConnectionsList;
     private BlockingQueue<ProxyConnection> usedConnectionsList;
 
-    public static ConnectionPool getInstance() {
-        return Holder.INSTANCE;
+    public static ConnectionPool getInstance()
+    {
+        if (INSTANCE == null) {
+            synchronized (DaoSingleton.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new ConnectionPool();
+                }
+            }
+        }
+
+        return INSTANCE;
     }
 
     private ConnectionPool() {}
@@ -77,9 +88,5 @@ public class ConnectionPool {
             throw new ConnectionException(e.getMessage(), e);
         }
 
-    }
-
-    private static class Holder {
-        static final ConnectionPool INSTANCE = new ConnectionPool();
     }
 }
