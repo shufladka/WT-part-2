@@ -1,4 +1,4 @@
-package by.bsuir.controller;
+package by.bsuir.servlet;
 
 import by.bsuir.connection.ConnectionPool;
 import by.bsuir.dao.service.impl.AddressDaoImpl;
@@ -15,11 +15,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet("/")
-public class HomeController extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
@@ -51,23 +53,36 @@ public class HomeController extends HttpServlet {
         AddressDaoImpl addressesDao = new AddressDaoImpl();
         List<Address> addresses;
 
-        RoleDaoImpl roleDao = new RoleDaoImpl();
-        List<Role> roles;
-
-        PersonDaoImpl personDao = new PersonDaoImpl();
-        List<Person> persons;
         try {
-//            persons = personDao.findByBirthDate(LocalDate.now());
-//            persons = personDao.findByName("Вася", "Пупкин");
             addresses = addressesDao.findAll();
-            Role role = roleDao.findById(1);
-            persons = personDao.findByRole(role);
-//            roles = roleDao.findAll();
         } catch (DaoException e) {
             throw new RuntimeException(e);
         }
         req.setAttribute("books", addresses);
-        req.getRequestDispatcher("WEB-INF/view/home.jsp").forward(req,resp);
+        req.getRequestDispatcher("WEB-INF/home.jsp").forward(req,resp);
+
+        // селектор языка сайта
+        String language = req.getParameter("lang");
+        if (language != null) {
+            req.getSession().setAttribute("lang", language);
+        }
+
+        resp.sendRedirect("/"); // Возвращаемся на предыдущую страницу
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Устанавливаем кодировку для ответа
+        resp.setContentType("text/html; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
+        req.getAttribute("username");
+
+//        PrintWriter out = resp.getWriter();
+//        out.println("hello from post " + req.getParameter("password"));
+//        HttpSession session = req.getSession();
+        resp.sendRedirect("/");
 
     }
 

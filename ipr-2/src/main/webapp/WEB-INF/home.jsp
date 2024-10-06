@@ -1,19 +1,17 @@
-<%@ page import="by.bsuir.entity.Role" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.awt.print.Book" %>
-<%@ page import="by.bsuir.entity.Person" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: klezo
   Date: 04.10.2024
   Time: 0:32
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
-    <jsp:include page="templates/headLinks.jsp"/>
-    <link rel="icon" href="../.././assets/favicon.ico" sizes="32x32" type="image/x-icon">
+    <jsp:include page="templates/head.jsp"/>
+    <title>Главная</title>
 </head>
 
 <body class="container">
@@ -28,29 +26,15 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 <a class="nav-link" href="#">тест</a>
                 <a class="nav-link" href="#">Pricing</a>
-                <a class="nav-link disabled">Disabled</a>
+                <a class="nav-link" href="login">Авторизация</a>
+                <a class="nav-link" href="registration">Регистрация</a>
             </div>
         </div>
     </div>
 </nav>
 
-<%--<%--%>
-<%--    Object booksObj = request.getAttribute("books");--%>
-<%--    if (booksObj != null) {--%>
-<%--        Role book = (Role)request.getAttribute("books");--%>
-<%--        try {--%>
-<%--            out.println("<tbody>");--%>
-<%--            out.println("<tr>");--%>
-<%--            out.println("<th>" + book.getName() + "</th>");--%>
-<%--            out.println("<th>" + book.getDescription() + "</td>");--%>
-
-<%--            out.println("</tr>");--%>
-<%--            out.println("</tbody><br>");--%>
-<%--        } catch (Exception exc) {--%>
-<%--            request.getRequestDispatcher("/error.jsp").forward(request,response);--%>
-<%--        }--%>
-<%--    }--%>
-<%--%>--%>
+<p><a href="?lang=en">Switch to English</a></p>
+<p><a href="?lang=ru">Переключиться на русский</a></p>
 
 <%
     Object booksObj = request.getAttribute("books");
@@ -69,5 +53,7 @@
         }
     }
 %>
+
+<jsp:include page="templates/footer.jsp"/>
 </body>
 </html>
