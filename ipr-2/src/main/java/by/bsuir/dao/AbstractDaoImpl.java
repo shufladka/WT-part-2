@@ -21,6 +21,12 @@ public abstract class AbstractDaoImpl<T> extends CustomQueryExecutor<T> implemen
     }
 
     @Override
+    public T getMaxById() throws DaoException {
+        String query = "select * from " + table + " where id = (select max(id) from " + table + ")";
+        return executeQuerySingleton(query);
+    }
+
+    @Override
     public T findById(int id) throws DaoException {
         String query = "select * from " + table + " where id=?";
         return executeQuerySingleton(query, id);

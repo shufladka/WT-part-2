@@ -96,12 +96,12 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", username=" + username +
+                ", firstName=" + firstName +
+                ", lastName=" + lastName +
                 ", birthDate=" + birthDate +
-                ", email='" + email + '\'' +
-                ", roleId=" + roleId + '\'' +
+                ", email=" + email +
+                ", roleId=" + roleId +
                 '}';
     }
 }

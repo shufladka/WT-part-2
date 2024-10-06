@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="lang.lang" var="lang"/>
 <html>
@@ -17,7 +18,7 @@
 <body class="container login_container">
     <div class="position-relative top-50 start-50 translate-middle shadow-lg p-3 mb-5 bg-body rounded-3">
       <p class="d-flex justify-content-center fw-bold fs-2 text-muted"><fmt:message bundle="${lang}" key="lang.login.form_title"/></p>
-      <form method="post" action="/">
+      <form method="post" action="/login">
         <div class="mb-3">
           <label for="username" class="form-label"><fmt:message bundle="${lang}" key="lang.login.username"/></label>
           <input type="text" class="form-control" id="username" name="username" required />
@@ -38,6 +39,14 @@
           <a href="registration" class="text-body"><fmt:message bundle="${lang}" key="lang.login.create_account"/></a>
         </p>
       </div>
+      <c:if test="${not empty param.error}">
+        <hr>
+        <div class="d-flex justify-content-center text-danger fw-bold">
+          <p>
+            <fmt:message bundle="${lang}" key="lang.login.error"/>
+          </p>
+        </div>
+      </c:if>
     </div>
 </body>
 </html>

@@ -29,10 +29,10 @@ public class PersonDaoImpl extends AbstractDaoImpl<Person> implements PersonDao 
     }
 
     @Override
-    public void save(Person person, Role role) throws DaoException {
+    public void save(Person person) throws DaoException {
         executeInsertQuery(SAVE, person.getId(), person.getUsername(), person.getPassword(),
                 person.getFirstName(), person.getLastName(), person.getBirthDate(),
-                person.getEmail(), role.getId());
+                person.getEmail(), person.getRoleId());
     }
 
     @Override
@@ -61,9 +61,9 @@ public class PersonDaoImpl extends AbstractDaoImpl<Person> implements PersonDao 
     }
 
     @Override
-    public void update(Person person, Role role) throws DaoException {
+    public void update(Person person) throws DaoException {
         executeInsertQuery(UPDATE, person.getUsername(), person.getPassword(),
                 person.getFirstName(), person.getLastName(), person.getBirthDate(),
-                person.getEmail(), role.getId(), person.getId());
+                person.getEmail(), person.getRoleId(), person.getId());
     }
 }

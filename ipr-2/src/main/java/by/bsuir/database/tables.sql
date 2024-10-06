@@ -72,3 +72,7 @@ insert into rooms (id, name, capacity, floor, basic_price, weekend_price, image_
            values (0, '10', 2, 3, 150.00, 200.00, '', 0);
 
 select * from rooms where basic_price>=10.00 and basic_price<=160 or weekend_price>=10.00 and weekend_price<=180;
+
+select max(id) from people;
+
+select * from people where id = (select max(id) from people);

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface PersonDao extends Dao<Person> {
-    void save(Person person, Role role) throws DaoException;
+    void save(Person person) throws DaoException;
     List<Person> findAll() throws DaoException;
     Person findById(int id) throws DaoException;
     Person findByUsername(String username) throws DaoException;
@@ -17,6 +17,6 @@ public interface PersonDao extends Dao<Person> {
     List<Person> findByBirthDate(LocalDate birthDate) throws DaoException;
     Person findByEmail(String email) throws DaoException;
     List<Person> findByRole(Role role) throws DaoException;
-    void update(Person person, Role role) throws DaoException;
+    void update(Person person) throws DaoException;
     void delete(int id) throws DaoException;
 }

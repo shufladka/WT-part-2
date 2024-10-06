@@ -77,11 +77,8 @@ public class HomeServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        req.getAttribute("username");
 
-//        PrintWriter out = resp.getWriter();
-//        out.println("hello from post " + req.getParameter("password"));
-//        HttpSession session = req.getSession();
+
         resp.sendRedirect("/");
 
     }
