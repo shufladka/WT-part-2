@@ -1,14 +1,12 @@
 package by.bsuir.servlet;
 
 import by.bsuir.connection.ConnectionPool;
-import by.bsuir.dao.DaoSingleton;
 import by.bsuir.entity.Person;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
 import by.bsuir.service.ServiceSingleton;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

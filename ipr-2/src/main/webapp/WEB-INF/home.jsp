@@ -36,23 +36,33 @@
 <p><a href="?lang=en">Switch to English</a></p>
 <p><a href="?lang=ru">Переключиться на русский</a></p>
 
-<%
-    Object booksObj = request.getAttribute("books");
-    if (booksObj != null) {
-        List<Object> books = (List<Object>)request.getAttribute("books");
-        for (Object book : books) {
-            try {
-                out.println("<tbody>");
-                out.println("<tr>");
-                out.println("<th>" + book.toString() + "</th>");
-                out.println("</tr>");
-                out.println("</tbody><br>");
-            } catch (Exception exc) {
-                request.getRequestDispatcher("/error.jsp").forward(request,response);
-            }
-        }
-    }
-%>
+
+<%--<%--%>
+<%--    Object booksObj = request.getAttribute("books");--%>
+<%--    out.println("<tbody>");--%>
+<%--    out.println("<tr>");--%>
+<%--    out.println("<th>" + booksObj.toString() + "</th>");--%>
+<%--    out.println("</tr>");--%>
+<%--    out.println("</tbody><br>");--%>
+<%--%>--%>
+
+<%--<%--%>
+<%--    Object booksObj = request.getAttribute("books");--%>
+<%--    if (booksObj != null) {--%>
+<%--        List<Object> books = (List<Object>)request.getAttribute("books");--%>
+<%--        for (Object book : books) {--%>
+<%--            try {--%>
+<%--                out.println("<tbody>");--%>
+<%--                out.println("<tr>");--%>
+<%--                out.println("<th>" + book.toString() + "</th>");--%>
+<%--                out.println("</tr>");--%>
+<%--                out.println("</tbody><br>");--%>
+<%--            } catch (Exception exc) {--%>
+<%--                request.getRequestDispatcher("/error.jsp").forward(request,response);--%>
+<%--            }--%>
+<%--        }--%>
+<%--    }--%>
+<%--%>--%>
 
 <jsp:include page="templates/footer.jsp"/>
 </body>

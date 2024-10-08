@@ -12,7 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.Instant;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -34,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         // Устанавливаем кодировку для ответа
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
@@ -44,6 +47,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
         // Устанавливаем кодировку для ответа
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
@@ -59,17 +63,13 @@ public class LoginServlet extends HttpServlet {
             person = service.getAuthService().login(username, password);
 
             // Сериализация объекта Person с добавлением произвольных параметров и хешированием в Base64
-            String base64Hash = service.getAuthService().serializePersonBase64(
+            String hash = service.getAuthService().serializePersonBase64(
                     person,
-                    "expired_in", 30,
-                    "additional_param1", "value1",
-                    "additional_param2", true
+                    "issued_in", Instant.now().getEpochSecond()
             );
 
-            System.out.println(base64Hash);  // Выводим результат
-
-            Person person1 = service.getAuthService().deserializePersonBase64(base64Hash);
-            System.out.println(person1.toString());
+            HttpSession session = req.getSession();
+            session.setAttribute("userinfo", hash);
 
         } catch (ServiceException | DaoException e) {
             System.out.println(e.getMessage());
