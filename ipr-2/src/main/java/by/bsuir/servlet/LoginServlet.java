@@ -42,6 +42,8 @@ public class LoginServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
+        System.out.println(req.getSession().getAttribute("lang"));
+
         req.getRequestDispatcher("WEB-INF/login.jsp").forward(req,resp);
     }
 

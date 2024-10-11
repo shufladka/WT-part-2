@@ -43,6 +43,8 @@ public class HomeServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
+        System.out.println(req.getSession().getAttribute("lang"));
+
         req.getRequestDispatcher("WEB-INF/home.jsp").forward(req,resp);
     }
 
