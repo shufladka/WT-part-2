@@ -19,7 +19,7 @@
                         <div class="container overflow-hidden">
                             <div class="row">
                                 <div class="footer-copyright-wrapper text-center">
-                                    <a class="navbar-brand" href="#">
+                                    <a class="navbar-brand" href="/">
                                         <img src="https://i.imgur.com/KlMVi1H.png" alt="brand" width="30" height="30" class="d-inline-block align-text-top">
                                         <span class="navbar-brand mb-0 h1 fs-5 text-body">Bookin</span>
                                     </a>
@@ -31,7 +31,7 @@
                     <div class="col order-2 order-xl-1">
                         <ul class="nav justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link link-secondary px-2 px-md-3" href="#">Главная</a>
+                                <a class="nav-link link-secondary px-2 px-md-3" href="/">Главная</a>
                             </li>
                             <c:if test="${sessionScope.lang == 'ru' || sessionScope.lang == null}">
                                 <li class="nav-item">
