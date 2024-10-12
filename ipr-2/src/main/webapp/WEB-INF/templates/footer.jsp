@@ -5,9 +5,13 @@
   Time: 1:46
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="lang.lang" var="lang"/>
+<jsp:useBean id="date" class="java.util.Date" />
+<fmt:formatDate value="${date}" pattern="yyyy" var="currentYear" />
 <div class="d-flex flex-column min-vh-100">
 <div class="wrapper flex-grow-1"></div>
     <footer class="footer">
@@ -31,11 +35,11 @@
                     <div class="col order-2 order-xl-1">
                         <ul class="nav justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link link-secondary px-2 px-md-3" href="/">Главная</a>
+                                <a class="nav-link link-secondary px-2 px-md-3" href="/"><fmt:message bundle="${lang}" key="lang.footer.home"/></a>
                             </li>
                             <c:if test="${sessionScope.lang == 'ru' || sessionScope.lang == null}">
                                 <li class="nav-item">
-                                    <a class="nav-link link-secondary px-2 px-md-3"href="?lang=en">Change language</a>
+                                    <a class="nav-link link-secondary px-2 px-md-3"href="?lang=en"><fmt:message bundle="${lang}" key="lang.footer.change_language"/></a>
                                 </li>
                             </c:if>
                             <c:if test="${sessionScope.lang == 'en'}">
@@ -54,7 +58,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="footer-copyright-wrapper text-center">
-                            &copy; 2024. All Rights Reserved.
+                            &copy; <c:out value="${currentYear}" />. <fmt:message bundle="${lang}" key="lang.footer.copy"/>
                         </div>
                     </div>
                 </div>

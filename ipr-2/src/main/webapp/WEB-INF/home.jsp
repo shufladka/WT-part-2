@@ -15,25 +15,7 @@
 </head>
 
 <body class="container">
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-    <div class="container-fluid">
-
-    <a class="navbar-brand" href="/">
-        <img src="https://i.imgur.com/KlMVi1H.png" alt="brand" width="30" height="30" class="d-inline-block align-text-top">
-        <span class="navbar-brand mb-0 h1 fs-5">Bookin</span>
-    </a>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav fs-5">
-<%--                <a class="nav-link active" aria-current="page" href="#">Home</a>--%>
-                <a class="nav-link" href="/">Главная</a>
-            </div>
-        </div>
-    </div>
-    <div class="d-grid gap-2 d-md-flex navbar-brand">
-        <a class="btn btn-outline-success" href="login">Log In</a>
-        <a class="btn btn-outline-primary" href="registration">Sign Up</a>
-    </div>
-</nav>
+<jsp:include page="templates/nav.jsp"/>
 
 <p><a href="?lang=en">Switch to English</a></p>
 <p><a href="?lang=ru">Переключиться на русский</a></p>
