@@ -3,6 +3,7 @@ package by.bsuir.service;
 import by.bsuir.service.impl.AddressServiceImpl;
 import by.bsuir.service.impl.AuthServiceImpl;
 import by.bsuir.service.impl.HotelServiceImpl;
+import by.bsuir.service.impl.RoomServiceImpl;
 
 public class ServiceSingleton {
 
@@ -10,6 +11,7 @@ public class ServiceSingleton {
     private final AuthService authService = new AuthServiceImpl();
     private final HotelService hotelService = new HotelServiceImpl();
     private final AddressService addressService = new AddressServiceImpl();
+    private final RoomService roomService = new RoomServiceImpl();
 
     public AuthService getAuthService() {
         return authService;
@@ -21,6 +23,10 @@ public class ServiceSingleton {
 
     public AddressService getAddressService() {
         return addressService;
+    }
+
+    public RoomService getRoomService() {
+        return roomService;
     }
 
     public static ServiceSingleton getInstance()

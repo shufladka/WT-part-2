@@ -13,15 +13,20 @@
 <%@ page import="java.util.List" %>
 <%@ page import="by.bsuir.entity.Hotel" %>
 <%@ page import="by.bsuir.entity.Address" %>
+<%@ page import="by.bsuir.entity.Room" %>
 
 <%
+//  List<Room> roomList = (List<Room>) request.getAttribute("rooms");
   List<Address> addressList = (List<Address>) request.getAttribute("addresses");
-  List<Hotel> hotelList = (List<Hotel>) request.getAttribute("hotels");
+  Hotel hotel = (Hotel) request.getAttribute("hotel");
+  String hotelId = (String) request.getAttribute("hotel_id");
 
-  if (hotelList != null) {
-    for (Hotel hotel : hotelList) {
+//  System.out.println(roomList);
+
+  if (hotel != null && addressList != null) {
 %>
 
+<%= hotelId %>
 <div class="col mx-4">
   <div class="row mb-4">
     <div class="card p-0">
@@ -60,13 +65,11 @@
     </div>
   </div>
 </div>
-
 <%
-  }
 } else {
 %>
 <div class="col mx-4">
-  <p>No rooms available.</p>
+  <p>No hotels available.</p>
 </div>
 <%
   }

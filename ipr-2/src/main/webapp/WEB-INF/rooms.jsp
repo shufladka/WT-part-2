@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
+<%@ page import="by.bsuir.entity.Address" %>
+<%@ page import="by.bsuir.entity.Hotel" %>
+<%@ page import="by.bsuir.entity.Room" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -23,17 +26,52 @@
 
         <%
             Object hotelsReq = request.getAttribute("hotels");
+//            Object roomsReq = request.getAttribute("rooms");
             Object addressesReq = request.getAttribute("addresses");
+            Object idReq = request.getAttribute("id");
+            Object hotelIdReq = request.getAttribute("hotel_id");
 
             if (hotelsReq != null && addressesReq != null) {
-                List<Object> hotelsObjects = (List<Object>) request.getAttribute("hotels");
-                List<Object> addressesObjects = (List<Object>) request.getAttribute("addresses");
+//                List<Room> roomList = (List<Room>) roomsReq;
+                List<Hotel> hotelList = (List<Hotel>) hotelsReq;
+                String id = (String) idReq;
 
-                request.setAttribute("hotels", hotelsObjects);
-                request.setAttribute("addresses", addressesObjects);
+                if (hotelIdReq != null) {
+                    System.out.println(hotelIdReq);
+                }
+
+                request.setAttribute("addresses", addressesReq);
+//                request.setAttribute("rooms", roomsReq);
+
+                if (id == null) {
+                    for (Hotel hotel : hotelList) {
+                        request.setAttribute("hotel", hotel);
         %>
+
         <jsp:include page="templates/room-card.jsp" />
+
         <%
+            }
+        } else {
+            try {
+                request.setAttribute("hotel", hotelList.get(Integer.parseInt(id)));
+        %>
+
+        <jsp:include page="templates/room-card.jsp" />
+
+        <%
+        }
+        catch (Exception e)
+        {
+        %>
+
+        <div class="col mx-4">
+            <p>No rooms available.</p>
+        </div>
+
+        <%
+                    }
+                }
             }
         %>
     </div>

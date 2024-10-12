@@ -66,6 +66,13 @@ public class HotelsServlet extends HttpServlet {
         if (pathInfo != null && pathInfo.length() > 1) {
             String id = pathInfo.substring(1); // Извлекаем ID, удаляя "/"
             req.setAttribute("id", id); // Передаём ID в JSP
+
+//            String name = pathInfo.substring(2); // Извлекаем ID, удаляя "/"
+//            req.setAttribute("url", name); // Передаём ID в JSP
+//
+//            if (name.contains("rooms")) {
+//                resp.sendRedirect("/rooms");
+//            }
         }
 
         Hotel hotel = null;

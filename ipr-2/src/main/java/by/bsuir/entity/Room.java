@@ -8,10 +8,10 @@ public class Room {
     private Double basicPrice;
     private Double weekendPrice;
     private String imagePath;
-    private Hotel hotel;
+    private int hotelId;
 
     public Room(int id, String name, Integer capacity, Integer floor,
-                Double basicPrice, Double weekendPrice, String imagePath, Hotel hotel) {
+                Double basicPrice, Double weekendPrice, String imagePath, int hotelId) {
         this.id = id;
         this.name = name;
         this.capacity = capacity;
@@ -19,7 +19,7 @@ public class Room {
         this.basicPrice = basicPrice;
         this.weekendPrice = weekendPrice;
         this.imagePath = imagePath;
-        this.hotel = hotel;
+        this.hotelId = hotelId;
     }
 
     public Room() {}
@@ -80,12 +80,12 @@ public class Room {
         this.imagePath = imagePath;
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public int getHotelId() {
+        return hotelId;
     }
 
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class Room {
                 ", basicPrice=" + basicPrice +
                 ", weekendPrice=" + weekendPrice +
                 ", imagePath='" + imagePath +
-                ", hotel=" + hotel +
+                ", hotelId=" + hotelId +
                 '}';
     }
 }

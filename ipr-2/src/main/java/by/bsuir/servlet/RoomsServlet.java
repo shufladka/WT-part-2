@@ -3,11 +3,13 @@ package by.bsuir.servlet;
 import by.bsuir.connection.ConnectionPool;
 import by.bsuir.entity.Address;
 import by.bsuir.entity.Hotel;
+import by.bsuir.entity.Room;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
 import by.bsuir.service.AddressService;
 import by.bsuir.service.HotelService;
+import by.bsuir.service.RoomService;
 import by.bsuir.service.ServiceSingleton;
 
 import javax.servlet.ServletException;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/rooms/*"})
+@WebServlet("/rooms/*")
 public class RoomsServlet extends HttpServlet {
 
     @Override
@@ -59,6 +61,12 @@ public class RoomsServlet extends HttpServlet {
 //            req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
 //        }
 
+
+        String hotelId = req.getParameter("hotel_id");
+        if (hotelId != null) {
+            req.setAttribute("hotel_id", hotelId);
+        }
+
         // Получаем динамическую часть пути
         String pathInfo = req.getPathInfo();
 
@@ -66,6 +74,9 @@ public class RoomsServlet extends HttpServlet {
         if (pathInfo != null && pathInfo.length() > 1) {
             String id = pathInfo.substring(1); // Извлекаем ID, удаляя "/"
             req.setAttribute("id", id); // Передаём ID в JSP
+
+            System.out.println(pathInfo);
+            System.out.println(req.getRequestURI());
         }
 
         Hotel hotel = null;
@@ -76,16 +87,25 @@ public class RoomsServlet extends HttpServlet {
         List<Address> addresses = null;
         AddressService addressService = null;
 
+        Room room = null;
+        List<Room> rooms = null;
+        RoomService roomService = null;
+
         try {
             ServiceSingleton service = ServiceSingleton.getInstance();
             hotelService = service.getHotelService();
             addressService = service.getAddressService();
+            roomService = service.getRoomService();
 
             hotels = hotelService.findAll();
             addresses = addressService.findAll();
+            rooms = roomService.findAll();
+
+            System.out.println(rooms.toString());
 
             req.setAttribute("hotels", hotels);
             req.setAttribute("addresses", addresses);
+//            req.setAttribute("rooms", rooms);
 
         } catch (ServiceException | DaoException e) {
             System.out.println(e.getMessage());
@@ -102,6 +122,8 @@ public class RoomsServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
+
+
 
         resp.sendRedirect("/rooms");
     }

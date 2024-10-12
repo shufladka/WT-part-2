@@ -38,7 +38,13 @@
                             </p>
                         </div>
                         <p class="card-text mb-3"><%= addressList.get(hotel.getAddressId()).getRegion() %>,  <%= addressList.get(hotel.getAddressId()).getCity() %>, <%= addressList.get(hotel.getAddressId()).getStreet() %> <%= addressList.get(hotel.getAddressId()).getBuilding() %>, <%= addressList.get(hotel.getAddressId()).getZip() %></p>
-                        <a href="/rooms" class="btn btn-outline-primary"><fmt:message bundle="${lang}" key="lang.hotels.redirect"/></a>
+<%--                        <form method="post" action="${pageContext.request.contextPath}/rooms?hotel_id=2">--%>
+<%--                            <button class="btn btn-outline-primary">--%>
+<%--                                <fmt:message bundle="${lang}" key="lang.hotels.redirect"/>--%>
+<%--                            </button>--%>
+<%--                        </form>--%>
+
+                        <a href="/rooms?hotel_id=<%= hotel.getId() %>" class="btn btn-outline-primary"><fmt:message bundle="${lang}" key="lang.hotels.redirect"/></a>
                     </div>
                 </div>
 

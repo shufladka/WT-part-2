@@ -69,8 +69,8 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room> implements RoomDao {
     }
 
     @Override
-    public List<Room> findByHotel(Hotel hotel) throws DaoException {
-        return executeQuery(FIND_BY_ROOM, hotel.getId());
+    public List<Room> findByHotelId(int hotelId) throws DaoException {
+        return executeQuery(FIND_BY_ROOM, hotelId);
     }
 
     @Override
