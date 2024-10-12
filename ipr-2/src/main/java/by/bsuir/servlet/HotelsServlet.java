@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/hotels")
+public class HotelsServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
@@ -52,7 +52,7 @@ public class HomeServlet extends HttpServlet {
 //        }
 
         // для тестов
-        req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/hotels.jsp").forward(req, resp);
     }
 
     @Override
@@ -63,13 +63,12 @@ public class HomeServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        resp.sendRedirect("/");
+        resp.sendRedirect("/hotels");
     }
 
     @Override
     public void destroy() {
         try {
-            System.out.println("Hello from HomeServlet DESTROY");
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
             throw new RuntimeException(e);

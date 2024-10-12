@@ -20,7 +20,7 @@
 <jsp:include page="templates/nav.jsp"/>
 <div class="d-flex flex-column min-vh-100 flex-grow-1">
     <div class="wrapper flex-grow-1">
-<%--    content    --%>
+
     </div>
 
 
