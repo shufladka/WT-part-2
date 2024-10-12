@@ -13,40 +13,29 @@
 <fmt:setBundle basename="lang.lang" var="lang"/>
 <head>
   <jsp:include page="templates/head.jsp"/>
-  <title><fmt:message bundle="${lang}" key="lang.home.title"/></title>
+  <title><fmt:message bundle="${lang}" key="lang.hotels.title"/></title>
 </head>
 
 <body class="container">
 <jsp:include page="templates/nav.jsp"/>
 <div class="d-flex flex-column min-vh-100 flex-grow-1">
   <div class="wrapper flex-grow-1">
-    <jsp:include page="templates/hotel-card.jsp"/>
-    <%--<%--%>
-    <%--    Object booksObj = request.getAttribute("books");--%>
-    <%--    out.println("<tbody>");--%>
-    <%--    out.println("<tr>");--%>
-    <%--    out.println("<th>" + booksObj.toString() + "</th>");--%>
-    <%--    out.println("</tr>");--%>
-    <%--    out.println("</tbody><br>");--%>
-    <%--%>--%>
 
-    <%--<%--%>
-    <%--    Object booksObj = request.getAttribute("books");--%>
-    <%--    if (booksObj != null) {--%>
-    <%--        List<Object> books = (List<Object>)request.getAttribute("books");--%>
-    <%--        for (Object book : books) {--%>
-    <%--            try {--%>
-    <%--                out.println("<tbody>");--%>
-    <%--                out.println("<tr>");--%>
-    <%--                out.println("<th>" + book.toString() + "</th>");--%>
-    <%--                out.println("</tr>");--%>
-    <%--                out.println("</tbody><br>");--%>
-    <%--            } catch (Exception exc) {--%>
-    <%--                request.getRequestDispatcher("/error.jsp").forward(request,response);--%>
-    <%--            }--%>
-    <%--        }--%>
-    <%--    }--%>
-    <%--%>--%>
+      <%
+          Object hotelsReq = request.getAttribute("hotels");
+          Object addressesReq = request.getAttribute("addresses");
+
+          if (hotelsReq != null && addressesReq != null) {
+              List<Object> hotelsObjects = (List<Object>) request.getAttribute("hotels");
+              List<Object> addressesObjects = (List<Object>) request.getAttribute("addresses");
+
+              request.setAttribute("hotels", hotelsObjects);
+              request.setAttribute("addresses", addressesObjects);
+      %>
+      <jsp:include page="templates/hotel-card.jsp" />
+      <%
+          }
+      %>
   </div>
   <jsp:include page="templates/footer.jsp"/>
 </div>

@@ -32,7 +32,7 @@ create table if not exists hotels (
     id int primary key,    -- идентификатор отеля
     name varchar not null,                -- название отеля
     description varchar not null,         -- описание отеля
-    adderess_id int constraint fk_addresses references addresses(id),  -- ключ соответствующей колонки в таблице адресов
+    address_id int constraint fk_addresses references addresses(id),  -- ключ соответствующей колонки в таблице адресов
     level varchar not null,               -- уровень заведения
     available_to_book boolean not null,   -- доступен для бронирования
     image_path varchar                    -- ссылка на изображение отеля
@@ -64,7 +64,7 @@ insert into people (id, username, password, first_name, last_name, birth_date, e
            values (0, 'user1', '', 'Вася', 'Пупкин', '01.01.2001', 'vasya@pup.kin', 1);
 
 -- [4] заполнение таблицы отелей
-insert into hotels (id, name, description, adderess_id, level, available_to_book, image_path)
+insert into hotels (id, name, description, address_id, level, available_to_book, image_path)
            values (0, 'Алеся', 'Самый крутой отель', 0, 5, true, '');
 
 -- [5] заполнение таблицы комнат
@@ -76,3 +76,6 @@ select * from rooms where basic_price>=10.00 and basic_price<=160 or weekend_pri
 select max(id) from people;
 
 select * from people where id = (select max(id) from people);
+
+drop table if exists rooms;
+drop table if exists hotels;
