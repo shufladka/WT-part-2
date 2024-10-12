@@ -19,8 +19,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/hotels/*")
-public class HotelsServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/rooms/*"})
+public class RoomsServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
@@ -92,7 +92,7 @@ public class HotelsServlet extends HttpServlet {
         }
 
         // для тестов
-        req.getRequestDispatcher("/WEB-INF/hotels.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/rooms.jsp").forward(req, resp);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class HotelsServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        resp.sendRedirect("/hotels");
+        resp.sendRedirect("/rooms");
     }
 
     @Override

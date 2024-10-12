@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/home.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF" />
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/hotels.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF" />
         <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/view/templates/headLinks.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/view/templates" />
       </map>
     </option>

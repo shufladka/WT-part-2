@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
+<%@ page import="by.bsuir.entity.Address" %>
+<%@ page import="by.bsuir.entity.Hotel" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -24,16 +26,43 @@
       <%
           Object hotelsReq = request.getAttribute("hotels");
           Object addressesReq = request.getAttribute("addresses");
+          Object idReq = request.getAttribute("id");
 
           if (hotelsReq != null && addressesReq != null) {
-              List<Object> hotelsObjects = (List<Object>) request.getAttribute("hotels");
-              List<Object> addressesObjects = (List<Object>) request.getAttribute("addresses");
+              List<Hotel> hotelList = (List<Hotel>) hotelsReq;
+              String id = (String) idReq;
 
-              request.setAttribute("hotels", hotelsObjects);
-              request.setAttribute("addresses", addressesObjects);
+              request.setAttribute("addresses", addressesReq);
+
+              if (id == null) {
+                for (Hotel hotel : hotelList) {
+                    request.setAttribute("hotel", hotel);
       %>
+
       <jsp:include page="templates/hotel-card.jsp" />
+
       <%
+                  }
+              } else {
+                  try {
+                      request.setAttribute("hotel", hotelList.get(Integer.parseInt(id)));
+      %>
+
+      <jsp:include page="templates/hotel-card.jsp" />
+
+      <%
+          }
+                  catch (Exception e)
+          {
+      %>
+
+      <div class="col mx-4">
+          <p>No hotels available.</p>
+      </div>
+
+      <%
+              }
+            }
           }
       %>
   </div>

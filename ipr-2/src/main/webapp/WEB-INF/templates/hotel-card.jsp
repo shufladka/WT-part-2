@@ -16,10 +16,9 @@
 
 <%
     List<Address> addressList = (List<Address>) request.getAttribute("addresses");
-    List<Hotel> hotelList = (List<Hotel>) request.getAttribute("hotels");
+    Hotel hotel = (Hotel) request.getAttribute("hotel");
 
-    if (hotelList != null) {
-        for (Hotel hotel : hotelList) {
+    if (hotel != null && addressList != null) {
 %>
 
 <div class="col mx-4">
@@ -39,7 +38,7 @@
                             </p>
                         </div>
                         <p class="card-text mb-3"><%= addressList.get(hotel.getAddressId()).getRegion() %>,  <%= addressList.get(hotel.getAddressId()).getCity() %>, <%= addressList.get(hotel.getAddressId()).getStreet() %> <%= addressList.get(hotel.getAddressId()).getBuilding() %>, <%= addressList.get(hotel.getAddressId()).getZip() %></p>
-                        <a href="#" class="btn btn-outline-primary"><fmt:message bundle="${lang}" key="lang.hotels.redirect"/></a>
+                        <a href="/rooms" class="btn btn-outline-primary"><fmt:message bundle="${lang}" key="lang.hotels.redirect"/></a>
                     </div>
                 </div>
 
@@ -60,10 +59,8 @@
         </div>
     </div>
 </div>
-
 <%
-    }
-} else {
+    } else {
 %>
 <div class="col mx-4">
     <p>No hotels available.</p>
@@ -71,5 +68,3 @@
 <%
     }
 %>
-
-
