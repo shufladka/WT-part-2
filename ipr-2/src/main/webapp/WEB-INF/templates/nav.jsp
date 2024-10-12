@@ -24,7 +24,6 @@
     </div>
   </div>
   <div class="d-grid gap-2 d-md-flex navbar-brand">
-    <a class="btn btn-outline-success" href="login"><fmt:message bundle="${lang}" key="lang.nav.login"/></a>
-    <a class="btn btn-outline-primary" href="registration"><fmt:message bundle="${lang}" key="lang.nav.signup"/></a>
+    <a class="btn btn-outline-danger" href="logout"><fmt:message bundle="${lang}" key="lang.nav.logout"/></a>
   </div>
 </nav>

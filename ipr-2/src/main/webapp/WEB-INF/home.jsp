@@ -5,20 +5,23 @@
   Time: 0:32
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="lang.lang" var="lang"/>
 <head>
     <jsp:include page="templates/head.jsp"/>
-    <title>Главная</title>
+    <title><fmt:message bundle="${lang}" key="lang.home.title"/></title>
 </head>
 
 <body class="container">
 <jsp:include page="templates/nav.jsp"/>
-
-<p><a href="?lang=en">Switch to English</a></p>
-<p><a href="?lang=ru">Переключиться на русский</a></p>
+<div class="d-flex flex-column min-vh-100 flex-grow-1">
+    <div class="wrapper flex-grow-1">
+<%--    content    --%>
+    </div>
 
 
 <%--<%--%>
@@ -49,5 +52,6 @@
 <%--%>--%>
 
 <jsp:include page="templates/footer.jsp"/>
+</div>
 </body>
 </html>
