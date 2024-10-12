@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b0bf3cfc-a2de-4b64-8772-4b3477788151/console.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/ipr-2/src/main/java/by/bsuir/database/tables.sql" dialect="PostgreSQL" />
+  </component>
+</project>

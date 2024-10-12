@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'by.bsuir'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.23.1'
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    implementation group: 'jstl', name: 'jstl', version: '1.2'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+}
+
+test {
+    useJUnitPlatform()
+}
