@@ -62,7 +62,7 @@ public class HotelDaoImpl extends AbstractDaoImpl<Hotel> implements HotelDao {
 
     @Override
     public List<Hotel> findByAvailable(boolean flag) throws DaoException {
-        return executeQuery(FIND_BY_ROOM, flag);
+        return executeQuery(FIND_BY_AVAILABLE, flag);
     }
 
     @Override

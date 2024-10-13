@@ -44,4 +44,12 @@ public final class Attributes {
     // public static final String IMAGE_PATH = "image_path";
     public static final String HOTEL_ID = "hotel_id";
     public static final String IS_AVAILABLE = "is_available";
+
+    // Таблица 'orders'
+    public static final String PERSON_ID = "person_id";
+    public static final String ROOM_ID = "room_id";
+    public static final String CREATED_AT = "created_at";
+    public static final String UPDATED_AT = "updated_at";
+    public static final String CLOSED_AT = "closed_at";
+    public static final String STATUS = "status";
 }

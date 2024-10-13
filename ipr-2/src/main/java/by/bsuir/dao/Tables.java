@@ -6,4 +6,5 @@ public class Tables {
     public static final String PEOPLE = "people";
     public static final String HOTELS = "hotels";
     public static final String ROOMS = "rooms";
+    public static final String ORDERS = "orders";
 }

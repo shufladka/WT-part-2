@@ -10,6 +10,7 @@ public class RecordMapperSingleton {
     private final RecordMapper<Person> personRecordMapper = new PersonRecordMapperImpl();
     private final RecordMapper<Role> roleRecordMapper = new RoleRecordMapperImpl();
     private final RecordMapper<Room> roomRecordMapper = new RoomRecordMapperImpl();
+    private final RecordMapper<Order> orderRecordMapper = new OrderRecordMapperImpl();
 
     public static RecordMapperSingleton getInstance()
     {
@@ -42,5 +43,9 @@ public class RecordMapperSingleton {
 
     public RecordMapper<Room> getRoomRecordMapper() {
         return roomRecordMapper;
+    }
+
+    public RecordMapper<Order> getOrderRecordMapper() {
+        return orderRecordMapper;
     }
 }

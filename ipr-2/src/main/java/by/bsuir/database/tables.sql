@@ -51,6 +51,17 @@ create table if not exists rooms (
     hotel_id int constraint fk_hotels references hotels(id)  -- ключ соответствующей колонки в таблице отелей
 );
 
+-- [6] таблица для хранения данных о заказах
+create table if not exists orders (
+    id int primary key,                                          -- идентификатор заказа
+    person_id int constraint fk_people references people(id),    -- ключ соответствующей колонки в таблице пользователей
+    room_id int constraint fk_rooms references rooms(id),        -- ключ соответствующей колонки в таблице номеров
+    created_at date not null,                                    -- дата создания заказа
+    updated_at date,                                             -- дата обновления заказа
+    closed_at date,                                              -- дата закрытия заказа
+    status varchar not null                                      -- статус заказа
+);
+
 -- [1] заполнение таблицы адресов
 insert into addresses (id, region, city, street, building, zip)
             values (0, 'Минская область','Солигорск', 'улица Ленина', '38', '223710'),

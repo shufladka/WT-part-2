@@ -11,6 +11,7 @@ public class DaoSingleton {
     private final PersonDao personDao = new PersonDaoImpl();
     private final RoleDao roleDao = new RoleDaoImpl();
     private final RoomDao roomDao = new RoomDaoImpl();
+    private final OrderDao orderDao = new OrderDaoImpl();
 
     public AddressDao getAddressDao() {
         return addressDao;
@@ -30,6 +31,10 @@ public class DaoSingleton {
 
     public RoomDao getRoomDao() {
         return roomDao;
+    }
+
+    public OrderDao getOrderDao() {
+        return orderDao;
     }
 
     public static DaoSingleton getInstance()
