@@ -1,7 +1,5 @@
 package by.bsuir.entity;
 
-import java.util.List;
-
 public class Hotel {
     private int id;
     private String name;

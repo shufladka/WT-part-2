@@ -25,7 +25,6 @@ public class HotelDaoImpl extends AbstractDaoImpl<Hotel> implements HotelDao {
     private static final String UPDATE =  "update " + Tables.HOTELS +
             " set name=?, description=?, adderess_id=?, level=?, available_to_book=?, image_path=? where id=?";
 
-
     public HotelDaoImpl() {
         super(RecordMapperSingleton.getInstance().getHotelRecordMapper(), Tables.HOTELS);
     }

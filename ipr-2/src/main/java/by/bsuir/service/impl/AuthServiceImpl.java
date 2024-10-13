@@ -46,7 +46,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Person login(String username, String password) throws DaoException {
-        System.out.println(password);
         Person person = personDao.findByUsername(username);
         if (person != null) {
             if (verifyPassword(password, person.getPassword())) {

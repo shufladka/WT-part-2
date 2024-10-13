@@ -19,7 +19,7 @@ public class RoomRecordMapperImpl implements RecordMapper<Room> {
         room.setFloor(resultSet.getInt(Attributes.FLOOR));
         room.setBasicPrice(resultSet.getDouble(Attributes.BASIC_PRICE));
         room.setWeekendPrice(resultSet.getDouble(Attributes.WEEKEND_PRICE));
-        room.setHotel(resultSet.getObject(Attributes.HOTEL_ID, Hotel.class));
+        room.setHotelId(resultSet.getInt(Attributes.HOTEL_ID));
         return room;
     }
 }

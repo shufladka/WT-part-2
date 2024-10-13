@@ -12,7 +12,6 @@
 <fmt:setBundle basename="lang.lang" var="lang"/>
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
   <div class="container-fluid">
-
     <a class="navbar-brand" href="/">
       <img src="https://i.imgur.com/KlMVi1H.png" alt="brand" width="30" height="30" class="d-inline-block align-text-top">
       <span class="navbar-brand mb-0 h1 fs-5">Bookin</span>
@@ -20,11 +19,12 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav fs-5">
         <a class="nav-link" href="/"><fmt:message bundle="${lang}" key="lang.nav.home"/></a>
+        <a class="nav-link" href="/hotels"><fmt:message bundle="${lang}" key="lang.nav.hotels"/></a>
+        <a class="nav-link" href="/rooms"><fmt:message bundle="${lang}" key="lang.nav.rooms"/></a>
       </div>
     </div>
   </div>
   <div class="d-grid gap-2 d-md-flex navbar-brand">
-    <a class="btn btn-outline-success" href="login"><fmt:message bundle="${lang}" key="lang.nav.login"/></a>
-    <a class="btn btn-outline-primary" href="registration"><fmt:message bundle="${lang}" key="lang.nav.signup"/></a>
+    <a class="btn btn-outline-danger" href="logout"><fmt:message bundle="${lang}" key="lang.nav.logout"/></a>
   </div>
 </nav>

@@ -8,25 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/intro")
+public class IntroServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+
         try {
             ConnectionPool.getInstance().initialize();
         } catch (ConnectionException e) {
             throw new RuntimeException(e);
         }
         super.init();
-    }
-
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.service(req, resp);
     }
 
     @Override
@@ -43,16 +38,7 @@ public class HomeServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
-        HttpSession session = req.getSession();
-
-//        if (session.getAttribute("userinfo") == null) {
-//            resp.sendRedirect("/intro");
-//        } else {
-//            req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
-//        }
-
-        // для тестов
-        req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/intro.jsp").forward(req,resp);
     }
 
     @Override
@@ -69,7 +55,6 @@ public class HomeServlet extends HttpServlet {
     @Override
     public void destroy() {
         try {
-            System.out.println("Hello from HomeServlet DESTROY");
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
             throw new RuntimeException(e);

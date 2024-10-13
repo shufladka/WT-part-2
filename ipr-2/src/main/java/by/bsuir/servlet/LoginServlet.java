@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Objects;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -55,6 +56,7 @@ public class LoginServlet extends HttpServlet {
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String rememberMe = req.getParameter("remember_me");
 
         Person person = null;
 
@@ -69,6 +71,18 @@ public class LoginServlet extends HttpServlet {
             );
 
             HttpSession session = req.getSession();
+
+            if (Objects.equals(rememberMe, "on")) {
+
+                // Сессия удаляется, если страница не открывалась один час (по умолчанию 1800 секунд)
+                session.setMaxInactiveInterval(3600);
+
+            } else {
+
+                // Сессия удаляется после закрытия вкладки (по умолчанию 1800 секунд)
+                session.setMaxInactiveInterval(-1);
+            }
+
             session.setAttribute("userinfo", hash);
 
         } catch (ServiceException | DaoException e) {

@@ -17,7 +17,7 @@ public interface RoomDao extends Dao<Room> {
     List<Room> findByPrice(Double min, Double max) throws DaoException;
     List<Room> findByBasicPrice(Double min, Double max) throws DaoException;
     List<Room> findByWeekendPrice(Double min, Double max) throws DaoException;
-    List<Room> findByHotel(Hotel hotel) throws DaoException;
+    List<Room> findByHotelId(int hotelId) throws DaoException;
     void update(Room room) throws DaoException;
     void delete(int id) throws DaoException;
 }

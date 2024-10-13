@@ -1,7 +1,14 @@
 package by.bsuir.servlet;
 
 import by.bsuir.connection.ConnectionPool;
+import by.bsuir.entity.Address;
+import by.bsuir.entity.Hotel;
 import by.bsuir.exceptions.ConnectionException;
+import by.bsuir.exceptions.DaoException;
+import by.bsuir.exceptions.ServiceException;
+import by.bsuir.service.AddressService;
+import by.bsuir.service.HotelService;
+import by.bsuir.service.ServiceSingleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,9 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/hotels/*")
+public class HotelsServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
@@ -51,8 +59,37 @@ public class HomeServlet extends HttpServlet {
 //            req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
 //        }
 
+        String pathInfo = req.getPathInfo();
+        if (pathInfo != null && !pathInfo.equals("/")) {
+            String id = pathInfo.substring(1);
+            req.setAttribute("id", id);
+        }
+
+        Hotel hotel = null;
+        List<Hotel> hotels = null;
+        HotelService hotelService = null;
+
+        Address address = null;
+        List<Address> addresses = null;
+        AddressService addressService = null;
+
+        try {
+            ServiceSingleton service = ServiceSingleton.getInstance();
+            hotelService = service.getHotelService();
+            addressService = service.getAddressService();
+
+            hotels = hotelService.findAll();
+            addresses = addressService.findAll();
+
+            req.setAttribute("hotels", hotels);
+            req.setAttribute("addresses", addresses);
+
+        } catch (ServiceException | DaoException e) {
+            System.out.println(e.getMessage());
+        }
+
         // для тестов
-        req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/hotels.jsp").forward(req, resp);
     }
 
     @Override
@@ -63,13 +100,14 @@ public class HomeServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        resp.sendRedirect("/");
+        String id = req.getParameter("hotel_id");
+
+        resp.sendRedirect("/hotels/" + id);
     }
 
     @Override
     public void destroy() {
         try {
-            System.out.println("Hello from HomeServlet DESTROY");
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
             throw new RuntimeException(e);
