@@ -43,8 +43,8 @@ public class HomeServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
-        // для тестов
-        req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
+        resp.sendRedirect("/hotels");
+        //req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class HomeServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        resp.sendRedirect("/");
+        resp.sendRedirect("/hotels");
     }
 
     @Override

@@ -10,6 +10,7 @@ public class ServiceSingleton {
     private final AddressService addressService = new AddressServiceImpl();
     private final RoomService roomService = new RoomServiceImpl();
     private final RoleService roleService = new RoleServiceImpl();
+    private final PersonService personService = new PersonServiceImpl();
 
     public AuthService getAuthService() {
         return authService;
@@ -28,7 +29,11 @@ public class ServiceSingleton {
     }
 
     public RoleService getRoleService() {
-        return new RoleServiceImpl();
+        return roleService;
+    }
+
+    public PersonService getPersonService() {
+        return personService;
     }
 
     public static ServiceSingleton getInstance()

@@ -3,11 +3,13 @@ package by.bsuir.servlet;
 import by.bsuir.connection.ConnectionPool;
 import by.bsuir.entity.Address;
 import by.bsuir.entity.Hotel;
+import by.bsuir.entity.Person;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
 import by.bsuir.service.AddressService;
 import by.bsuir.service.HotelService;
+import by.bsuir.service.PersonService;
 import by.bsuir.service.ServiceSingleton;
 
 import javax.servlet.ServletException;
@@ -56,31 +58,22 @@ public class ProfilesServlet extends HttpServlet {
             req.setAttribute("id", id);
         }
 
-        Hotel hotel = null;
-        List<Hotel> hotels = null;
-        HotelService hotelService = null;
-
-        Address address = null;
-        List<Address> addresses = null;
-        AddressService addressService = null;
+        Person person = null;
+        List<Person> people = null;
+        PersonService personService = null;
 
         try {
             ServiceSingleton service = ServiceSingleton.getInstance();
-            hotelService = service.getHotelService();
-            addressService = service.getAddressService();
+            personService = service.getPersonService();
+            people = personService.findAll();
 
-            hotels = hotelService.findAll();
-            addresses = addressService.findAll();
-
-            req.setAttribute("hotels", hotels);
-            req.setAttribute("addresses", addresses);
+            req.setAttribute("people", people);
 
         } catch (ServiceException | DaoException e) {
             System.out.println(e.getMessage());
         }
 
-        // для тестов
-        req.getRequestDispatcher("/WEB-INF/hotels.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/profiles.jsp").forward(req, resp);
     }
 
     @Override

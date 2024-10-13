@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/profiles/*"})
+@WebFilter(urlPatterns = {"/profiles1/*"})
 public class AdminFilter implements Filter {
 
     @Override
