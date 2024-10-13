@@ -62,7 +62,12 @@
               <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.rooms.basic_price"/> <%= room.getBasicPrice().intValue() %> BYN</p>
               <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.rooms.weekend_price"/> <%= room.getWeekendPrice().intValue() %> BYN</p>
               <p class="card-text mb-3"><fmt:message bundle="${lang}" key="lang.hotels.name"/> "<%= currentHotel.getName() %>" (<%= currentAddress.getCity() %>, <%= currentAddress.getStreet() %>, <%= currentAddress.getBuilding() %>, <%= room.getFloor() %> <fmt:message bundle="${lang}" key="lang.rooms.floor"/>)</p>
-            <a href="#" class="btn btn-outline-primary"><fmt:message bundle="${lang}" key="lang.hotels.redirect"/></a>
+
+              <%
+                  request.setAttribute("chosen_room_id", String.valueOf(room.getId()));
+              %>
+              <jsp:include page="order-modal.jsp" />
+
           </div>
         </div>
 
