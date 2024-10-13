@@ -43,14 +43,6 @@ public class HomeServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
-        HttpSession session = req.getSession();
-
-//        if (session.getAttribute("userinfo") == null) {
-//            resp.sendRedirect("/intro");
-//        } else {
-//            req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
-//        }
-
         // для тестов
         req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
     }

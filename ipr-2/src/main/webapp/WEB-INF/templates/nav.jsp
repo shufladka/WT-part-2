@@ -25,6 +25,21 @@
     </div>
   </div>
   <div class="d-grid gap-2 d-md-flex navbar-brand">
+    <%
+        if (session.getAttribute("userinfo") != null) {
+    %>
+    <a class="btn btn-outline-primary" href="profile"><fmt:message bundle="${lang}" key="lang.nav.profile"/></a>
     <a class="btn btn-outline-danger" href="logout"><fmt:message bundle="${lang}" key="lang.nav.logout"/></a>
+    <%
+        } else {
+    %>
+    <a class="btn btn-outline-success" href="login"><fmt:message bundle="${lang}" key="lang.intro.login"/></a>
+    <a class="btn btn-outline-primary" href="registration"><fmt:message bundle="${lang}" key="lang.intro.signup"/></a>
+    <%
+        }
+    %>
+<%--    <a class="m-2 btn btn-outline-success" href="login"><fmt:message bundle="${lang}" key="lang.intro.login"/></a>--%>
+<%--    <a class="m-2 btn btn-outline-primary" href="registration"><fmt:message bundle="${lang}" key="lang.intro.signup"/></a>--%>
+<%--    <a class="btn btn-outline-danger" href="logout"><fmt:message bundle="${lang}" key="lang.nav.logout"/></a>--%>
   </div>
 </nav>

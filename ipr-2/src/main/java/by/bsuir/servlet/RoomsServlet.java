@@ -53,25 +53,7 @@ public class RoomsServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
-        HttpSession session = req.getSession();
-
-//        if (session.getAttribute("userinfo") == null) {
-//            resp.sendRedirect("/intro");
-//        } else {
-//            req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
-//        }
-
-//        String pathInfo = req.getPathInfo(); // Это даст что-то вроде "/{id}/rooms"
-//
-//        if (pathInfo != null && !pathInfo.equals("/")) {
-//            String id = pathInfo.substring(1); // Извлекаем ID (или другую информацию)
-//            req.setAttribute("id", id);
-//            System.out.println(id);
-//        }
-
-
         String hotelId = req.getParameter("hotel_id");
-
         Hotel hotel = null;
         List<Hotel> hotels = null;
         HotelService hotelService = null;

@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         // Устанавливаем кодировку для ответа
         resp.setContentType("text/html; charset=UTF-8");
@@ -85,8 +85,8 @@ public class LoginServlet extends HttpServlet {
 
             session.setAttribute("userinfo", hash);
 
-        } catch (ServiceException | DaoException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            req.getRequestDispatcher("WEB-INF/login.jsp").forward(req,resp);
         }
 
         if (person != null) {

@@ -51,14 +51,6 @@ public class HotelsServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
-        HttpSession session = req.getSession();
-
-//        if (session.getAttribute("userinfo") == null) {
-//            resp.sendRedirect("/intro");
-//        } else {
-//            req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
-//        }
-
         String pathInfo = req.getPathInfo();
         if (pathInfo != null && !pathInfo.equals("/")) {
             String id = pathInfo.substring(1);
