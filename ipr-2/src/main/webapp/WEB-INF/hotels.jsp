@@ -20,52 +20,60 @@
 <body class="container">
 <jsp:include page="templates/nav.jsp"/>
 <div class="d-flex flex-column min-vh-100 flex-grow-1">
-  <div class="wrapper flex-grow-1">
+    <div class="wrapper flex-grow-1">
 
-      <%
-          Object hotelsReq = request.getAttribute("hotels");
-          Object addressesReq = request.getAttribute("addresses");
-          Object idReq = request.getAttribute("id");
+        <%
+            List<Hotel> hotelList = (List<Hotel>) request.getAttribute("hotels");
+            Object addressesReq = request.getAttribute("addresses");
+            String id = (String) request.getAttribute("id");
 
-          if (hotelsReq != null && addressesReq != null) {
-              List<Hotel> hotelList = (List<Hotel>) hotelsReq;
-              String id = (String) idReq;
+            if (hotelList != null && addressesReq != null) {
+                if (id == null) {
+                    for (Hotel hotel : hotelList) {
+                        request.setAttribute("hotel", hotel);
+        %>
 
-              request.setAttribute("addresses", addressesReq);
+        <jsp:include page="templates/hotel-card.jsp" />
 
-              if (id == null) {
-                for (Hotel hotel : hotelList) {
-                    request.setAttribute("hotel", hotel);
-      %>
-
-      <jsp:include page="templates/hotel-card.jsp" />
-
-      <%
-                  }
-              } else {
-                  try {
-                      request.setAttribute("hotel", hotelList.get(Integer.parseInt(id)));
-      %>
-
-      <jsp:include page="templates/hotel-card.jsp" />
-
-      <%
-          }
-                  catch (Exception e)
-          {
-      %>
-
-      <div class="col mx-4">
-          <p>No hotels available.</p>
-      </div>
-
-      <%
-              }
+        <%
             }
-          }
-      %>
-  </div>
-  <jsp:include page="templates/footer.jsp"/>
+        } else {
+            try {
+                int index = Integer.parseInt(id);
+                for (Hotel hotel : hotelList) {
+                    if (hotel.getId() == index) {
+                        request.setAttribute("hotel", hotel);
+                    }
+                }
+        %>
+
+        <jsp:include page="templates/hotel-card.jsp" />
+
+        <%
+        } catch (NumberFormatException e) {
+        %>
+        <div class="col mx-4">
+            <p>Invalid hotel ID format.</p>
+        </div>
+        <%
+        } catch (IndexOutOfBoundsException e) {
+        %>
+        <div class="col mx-4">
+            <p>No hotels available.</p>
+        </div>
+        <%
+                }
+            }
+        } else {
+        %>
+        <div class="col mx-4">
+            <p>No hotels available.</p>
+        </div>
+        <%
+            }
+        %>
+    </div>
+    <jsp:include page="templates/footer.jsp"/>
 </div>
 </body>
 </html>

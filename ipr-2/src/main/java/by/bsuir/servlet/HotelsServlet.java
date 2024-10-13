@@ -59,20 +59,10 @@ public class HotelsServlet extends HttpServlet {
 //            req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
 //        }
 
-        // Получаем динамическую часть пути
         String pathInfo = req.getPathInfo();
-
-        // Проверяем, если путь не пуст
-        if (pathInfo != null && pathInfo.length() > 1) {
-            String id = pathInfo.substring(1); // Извлекаем ID, удаляя "/"
-            req.setAttribute("id", id); // Передаём ID в JSP
-
-//            String name = pathInfo.substring(2); // Извлекаем ID, удаляя "/"
-//            req.setAttribute("url", name); // Передаём ID в JSP
-//
-//            if (name.contains("rooms")) {
-//                resp.sendRedirect("/rooms");
-//            }
+        if (pathInfo != null && !pathInfo.equals("/")) {
+            String id = pathInfo.substring(1);
+            req.setAttribute("id", id);
         }
 
         Hotel hotel = null;
@@ -110,7 +100,9 @@ public class HotelsServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        resp.sendRedirect("/hotels");
+        String id = req.getParameter("hotel_id");
+
+        resp.sendRedirect("/hotels/" + id);
     }
 
     @Override

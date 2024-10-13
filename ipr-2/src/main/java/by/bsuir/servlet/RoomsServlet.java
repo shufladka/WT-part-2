@@ -61,23 +61,16 @@ public class RoomsServlet extends HttpServlet {
 //            req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
 //        }
 
+//        String pathInfo = req.getPathInfo(); // Это даст что-то вроде "/{id}/rooms"
+//
+//        if (pathInfo != null && !pathInfo.equals("/")) {
+//            String id = pathInfo.substring(1); // Извлекаем ID (или другую информацию)
+//            req.setAttribute("id", id);
+//            System.out.println(id);
+//        }
 
+        System.out.println(req.getParameter("hotel_id"));
         String hotelId = req.getParameter("hotel_id");
-        if (hotelId != null) {
-            req.setAttribute("hotel_id", hotelId);
-        }
-
-        // Получаем динамическую часть пути
-        String pathInfo = req.getPathInfo();
-
-        // Проверяем, если путь не пуст
-        if (pathInfo != null && pathInfo.length() > 1) {
-            String id = pathInfo.substring(1); // Извлекаем ID, удаляя "/"
-            req.setAttribute("id", id); // Передаём ID в JSP
-
-            System.out.println(pathInfo);
-            System.out.println(req.getRequestURI());
-        }
 
         Hotel hotel = null;
         List<Hotel> hotels = null;
@@ -101,11 +94,10 @@ public class RoomsServlet extends HttpServlet {
             addresses = addressService.findAll();
             rooms = roomService.findAll();
 
-            System.out.println(rooms.toString());
-
             req.setAttribute("hotels", hotels);
             req.setAttribute("addresses", addresses);
-//            req.setAttribute("rooms", rooms);
+            req.setAttribute("rooms", rooms);
+            req.setAttribute("hotel_id", hotelId);
 
         } catch (ServiceException | DaoException e) {
             System.out.println(e.getMessage());
@@ -116,15 +108,15 @@ public class RoomsServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         // Устанавливаем кодировку для ответа
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-
-
+//        String id = req.getParameter("hotel_id");
+//        resp.sendRedirect("/rooms/" + req.getParameter("hotel_id"));
         resp.sendRedirect("/rooms");
     }
 

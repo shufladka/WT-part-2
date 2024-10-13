@@ -7,8 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="by.bsuir.entity.Address" %>
-<%@ page import="by.bsuir.entity.Hotel" %>
 <%@ page import="by.bsuir.entity.Room" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -25,53 +23,46 @@
     <div class="wrapper flex-grow-1">
 
         <%
-            Object hotelsReq = request.getAttribute("hotels");
-//            Object roomsReq = request.getAttribute("rooms");
-            Object addressesReq = request.getAttribute("addresses");
-            Object idReq = request.getAttribute("id");
-            Object hotelIdReq = request.getAttribute("hotel_id");
+            List<Room> roomList = (List<Room>) request.getAttribute("rooms");
+            String hotelId = (String) request.getAttribute("hotel_id");
 
-            if (hotelsReq != null && addressesReq != null) {
-//                List<Room> roomList = (List<Room>) roomsReq;
-                List<Hotel> hotelList = (List<Hotel>) hotelsReq;
-                String id = (String) idReq;
+            if (roomList != null && !roomList.isEmpty()) {
+                if (hotelId != null) {
+                    int hotelIdValue = Integer.parseInt(hotelId);
+                    boolean hasRooms = false;
 
-                if (hotelIdReq != null) {
-                    System.out.println(hotelIdReq);
-                }
-
-                request.setAttribute("addresses", addressesReq);
-//                request.setAttribute("rooms", roomsReq);
-
-                if (id == null) {
-                    for (Hotel hotel : hotelList) {
-                        request.setAttribute("hotel", hotel);
+                    for (Room room : roomList) {
+                        if (room.getHotelId() == hotelIdValue) {
+                            request.setAttribute("room", room);
+                            hasRooms = true;
         %>
-
         <jsp:include page="templates/room-card.jsp" />
+        <%
+                }
+            }
 
+            if (!hasRooms) {
+        %>
+        <div class="col mx-4">
+            <p>No rooms available for this hotel.</p>
+        </div>
         <%
             }
+
         } else {
-            try {
-                request.setAttribute("hotel", hotelList.get(Integer.parseInt(id)));
+            for (Room room : roomList) {
+                request.setAttribute("room", room);
         %>
-
         <jsp:include page="templates/room-card.jsp" />
-
         <%
-        }
-        catch (Exception e)
-        {
+                }
+            }
+        } else {
         %>
-
         <div class="col mx-4">
             <p>No rooms available.</p>
         </div>
-
         <%
-                    }
-                }
             }
         %>
     </div>

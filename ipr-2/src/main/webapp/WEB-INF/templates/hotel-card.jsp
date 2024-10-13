@@ -17,10 +17,14 @@
 <%
     List<Address> addressList = (List<Address>) request.getAttribute("addresses");
     Hotel hotel = (Hotel) request.getAttribute("hotel");
+    String hotelId = (String) request.getAttribute("hotel_id");
+    String roomId = (String) request.getAttribute("room_id");
 
     if (hotel != null && addressList != null) {
 %>
 
+<%--hotel <%= hotelId %>--%>
+<%--room <%= roomId %>--%>
 <div class="col mx-4">
     <div class="row mb-4">
         <div class="card p-0">
@@ -38,8 +42,10 @@
                             </p>
                         </div>
                         <p class="card-text mb-3"><%= addressList.get(hotel.getAddressId()).getRegion() %>,  <%= addressList.get(hotel.getAddressId()).getCity() %>, <%= addressList.get(hotel.getAddressId()).getStreet() %> <%= addressList.get(hotel.getAddressId()).getBuilding() %>, <%= addressList.get(hotel.getAddressId()).getZip() %></p>
-<%--                        <form method="post" action="${pageContext.request.contextPath}/rooms?hotel_id=2">--%>
-<%--                            <button class="btn btn-outline-primary">--%>
+
+                        <%--<form method="post" action="/rooms">--%>
+<%--                            <input type="hidden" name="hotel_id" value="<%= hotel.getId() %>">--%>
+<%--                            <button type="submit" class="btn btn-outline-primary">--%>
 <%--                                <fmt:message bundle="${lang}" key="lang.hotels.redirect"/>--%>
 <%--                            </button>--%>
 <%--                        </form>--%>
@@ -52,11 +58,11 @@
                     <%
                         if (!hotel.getImagePath().equals("")) {
                     %>
-                    <img src="<%= hotel.getImagePath() %>" width="200" height="200" class="img-fluid rounded-start" alt="...">
+                    <img src="<%= hotel.getImagePath() %>" width="250" height="250" class="img-fluid rounded-start" alt="...">
                     <%
                     } else {
                     %>
-                    <img src="https://via.placeholder.com/200" width="200" height="200" class="img-fluid rounded-start" alt="...">
+                    <img src="https://via.placeholder.com/250" width="250" height="250" class="img-fluid rounded-start" alt="...">
                     <%
                         }
                     %>
