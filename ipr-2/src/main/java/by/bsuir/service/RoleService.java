@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface RoleService {
     List<Role> findAll() throws ServiceException, DaoException;
+    int findAdminRoleId() throws ServiceException, DaoException;
 }

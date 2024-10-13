@@ -18,4 +18,9 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findAll() throws ServiceException, DaoException {
         return roleDao.findAll();
     }
+
+    @Override
+    public int findAdminRoleId() throws DaoException {
+        return roleDao.findByName("ADMIN").getId();
+    }
 }

@@ -1,9 +1,7 @@
 package by.bsuir.filter;
 
 import by.bsuir.entity.Person;
-import by.bsuir.entity.Role;
 import by.bsuir.service.AuthService;
-import by.bsuir.service.RoleService;
 import by.bsuir.service.ServiceSingleton;
 
 import javax.servlet.*;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebFilter(urlPatterns = {"/profiles/*"})
 public class AdminFilter implements Filter {
@@ -35,20 +32,9 @@ public class AdminFilter implements Filter {
             try {
                 ServiceSingleton service = ServiceSingleton.getInstance();
                 AuthService authService = service.getAuthService();
-                RoleService roleService = service.getRoleService();
-                List<Role> roles = roleService.findAll();
                 Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
 
-                boolean isExistsAdmin = false;
-                int adminRoleId = -1;
-                for (Role role : roles) {
-                    if (role.getName().equals("ADMIN")) {
-                        isExistsAdmin = true;
-                        adminRoleId = role.getId();
-                    }
-                }
-
-                if (!isExistsAdmin || (person.getRoleId() != adminRoleId)) {
+                if (!authService.isAdmin(person)) {
                     httpResponse.sendRedirect(httpRequest.getContextPath() + "/denied");
                 } else {
                     chain.doFilter(request, response);
@@ -56,6 +42,7 @@ public class AdminFilter implements Filter {
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                System.out.println();
             }
         }
     }
