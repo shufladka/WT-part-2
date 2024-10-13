@@ -17,8 +17,26 @@
 
 <%
   Room room = (Room) request.getAttribute("room");
+  List<Hotel> hotelList = (List<Hotel>) request.getAttribute("hotels");
+  List<Address> addressList = (List<Address>) request.getAttribute("addresses");
+  Hotel currentHotel = null;
+  Address currentAddress = null;
 
-  if (room != null) {
+  if (hotelList != null && addressList != null) {
+      for (Hotel hotel : hotelList) {
+          if (hotel.getId() == room.getHotelId()) {
+              currentHotel = hotel;
+          }
+      }
+
+      for (Address address : addressList) {
+          if (address.getId() == currentHotel.getAddressId()) {
+              currentAddress = address;
+          }
+      }
+  }
+
+  if (room != null && currentHotel != null && currentAddress != null) {
 %>
 <div class="col mx-4">
   <div class="row mb-4">
@@ -26,24 +44,40 @@
       <div class="row g-0 d-flex align-items-center">
         <div class="col-md-8 d-flex align-items-center">
           <div class="card-body">
-            <h5 class="card-title">"<%= room.getName() %>"</h5>
-            <p class="card-text m-0"><%= room.getCapacity() %></p>
-<%--            <a href="/rooms" class="btn btn-outline-primary"><fmt:message bundle="${lang}" key="lang.hotels.redirect"/></a>--%>
+              <h5 class="card-title"><fmt:message bundle="${lang}" key="lang.rooms.name"/> <%= room.getName() %></h5>
+              <p class="card-text m-0">
+                  <%
+                      if (room.isAvailable()) {
+                  %>
+                  <fmt:message bundle="${lang}" key="lang.rooms.is_available"/>
+                  <%
+                      } else {
+                  %>
+                  <fmt:message bundle="${lang}" key="lang.rooms.is_unavailable"/>
+                  <%
+                      }
+                  %>
+              </p>
+              <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.rooms.capacity"/>: <%= room.getCapacity() %></p>
+              <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.rooms.basic_price"/> <%= room.getBasicPrice().intValue() %> BYN</p>
+              <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.rooms.weekend_price"/> <%= room.getWeekendPrice().intValue() %> BYN</p>
+              <p class="card-text mb-3"><fmt:message bundle="${lang}" key="lang.hotels.name"/> "<%= currentHotel.getName() %>" (<%= currentAddress.getCity() %>, <%= currentAddress.getStreet() %>, <%= currentAddress.getBuilding() %>, <%= room.getFloor() %> <fmt:message bundle="${lang}" key="lang.rooms.floor"/>)</p>
+            <a href="#" class="btn btn-outline-primary"><fmt:message bundle="${lang}" key="lang.hotels.redirect"/></a>
           </div>
         </div>
 
         <div class="col-md-4 text-end">
-<%--          <%--%>
-<%--            if (!room.getImagePath().equals("")) {--%>
-<%--          %>--%>
-<%--          <img src="<%= room.getImagePath() %>" width="250" height="250" class="img-fluid rounded-start" alt="...">--%>
-<%--          <%--%>
-<%--          } else {--%>
-<%--          %>--%>
-          <img src="https://via.placeholder.com/200" width="200" height="200" class="img-fluid rounded-start" alt="...">
-<%--          <%--%>
-<%--            }--%>
-<%--          %>--%>
+          <%
+            if (room.getImagePath() != null) {
+          %>
+          <img src="<%= room.getImagePath() %>" width="250" height="250" class="img-fluid rounded-start" alt="...">
+          <%
+          } else {
+          %>
+          <img src="https://via.placeholder.com/250" width="250" height="250" class="img-fluid rounded-start" alt="...">
+          <%
+            }
+          %>
         </div>
       </div>
     </div>

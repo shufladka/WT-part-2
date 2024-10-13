@@ -47,6 +47,7 @@ create table if not exists rooms (
     basic_price decimal(10, 2) not null,   -- базовая стоимость за сутки аренды
     weekend_price decimal(10, 2) not null, -- стоимость в выходные и праздники
     image_path varchar,                    -- ссылка на изображение комнаты
+    is_available boolean,                  -- доступность к бронированию
     hotel_id int constraint fk_hotels references hotels(id)  -- ключ соответствующей колонки в таблице отелей
 );
 
@@ -79,3 +80,5 @@ select * from people where id = (select max(id) from people);
 
 drop table if exists rooms;
 drop table if exists hotels;
+
+alter table rooms add is_available boolean;

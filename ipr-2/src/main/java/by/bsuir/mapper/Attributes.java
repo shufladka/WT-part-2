@@ -43,4 +43,5 @@ public final class Attributes {
     public static final String WEEKEND_PRICE = "weekend_price";
     // public static final String IMAGE_PATH = "image_path";
     public static final String HOTEL_ID = "hotel_id";
+    public static final String IS_AVAILABLE = "is_available";
 }

@@ -13,8 +13,8 @@ import java.util.List;
 public class RoomDaoImpl extends AbstractDaoImpl<Room> implements RoomDao {
 
     private static final String SAVE = "insert into " + Tables.ROOMS +
-            " (id, name, capacity, floor, basic_price, weekend_price, image_path, hotel_id) " +
-            "values (?, ?, ?, ?, ?, ?, ?, ?)";
+            " (id, name, capacity, floor, basic_price, weekend_price, image_path, hotel_id, is_available) " +
+            "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String FIND_BY_NAME = "select * from " + Tables.ROOMS + " where name=?";
     private static final String FIND_BY_CAPACITY = "select * from " + Tables.ROOMS + " where capacity=?";
     private static final String FIND_BY_FLOOR = "select * from " + Tables.ROOMS + " where floor=?";
@@ -25,8 +25,9 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room> implements RoomDao {
     private static final String FIND_BY_WEEKEND_PRICE = "select * from " + Tables.ROOMS + " where weekend_price>=? " +
             "and weekend_price<=?";
     private static final String FIND_BY_ROOM = "select * from " + Tables.ROOMS + " where hotel_id=?";
+    private static final String FIND_BY_AVAILABLE = "select * from " + Tables.ROOMS + " where is_available=?";
     private static final String UPDATE =  "update " + Tables.ROOMS +
-            " set name=?, capacity=?, floor=?, basic_price=?, weekend_price=?, image_path=?, hotel_id=?, where id=?";
+            " set name=?, capacity=?, floor=?, basic_price=?, weekend_price=?, image_path=?, hotel_id=?, is_available=?, where id=?";
 
     public RoomDaoImpl() {
         super(RecordMapperSingleton.getInstance().getRoomRecordMapper(), Tables.ROOMS);
@@ -74,8 +75,13 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room> implements RoomDao {
     }
 
     @Override
+    public List<Room> findByAvailable(boolean available) throws DaoException {
+        return executeQuery(FIND_BY_AVAILABLE, available);
+    }
+
+    @Override
     public void update(Room room) throws DaoException {
         executeInsertQuery(UPDATE, room.getName(), room.getCapacity(), room.getFloor(),
-                room.getBasicPrice(), room.getWeekendPrice(), room.getImagePath(), room.getId());
+                room.getBasicPrice(), room.getWeekendPrice(), room.getImagePath(), room.isAvailable(), room.getId());
     }
 }

@@ -69,7 +69,7 @@ public class RoomsServlet extends HttpServlet {
 //            System.out.println(id);
 //        }
 
-        System.out.println(req.getParameter("hotel_id"));
+
         String hotelId = req.getParameter("hotel_id");
 
         Hotel hotel = null;
