@@ -20,7 +20,7 @@
       <div class="navbar-nav fs-5">
         <a class="nav-link" href="/"><fmt:message bundle="${lang}" key="lang.nav.home"/></a>
         <a class="nav-link" href="/hotels"><fmt:message bundle="${lang}" key="lang.nav.hotels"/></a>
-<%--        <a class="nav-link" href="/rooms"><fmt:message bundle="${lang}" key="lang.nav.rooms"/></a>--%>
+        <a class="nav-link" href="/rooms"><fmt:message bundle="${lang}" key="lang.nav.rooms"/></a>
       </div>
     </div>
   </div>

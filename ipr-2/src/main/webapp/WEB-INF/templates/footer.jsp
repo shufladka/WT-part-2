@@ -38,9 +38,9 @@
                         <li class="nav-item">
                             <a class="nav-link link-secondary px-2 px-md-3" href="/hotels"><fmt:message bundle="${lang}" key="lang.footer.hotels"/></a>
                         </li>
-<%--                        <li class="nav-item">--%>
-<%--                            <a class="nav-link link-secondary px-2 px-md-3" href="/rooms"><fmt:message bundle="${lang}" key="lang.footer.rooms"/></a>--%>
-<%--                        </li>--%>
+                        <li class="nav-item">
+                            <a class="nav-link link-secondary px-2 px-md-3" href="/rooms"><fmt:message bundle="${lang}" key="lang.footer.rooms"/></a>
+                        </li>
                         <c:if test="${sessionScope.lang == 'ru' || sessionScope.lang == null}">
                             <li class="nav-item">
                                 <a class="nav-link link-secondary px-2 px-md-3"href="?lang=en"><fmt:message bundle="${lang}" key="lang.footer.change_language"/></a>
