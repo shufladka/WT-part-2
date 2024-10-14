@@ -52,7 +52,7 @@ public class OrderDaoImpl extends AbstractDaoImpl<Order> implements OrderDao {
     @Override
     public void update(Order order) throws DaoException {
         executeInsertQuery(UPDATE, order.getPersonId(), order.getRoomId(),
-                LocalDate.now(), order.getStatus(), order.getId());
+                LocalDate.now(), "IN_PROGRESS", order.getId());
     }
 
     @Override

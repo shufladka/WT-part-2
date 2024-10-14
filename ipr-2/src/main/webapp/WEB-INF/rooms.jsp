@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="by.bsuir.entity.Room" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="java.util.Comparator" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -26,6 +28,14 @@
             List<Room> roomList = (List<Room>) request.getAttribute("rooms");
             String hotelId = (String) request.getAttribute("hotel_id");
             String roomId = (String) request.getAttribute("room_id");
+
+            // Сортировка по room ID
+            Collections.sort(roomList, new Comparator<Room>() {
+                @Override
+                public int compare(Room r1, Room r2) {
+                    return Integer.compare(r1.getId(), r2.getId());
+                }
+            });
 
             if (roomList != null && !roomList.isEmpty()) {
                 boolean hasRooms = false;

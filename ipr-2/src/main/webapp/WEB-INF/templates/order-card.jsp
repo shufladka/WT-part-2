@@ -69,9 +69,8 @@
             <p class="card-text m-0">Клиент: <%= currentPerson.getUsername() %></p>
             <p class="card-text m-0">Полное имя: <%= currentPerson.getFirstName() %> <%= currentPerson.getLastName() %></p>
             <p class="card-text m-0">Комната: <%= currentRoom.getName() %></p>
-            <p class="card-text m-0">Отель "<%= currentHotel.getName() %>"</p>
-            <p class="card-text mb-2">Адрес: <%= currentAddress.getCity() %>, <%= currentAddress.getStreet() %>, <%= currentAddress.getBuilding() %>, <%= currentRoom.getFloor() %> <fmt:message bundle="${lang}" key="lang.rooms.floor"/></p>
-
+            <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.hotels.name"/> "<%= currentHotel.getName() %>" (<%= currentAddress.getCity() %>, <%= currentAddress.getStreet() %>, <%= currentAddress.getBuilding() %>, <%= currentRoom.getFloor() %> <fmt:message bundle="${lang}" key="lang.rooms.floor"/>)</p>
+            <p class="card-text mb-2">Статус заказа: <%= order.getStatus() %></p>
             <div class="d-flex justify-content-start">
 
               <%

@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="by.bsuir.entity.Hotel" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="java.util.Comparator" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -26,6 +28,14 @@
             List<Hotel> hotelList = (List<Hotel>) request.getAttribute("hotels");
             Object addressesReq = request.getAttribute("addresses");
             String id = (String) request.getAttribute("id");
+
+            // Сортировка по hotel ID
+            Collections.sort(hotelList, new Comparator<Hotel>() {
+                @Override
+                public int compare(Hotel h1, Hotel h2) {
+                    return Integer.compare(h1.getId(), h2.getId());
+                }
+            });
 
             if (hotelList != null && addressesReq != null) {
                 if (id == null) {
