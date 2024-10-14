@@ -1,15 +1,9 @@
 package by.bsuir.servlet;
 
 import by.bsuir.connection.ConnectionPool;
-import by.bsuir.dao.DaoSingleton;
-import by.bsuir.dao.service.OrderDao;
-import by.bsuir.entity.Order;
 import by.bsuir.entity.Person;
 import by.bsuir.exceptions.ConnectionException;
-import by.bsuir.exceptions.DaoException;
-import by.bsuir.exceptions.ServiceException;
 import by.bsuir.service.*;
-import jakarta.mail.Session;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/orders/*")
 public class OrderServlet extends HttpServlet {
@@ -69,6 +62,13 @@ public class OrderServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         String roomId = req.getParameter("chosen_room_id");
+        String orderId = req.getParameter("chosen_order_id");
+        String pathPart = null;
+
+        String pathInfo = req.getPathInfo();
+        if (pathInfo != null && !pathInfo.equals("/")) {
+            pathPart = pathInfo.substring(1);
+        }
 
         try {
             ServiceSingleton service = ServiceSingleton.getInstance();
@@ -78,7 +78,22 @@ public class OrderServlet extends HttpServlet {
             HttpSession session = req.getSession();
             if (session != null || session.getAttribute("userinfo") != null) {
                 Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
-                orderService.save(person, Integer.parseInt(roomId));
+
+                if (pathPart != null) {
+                    switch (pathPart) {
+                        case "save":
+                            orderService.save(person, Integer.parseInt(roomId));
+                            break;
+                        case "update":
+                            orderService.update(orderService.findById(Integer.parseInt(orderId)));
+                            break;
+                        case "delete":
+                            orderService.delete(Integer.parseInt(orderId));
+                            break;
+                        default:
+                            req.setAttribute("id", pathPart);
+                    }
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

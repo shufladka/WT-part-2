@@ -12,6 +12,7 @@ import java.util.List;
 public interface OrderService {
     void save(Person person, int roomId) throws DaoException, ServiceException, IOException;
     List<Order> findAll() throws ServiceException, DaoException;
+    Order findById(int id) throws ServiceException, DaoException;
     List<Order> findByPersonId(int personId) throws ServiceException, DaoException;
     List<Order> findByRoomId(int roomId) throws ServiceException, DaoException;
     List<Order> findByCreationDate(LocalDate from, LocalDate to) throws ServiceException, DaoException;

@@ -22,7 +22,7 @@ public class OrderDaoImpl extends AbstractDaoImpl<Order> implements OrderDao {
     private static final String UPDATE = "update " + Tables.ORDERS +
             " set person_id=?, room_id=?, updated_at=?, status=? where id=?";
     private static final String DELETE = "update " + Tables.ORDERS +
-            " set deleted_at=?, status=? where id=?";
+            " set closed_at=?, status=? where id=?";
 
     public OrderDaoImpl() {
         super(RecordMapperSingleton.getInstance().getOrderRecordMapper(), Tables.ORDERS);

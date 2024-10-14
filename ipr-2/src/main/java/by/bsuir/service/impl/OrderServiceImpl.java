@@ -51,6 +51,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order findById(int id) throws ServiceException, DaoException {
+        return orderDao.findById(id);
+    }
+
+    @Override
     public List<Order> findByPersonId(int personId) throws DaoException {
         return orderDao.findByPersonId(personId);
     }

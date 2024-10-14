@@ -16,7 +16,7 @@
     int id = Integer.parseInt(chosenRoomId);
 %>
 
-<form method="post" action="${pageContext.request.contextPath}/orders">
+<form method="post" action="${pageContext.request.contextPath}/orders/save">
     <input type="hidden" name="chosen_room_id" value="<%= id %>">
     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModalCenter<%= id %>">
         <fmt:message bundle="${lang}" key="lang.rooms.create_order"/>
