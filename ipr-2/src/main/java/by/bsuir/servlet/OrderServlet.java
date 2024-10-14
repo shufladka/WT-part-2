@@ -1,8 +1,7 @@
 package by.bsuir.servlet;
 
 import by.bsuir.connection.ConnectionPool;
-import by.bsuir.entity.Order;
-import by.bsuir.entity.Person;
+import by.bsuir.entity.*;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.service.*;
 
@@ -46,11 +45,28 @@ public class OrderServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
+
         String pathPart = null;
         String pathInfo = req.getPathInfo();
         if (pathInfo != null && !pathInfo.equals("/")) {
             pathPart = pathInfo.substring(1);
         }
+
+        Room room = null;
+        List<Room> rooms = null;
+        RoomService roomService = null;
+
+        Address address = null;
+        List<Address> addresses = null;
+        AddressService addressService = null;
+
+        Hotel hotel = null;
+        List<Hotel> hotels = null;
+        HotelService hotelService = null;
+
+        Person person = null;
+        List<Person> people = null;
+        PersonService personService = null;
 
         Order order = null;
         List<Order> orders = null;
@@ -60,13 +76,30 @@ public class OrderServlet extends HttpServlet {
             ServiceSingleton service = ServiceSingleton.getInstance();
             AuthService authService = service.getAuthService();
 
+            personService = service.getPersonService();
+            people = personService.findAll();
+            req.setAttribute("people", people);
+
+
+            roomService = service.getRoomService();
+            rooms = roomService.findAll();
+            req.setAttribute("rooms", rooms);
+
+            addressService = service.getAddressService();
+            addresses = addressService.findAll();
+            req.setAttribute("addresses", addresses);
+
+            hotelService = service.getHotelService();
+            hotels = hotelService.findAll();
+            req.setAttribute("hotels", hotels);
+
             orderService = service.getOrderService();
             orders = orderService.findAll();
             req.setAttribute("orders", orders);
 
             HttpSession session = req.getSession();
             if (session != null || session.getAttribute("userinfo") != null) {
-                Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
+                person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
                 boolean isAdmin = authService.isAdmin(person);
 
                 if (pathPart != null) {
@@ -102,6 +135,22 @@ public class OrderServlet extends HttpServlet {
             pathPart = pathInfo.substring(1);
         }
 
+        Room room = null;
+        List<Room> rooms = null;
+        RoomService roomService = null;
+
+        Address address = null;
+        List<Address> addresses = null;
+        AddressService addressService = null;
+
+        Hotel hotel = null;
+        List<Hotel> hotels = null;
+        HotelService hotelService = null;
+
+        Person person = null;
+        List<Person> people = null;
+        PersonService personService = null;
+
         Order order = null;
         List<Order> orders = null;
         OrderService orderService = null;
@@ -110,13 +159,31 @@ public class OrderServlet extends HttpServlet {
             ServiceSingleton service = ServiceSingleton.getInstance();
             AuthService authService = service.getAuthService();
 
+            personService = service.getPersonService();
+            people = personService.findAll();
+            req.setAttribute("people", people);
+
+            System.out.println();
+
+            roomService = service.getRoomService();
+            rooms = roomService.findAll();
+            req.setAttribute("rooms", rooms);
+
+            addressService = service.getAddressService();
+            addresses = addressService.findAll();
+            req.setAttribute("addresses", addresses);
+
+            hotelService = service.getHotelService();
+            hotels = hotelService.findAll();
+            req.setAttribute("hotels", hotels);
+
             orderService = service.getOrderService();
             orders = orderService.findAll();
             req.setAttribute("orders", orders);
 
             HttpSession session = req.getSession();
             if (session != null || session.getAttribute("userinfo") != null) {
-                Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
+                person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
 
                 if (pathPart != null) {
                     switch (pathPart) {
