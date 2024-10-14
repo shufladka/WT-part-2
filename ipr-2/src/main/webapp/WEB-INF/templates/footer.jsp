@@ -43,6 +43,9 @@
                         <li class="nav-item">
                             <a class="nav-link link-secondary px-2 px-md-3" href="/rooms"><fmt:message bundle="${lang}" key="lang.footer.rooms"/></a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-secondary px-2 px-md-3" href="/orders"><fmt:message bundle="${lang}" key="lang.footer.orders"/></a>
+                        </li>
 
                         <%
                             ServiceSingleton service = new ServiceSingleton();
@@ -54,7 +57,7 @@
                                 isAdmin = authService.isAdmin(person);
                             }
 
-                            if (true) {
+                            if (isAdmin) {
                         %>
                         <li class="nav-item">
                             <a class="nav-link link-secondary px-2 px-md-3" href="/profiles">профили</a>

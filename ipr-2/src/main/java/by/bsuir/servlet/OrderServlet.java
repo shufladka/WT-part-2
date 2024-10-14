@@ -1,6 +1,7 @@
 package by.bsuir.servlet;
 
 import by.bsuir.connection.ConnectionPool;
+import by.bsuir.entity.Order;
 import by.bsuir.entity.Person;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.service.*;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/orders/*")
 public class OrderServlet extends HttpServlet {
@@ -44,10 +46,40 @@ public class OrderServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
+        String pathPart = null;
         String pathInfo = req.getPathInfo();
         if (pathInfo != null && !pathInfo.equals("/")) {
-            String id = pathInfo.substring(1);
-            req.setAttribute("id", id);
+            pathPart = pathInfo.substring(1);
+        }
+
+        Order order = null;
+        List<Order> orders = null;
+        OrderService orderService = null;
+
+        try {
+            ServiceSingleton service = ServiceSingleton.getInstance();
+            AuthService authService = service.getAuthService();
+
+            orderService = service.getOrderService();
+            orders = orderService.findAll();
+            req.setAttribute("orders", orders);
+
+            HttpSession session = req.getSession();
+            if (session != null || session.getAttribute("userinfo") != null) {
+                Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
+                boolean isAdmin = authService.isAdmin(person);
+
+                if (pathPart != null) {
+                    req.setAttribute("order_id", pathPart);
+                }
+
+                if (person != null) {
+                    req.setAttribute("is_admin", String.valueOf(isAdmin));
+                    req.setAttribute("person_id", String.valueOf(person.getId()));
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         req.getRequestDispatcher("/WEB-INF/orders.jsp").forward(req, resp);
@@ -70,10 +102,17 @@ public class OrderServlet extends HttpServlet {
             pathPart = pathInfo.substring(1);
         }
 
+        Order order = null;
+        List<Order> orders = null;
+        OrderService orderService = null;
+
         try {
             ServiceSingleton service = ServiceSingleton.getInstance();
             AuthService authService = service.getAuthService();
-            OrderService orderService = service.getOrderService();
+
+            orderService = service.getOrderService();
+            orders = orderService.findAll();
+            req.setAttribute("orders", orders);
 
             HttpSession session = req.getSession();
             if (session != null || session.getAttribute("userinfo") != null) {
@@ -91,7 +130,7 @@ public class OrderServlet extends HttpServlet {
                             orderService.delete(Integer.parseInt(orderId));
                             break;
                         default:
-                            req.setAttribute("id", pathPart);
+                            req.setAttribute("order_id", pathPart);
                     }
                 }
             }

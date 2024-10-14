@@ -108,7 +108,7 @@ public class RoomsServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
 //        String id = req.getParameter("hotel_id");
-//        resp.sendRedirect("/rooms/" + req.getParameter("hotel_id"));
+//        resp.sendRedirect("/rooms/" + id);
         resp.sendRedirect("/rooms");
     }
 

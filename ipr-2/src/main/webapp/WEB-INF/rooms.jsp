@@ -84,4 +84,3 @@
     <jsp:include page="templates/footer.jsp"/>
 </div>
 </body>
-

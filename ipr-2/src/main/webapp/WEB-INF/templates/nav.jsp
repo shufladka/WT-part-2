@@ -23,6 +23,7 @@
         <a class="nav-link disabled" href="/"><fmt:message bundle="${lang}" key="lang.nav.home"/></a>
         <a class="nav-link" href="/hotels"><fmt:message bundle="${lang}" key="lang.nav.hotels"/></a>
         <a class="nav-link" href="/rooms"><fmt:message bundle="${lang}" key="lang.nav.rooms"/></a>
+        <a class="nav-link" href="/orders"><fmt:message bundle="${lang}" key="lang.nav.orders"/></a>
 
         <%
           ServiceSingleton service = new ServiceSingleton();
@@ -34,7 +35,7 @@
             isAdmin = authService.isAdmin(person);
           }
 
-          if (true) {
+          if (isAdmin) {
         %>
         <a class="nav-link" href="/profiles">Профили</a>
 
