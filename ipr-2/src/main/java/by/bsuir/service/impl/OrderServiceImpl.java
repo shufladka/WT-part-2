@@ -8,6 +8,7 @@ import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
 import by.bsuir.service.MailService;
 import by.bsuir.service.OrderService;
+import by.bsuir.service.PersonService;
 import by.bsuir.service.ServiceSingleton;
 
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
                     "</div>" +
                 "</div>";
 
-            mailService.sendEmail(person.getEmail(), subject, messageBody);
+        mailService.sendEmail(person.getEmail(), subject, messageBody);
         }
 
         @Override
@@ -65,12 +66,44 @@ public class OrderServiceImpl implements OrderService {
         }
 
         @Override
-        public void update(Order order) throws ServiceException, DaoException {
+        public void update(Order order) throws ServiceException, DaoException, IOException {
+            ServiceSingleton service = ServiceSingleton.getInstance();
+            MailService mailService = service.getMailService();
+            PersonService personService = service.getPersonService();
+
             orderDao.update(order);
+
+            String subject = "Order № " + order.getId();
+            String messageBody =
+                    "<div class=\'card\' style=\'width: 40rem;\'>" +
+                            "<div class=\'card-body\'>" +
+                            "<h5 class=\'card-title\'>New changed in order № " + order.getId() + "</h5>" +
+                            "<p class='card-text'>Your order was updated!</p>" +
+                            "<a href=\'http://localhost:8080/orders/" + order.getId() + "\' class=\'btn btn-primary\'>Let's check it!</a>" +
+                        "</div>" +
+                    "</div>";
+
+            mailService.sendEmail(personService.findById(order.getPersonId()).getEmail(), subject, messageBody);
         }
 
         @Override
-        public void delete(int orderId) throws ServiceException, DaoException {
+        public void delete(int orderId) throws ServiceException, DaoException, IOException {
+            ServiceSingleton service = ServiceSingleton.getInstance();
+            MailService mailService = service.getMailService();
+            PersonService personService = service.getPersonService();
+
             orderDao.delete(orderId);
+
+            String subject = "Order № " + orderId;
+            String messageBody =
+                    "<div class=\'card\' style=\'width: 40rem;\'>" +
+                            "<div class=\'card-body\'>" +
+                            "<h5 class=\'card-title\'>New changed in order № " + orderId + "</h5>" +
+                            "<p class='card-text'>Your order was closed!</p>" +
+                            "<a href=\'http://localhost:8080/orders/" + orderId + "\' class=\'btn btn-primary\'>Let's check it!</a>" +
+                        "</div>" +
+                    "</div>";
+
+            mailService.sendEmail(personService.findById(orderDao.findById(orderId).getPersonId()).getEmail(), subject, messageBody);
         }
     }

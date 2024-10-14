@@ -15,6 +15,6 @@ public interface OrderService {
     List<Order> findByPersonId(int personId) throws ServiceException, DaoException;
     List<Order> findByRoomId(int roomId) throws ServiceException, DaoException;
     List<Order> findByCreationDate(LocalDate from, LocalDate to) throws ServiceException, DaoException;
-    void update(Order order) throws ServiceException, DaoException;
-    void delete(int orderId) throws ServiceException, DaoException;
+    void update(Order order) throws ServiceException, DaoException, IOException;
+    void delete(int orderId) throws ServiceException, DaoException, IOException;
 }

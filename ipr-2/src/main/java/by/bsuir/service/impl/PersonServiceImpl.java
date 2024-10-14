@@ -18,4 +18,9 @@ public class PersonServiceImpl implements PersonService {
     public List<Person> findAll() throws ServiceException, DaoException {
         return personDao.findAll();
     }
+
+    @Override
+    public Person findById(int id) throws ServiceException, DaoException {
+        return personDao.findById(id);
+    }
 }

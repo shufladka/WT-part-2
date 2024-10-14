@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PersonService {
     List<Person> findAll() throws ServiceException, DaoException;
+    Person findById(int id) throws ServiceException, DaoException;
 }
