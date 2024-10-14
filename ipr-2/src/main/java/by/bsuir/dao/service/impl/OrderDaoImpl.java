@@ -29,9 +29,9 @@ public class OrderDaoImpl extends AbstractDaoImpl<Order> implements OrderDao {
     }
 
     @Override
-    public void save(Order order) throws DaoException {
-        executeInsertQuery(SAVE, order.getId(), order.getPersonId(), order.getRoomId(),
-                order.getCreatedAt(), order.getStatus());
+    public void save(int id, int personId, int roomId) throws DaoException {
+        executeInsertQuery(SAVE, id, personId, roomId,
+                LocalDate.now(), "CREATED");
     }
 
     @Override
@@ -52,7 +52,7 @@ public class OrderDaoImpl extends AbstractDaoImpl<Order> implements OrderDao {
     @Override
     public void update(Order order) throws DaoException {
         executeInsertQuery(UPDATE, order.getPersonId(), order.getRoomId(),
-                order.getUpdatedAt(), order.getStatus(), order.getId());
+                LocalDate.now(), order.getStatus(), order.getId());
     }
 
     @Override

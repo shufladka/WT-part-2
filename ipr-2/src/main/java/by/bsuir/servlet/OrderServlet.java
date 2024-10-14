@@ -1,14 +1,14 @@
 package by.bsuir.servlet;
 
 import by.bsuir.connection.ConnectionPool;
+import by.bsuir.dao.DaoSingleton;
+import by.bsuir.dao.service.OrderDao;
+import by.bsuir.entity.Order;
 import by.bsuir.entity.Person;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
-import by.bsuir.service.AuthService;
-import by.bsuir.service.MailService;
-import by.bsuir.service.PersonService;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.*;
 import jakarta.mail.Session;
 
 import javax.servlet.ServletException;
@@ -57,7 +57,7 @@ public class OrderServlet extends HttpServlet {
             req.setAttribute("id", id);
         }
 
-        req.getRequestDispatcher("/WEB-INF/home.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/orders.jsp").forward(req, resp);
     }
 
     @Override
@@ -69,24 +69,22 @@ public class OrderServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         String roomId = req.getParameter("chosen_room_id");
-        System.out.println(roomId);
 
         try {
             ServiceSingleton service = ServiceSingleton.getInstance();
-            MailService mailService = service.getMailService();
             AuthService authService = service.getAuthService();
+            OrderService orderService = service.getOrderService();
 
             HttpSession session = req.getSession();
             if (session != null || session.getAttribute("userinfo") != null) {
                 Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
-                String email = person.getEmail();
-                mailService.sendEmail(email, "Test", "my pussy taste like pepsi cola");
+                orderService.save(person, Integer.parseInt(roomId));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        resp.sendRedirect("/");
+        resp.sendRedirect("/orders");
     }
 
     @Override

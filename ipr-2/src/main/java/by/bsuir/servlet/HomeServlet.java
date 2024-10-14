@@ -43,6 +43,9 @@ public class HomeServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
+        HttpSession session = req.getSession();
+        session.setAttribute("userinfo", "eyJpZCI6MCwidXNlcm5hbWUiOiJzaHVmbGFka2EiLCJmaXJzdF9uYW1lIjoiQUxFSCIsImxhc3RfbmFtZSI6IktMSUFaT1ZJQ0giLCJiaXJ0aF9kYXRlIjoiMjAwMi0wMS0xOCIsImVtYWlsIjoib2xlZ29sZWdvbGVnb2xlZzg4QGdtYWlsLmNvbSIsInJvbGVfaWQiOjEsImlzc3VlZF9pbiI6MTcyODkyMjc1Nn0=");
+
         resp.sendRedirect("/hotels");
         //req.getRequestDispatcher("WEB-INF/home.jsp").forward(req, resp);
     }

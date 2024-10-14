@@ -1,11 +1,5 @@
 package by.bsuir.filter;
 
-import by.bsuir.entity.Person;
-import by.bsuir.exceptions.DaoException;
-import by.bsuir.exceptions.ServiceException;
-import by.bsuir.service.AuthService;
-import by.bsuir.service.ServiceSingleton;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/profile/*"})
+@WebFilter(urlPatterns = {"/profile1/*", "/rooms1/*", "/orders/*"})
 public class AuthFilter implements Filter {
 
     @Override

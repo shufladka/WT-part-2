@@ -30,7 +30,6 @@ public class MailServiceImpl implements MailService {
         credentialProps.load(ConnectionFactory.class.getClassLoader().getResourceAsStream(MAIL_PROPERTIES));
 
         // Логин и пароль почтового ящика
-        final String username = credentialProps.getProperty("MAIL_USERNAME");
         final String email = credentialProps.getProperty("MAIL_ADDRESS");
         final String password = credentialProps.getProperty("MAIL_PASSWORD");
 
@@ -46,15 +45,13 @@ public class MailServiceImpl implements MailService {
 
             // Создание email-сообщения
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(email, username));
+            message.setFrom(new InternetAddress(email, "BOOKIN"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
             message.setSubject(subject);
-            message.setText(messageBody);
+            message.setContent(messageBody, "text/html; charset=UTF-8");
 
             // Отправка email
             Transport.send(message);
-
-            System.out.println("Email успешно отправлен!");
 
         } catch (MessagingException | UnsupportedEncodingException e) {
             throw new RuntimeException("Ошибка при отправке письма: " + e.getMessage(), e);

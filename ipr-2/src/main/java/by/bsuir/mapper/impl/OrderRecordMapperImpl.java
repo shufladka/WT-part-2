@@ -20,6 +20,6 @@ public class OrderRecordMapperImpl implements RecordMapper<Order> {
         order.setUpdatedAt(resultSet.getObject(Attributes.UPDATED_AT, LocalDate.class));
         order.setClosedAt(resultSet.getObject(Attributes.CLOSED_AT, LocalDate.class));
         order.setStatus(resultSet.getString(Attributes.STATUS));
-        return null;
+        return order;
     }
 }

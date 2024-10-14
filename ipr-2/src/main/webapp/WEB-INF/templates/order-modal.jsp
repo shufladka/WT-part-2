@@ -17,13 +17,11 @@
 %>
 
 <form method="post" action="${pageContext.request.contextPath}/orders">
-    <!-- Передаем id конкретной комнаты через hidden input -->
     <input type="hidden" name="chosen_room_id" value="<%= id %>">
     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModalCenter<%= id %>">
         <fmt:message bundle="${lang}" key="lang.rooms.create_order"/>
     </button>
 
-    <!-- Модальное окно для каждой комнаты -->
     <div class="modal fade" id="exampleModalCenter<%= id %>" tabindex="-1" aria-labelledby="exampleModalCenterTitle<%= id %>" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

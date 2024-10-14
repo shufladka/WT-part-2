@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderDao extends Dao<Order> {
-    void save(Order order) throws DaoException;
+    void save(int id, int personId, int roomId) throws DaoException;
     List<Order> findByPersonId(int personId) throws DaoException;
     List<Order> findByRoomId(int roomId) throws DaoException;
     List<Order> findByCreationDate(LocalDate from, LocalDate to) throws DaoException;
