@@ -34,11 +34,11 @@ public class OrderServiceImpl implements OrderService {
 
         String subject = "Order № " + id;
         String messageBody =
-                "<div class=\'card\' style=\'width: 40rem;\'>" +
-                    "<div class=\'card-body\'>" +
-                        "<h5 class=\'card-title\'>New order</h5>" +
+                "<div class='card' style='width: 40rem;'>" +
+                        "<div class='card-body'>" +
+                        "<h5 class='card-title'>New order</h5>" +
                         "<p class='card-text'>Yahoo! You have created a new order!</p>" +
-                        "<a href=\'http://localhost:8080/orders/" + id + "\' class=\'btn btn-primary\'>Let's check it!</a>" +
+                        "<a href='http://localhost:8080/orders/" + id + "' class='btn btn-primary'>Let's check it!</a>" +
                     "</div>" +
                 "</div>";
 
@@ -75,11 +75,11 @@ public class OrderServiceImpl implements OrderService {
 
             String subject = "Order № " + order.getId();
             String messageBody =
-                    "<div class=\'card\' style=\'width: 40rem;\'>" +
-                            "<div class=\'card-body\'>" +
-                            "<h5 class=\'card-title\'>New changed in order № " + order.getId() + "</h5>" +
+                    "<div class='card' style='width: 40rem;'>" +
+                            "<div class='card-body'>" +
+                            "<h5 class='card-title'>New changed in order № " + order.getId() + "</h5>" +
                             "<p class='card-text'>Your order was updated!</p>" +
-                            "<a href=\'http://localhost:8080/orders/" + order.getId() + "\' class=\'btn btn-primary\'>Let's check it!</a>" +
+                            "<a href='http://localhost:8080/orders/" + order.getId() + "' class='btn btn-primary'>Let's check it!</a>" +
                         "</div>" +
                     "</div>";
 
@@ -96,11 +96,11 @@ public class OrderServiceImpl implements OrderService {
 
             String subject = "Order № " + orderId;
             String messageBody =
-                    "<div class=\'card\' style=\'width: 40rem;\'>" +
-                            "<div class=\'card-body\'>" +
-                            "<h5 class=\'card-title\'>New changed in order № " + orderId + "</h5>" +
+                    "<div class='card' style='width: 40rem;'>" +
+                            "<div class='card-body'>" +
+                            "<h5 class='card-title'>New changed in order № " + orderId + "</h5>" +
                             "<p class='card-text'>Your order was closed!</p>" +
-                            "<a href=\'http://localhost:8080/orders/" + orderId + "\' class=\'btn btn-primary\'>Let's check it!</a>" +
+                            "<a href='http://localhost:8080/orders/" + orderId + "' class='btn btn-primary'>Let's check it!</a>" +
                         "</div>" +
                     "</div>";
 
