@@ -47,7 +47,19 @@ create table if not exists rooms (
     basic_price decimal(10, 2) not null,   -- базовая стоимость за сутки аренды
     weekend_price decimal(10, 2) not null, -- стоимость в выходные и праздники
     image_path varchar,                    -- ссылка на изображение комнаты
+    is_available boolean,                  -- доступность к бронированию
     hotel_id int constraint fk_hotels references hotels(id)  -- ключ соответствующей колонки в таблице отелей
+);
+
+-- [6] таблица для хранения данных о заказах
+create table if not exists orders (
+    id int primary key,                                          -- идентификатор заказа
+    person_id int constraint fk_people references people(id),    -- ключ соответствующей колонки в таблице пользователей
+    room_id int constraint fk_rooms references rooms(id),        -- ключ соответствующей колонки в таблице номеров
+    created_at date not null,                                    -- дата создания заказа
+    updated_at date,                                             -- дата обновления заказа
+    closed_at date,                                              -- дата закрытия заказа
+    status varchar not null                                      -- статус заказа
 );
 
 -- [1] заполнение таблицы адресов
@@ -73,9 +85,12 @@ insert into rooms (id, name, capacity, floor, basic_price, weekend_price, image_
 
 select * from rooms where basic_price>=10.00 and basic_price<=160 or weekend_price>=10.00 and weekend_price<=180;
 
-select max(id) from people;
+select max(id) from orders;
 
-select * from people where id = (select max(id) from people);
+select * from orders where id = (select max(id) from orders);
 
 drop table if exists rooms;
 drop table if exists hotels;
+
+alter table rooms add is_available boolean;
+

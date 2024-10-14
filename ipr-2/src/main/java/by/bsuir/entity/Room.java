@@ -9,9 +9,10 @@ public class Room {
     private Double weekendPrice;
     private String imagePath;
     private int hotelId;
+    private boolean isAvailable;
 
     public Room(int id, String name, Integer capacity, Integer floor,
-                Double basicPrice, Double weekendPrice, String imagePath, int hotelId) {
+                Double basicPrice, Double weekendPrice, String imagePath, int hotelId, boolean isAvailable) {
         this.id = id;
         this.name = name;
         this.capacity = capacity;
@@ -20,6 +21,7 @@ public class Room {
         this.weekendPrice = weekendPrice;
         this.imagePath = imagePath;
         this.hotelId = hotelId;
+        this.isAvailable = isAvailable;
     }
 
     public Room() {}
@@ -88,6 +90,14 @@ public class Room {
         this.hotelId = hotelId;
     }
 
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
     @Override
     public String toString() {
         return "Room{" +
@@ -99,6 +109,7 @@ public class Room {
                 ", weekendPrice=" + weekendPrice +
                 ", imagePath='" + imagePath +
                 ", hotelId=" + hotelId +
+                ", isAvailable=" + isAvailable +
                 '}';
     }
 }

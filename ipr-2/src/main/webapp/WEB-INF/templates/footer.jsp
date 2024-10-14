@@ -1,4 +1,6 @@
-<%--
+<%@ page import="by.bsuir.service.ServiceSingleton" %>
+<%@ page import="by.bsuir.service.AuthService" %>
+<%@ page import="by.bsuir.entity.Person" %><%--
   Created by IntelliJ IDEA.
   User: klezo
   Date: 06.10.2024
@@ -33,7 +35,7 @@
                 <div class="col order-2 order-xl-1">
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link link-secondary px-2 px-md-3" href="/"><fmt:message bundle="${lang}" key="lang.footer.home"/></a>
+                            <a class="nav-link link-secondary px-2 px-md-3 disabled" href="/"><fmt:message bundle="${lang}" key="lang.footer.home"/></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link link-secondary px-2 px-md-3" href="/hotels"><fmt:message bundle="${lang}" key="lang.footer.hotels"/></a>
@@ -41,6 +43,31 @@
                         <li class="nav-item">
                             <a class="nav-link link-secondary px-2 px-md-3" href="/rooms"><fmt:message bundle="${lang}" key="lang.footer.rooms"/></a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-secondary px-2 px-md-3" href="/orders"><fmt:message bundle="${lang}" key="lang.footer.orders"/></a>
+                        </li>
+
+                        <%
+                            ServiceSingleton service = new ServiceSingleton();
+                            AuthService authService = service.getAuthService();
+                            boolean isAdmin = false;
+
+                            if (session.getAttribute("userinfo") != null) {
+                                Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
+                                isAdmin = authService.isAdmin(person);
+                            }
+
+                            if (isAdmin) {
+                        %>
+                        <li class="nav-item">
+                            <a class="nav-link link-secondary px-2 px-md-3" href="/profiles">профили</a>
+                        </li>
+
+                        <%
+                            }
+                        %>
+
+
                         <c:if test="${sessionScope.lang == 'ru' || sessionScope.lang == null}">
                             <li class="nav-item">
                                 <a class="nav-link link-secondary px-2 px-md-3"href="?lang=en"><fmt:message bundle="${lang}" key="lang.footer.change_language"/></a>

@@ -3,10 +3,13 @@ package by.bsuir.service.impl;
 import by.bsuir.dao.DaoSingleton;
 import by.bsuir.dao.service.PersonDao;
 import by.bsuir.entity.Person;
+import by.bsuir.entity.Role;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
 import by.bsuir.mapper.Attributes;
 import by.bsuir.service.AuthService;
+import by.bsuir.service.RoleService;
+import by.bsuir.service.ServiceSingleton;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -18,6 +21,7 @@ import java.util.Base64;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public class AuthServiceImpl implements AuthService {
 
@@ -58,6 +62,19 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void logout(Person person) throws ServiceException {
 
+    }
+
+    @Override
+    public boolean isAdmin(Person person) throws ServiceException, DaoException {
+        ServiceSingleton service = ServiceSingleton.getInstance();
+        RoleService roleService = service.getRoleService();
+        int adminRoleId = roleService.findAdminRoleId();
+
+        if (person.getRoleId() != adminRoleId) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     // Метод для сериализации объекта Person с добавлением произвольных полей и хеширования в Base64

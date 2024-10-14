@@ -10,4 +10,5 @@ public interface AuthService {
     void logout(Person person) throws ServiceException;
     String serializePersonBase64(Person person, Object... params);
     Person deserializePersonBase64(String base64);
+    boolean isAdmin(Person person) throws ServiceException, DaoException;
 }
