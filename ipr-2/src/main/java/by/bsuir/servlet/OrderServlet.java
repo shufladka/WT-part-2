@@ -5,14 +5,18 @@ import by.bsuir.entity.Person;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
+import by.bsuir.service.AuthService;
+import by.bsuir.service.MailService;
 import by.bsuir.service.PersonService;
 import by.bsuir.service.ServiceSingleton;
+import jakarta.mail.Session;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -66,6 +70,21 @@ public class OrderServlet extends HttpServlet {
 
         String roomId = req.getParameter("chosen_room_id");
         System.out.println(roomId);
+
+        try {
+            ServiceSingleton service = ServiceSingleton.getInstance();
+            MailService mailService = service.getMailService();
+            AuthService authService = service.getAuthService();
+
+            HttpSession session = req.getSession();
+            if (session != null || session.getAttribute("userinfo") != null) {
+                Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
+                String email = person.getEmail();
+                mailService.sendEmail(email, "Test", "my pussy taste like pepsi cola");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         resp.sendRedirect("/");
     }

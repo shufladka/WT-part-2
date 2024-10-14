@@ -11,6 +11,7 @@ public class ServiceSingleton {
     private final RoomService roomService = new RoomServiceImpl();
     private final RoleService roleService = new RoleServiceImpl();
     private final PersonService personService = new PersonServiceImpl();
+    private final MailService mailService = new MailServiceImpl();
 
     public AuthService getAuthService() {
         return authService;
@@ -34,6 +35,10 @@ public class ServiceSingleton {
 
     public PersonService getPersonService() {
         return personService;
+    }
+
+    public MailService getMailService() {
+        return mailService;
     }
 
     public static ServiceSingleton getInstance()
