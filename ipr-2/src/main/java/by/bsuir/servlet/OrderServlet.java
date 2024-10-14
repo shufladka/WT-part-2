@@ -45,32 +45,27 @@ public class OrderServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
-
         String pathPart = null;
         String pathInfo = req.getPathInfo();
         if (pathInfo != null && !pathInfo.equals("/")) {
             pathPart = pathInfo.substring(1);
         }
 
-        Room room = null;
-        List<Room> rooms = null;
-        RoomService roomService = null;
+        List<Room> rooms;
+        RoomService roomService;
 
-        Address address = null;
-        List<Address> addresses = null;
-        AddressService addressService = null;
+        List<Address> addresses;
+        AddressService addressService;
 
-        Hotel hotel = null;
-        List<Hotel> hotels = null;
-        HotelService hotelService = null;
+        List<Hotel> hotels;
+        HotelService hotelService;
 
-        Person person = null;
-        List<Person> people = null;
-        PersonService personService = null;
+        Person person ;
+        List<Person> people;
+        PersonService personService;
 
-        Order order = null;
-        List<Order> orders = null;
-        OrderService orderService = null;
+        List<Order> orders;
+        OrderService orderService;
 
         try {
             ServiceSingleton service = ServiceSingleton.getInstance();
@@ -135,25 +130,21 @@ public class OrderServlet extends HttpServlet {
             pathPart = pathInfo.substring(1);
         }
 
-        Room room = null;
-        List<Room> rooms = null;
-        RoomService roomService = null;
+        List<Room> rooms;
+        RoomService roomService;
 
-        Address address = null;
-        List<Address> addresses = null;
-        AddressService addressService = null;
+        List<Address> addresses;
+        AddressService addressService;
 
-        Hotel hotel = null;
-        List<Hotel> hotels = null;
-        HotelService hotelService = null;
+        List<Hotel> hotels;
+        HotelService hotelService;
 
-        Person person = null;
-        List<Person> people = null;
-        PersonService personService = null;
+        Person person;
+        List<Person> people;
+        PersonService personService;
 
-        Order order = null;
-        List<Order> orders = null;
-        OrderService orderService = null;
+        List<Order> orders;
+        OrderService orderService;
 
         try {
             ServiceSingleton service = ServiceSingleton.getInstance();
@@ -162,8 +153,6 @@ public class OrderServlet extends HttpServlet {
             personService = service.getPersonService();
             people = personService.findAll();
             req.setAttribute("people", people);
-
-            System.out.println();
 
             roomService = service.getRoomService();
             rooms = roomService.findAll();
@@ -182,7 +171,7 @@ public class OrderServlet extends HttpServlet {
             req.setAttribute("orders", orders);
 
             HttpSession session = req.getSession();
-            if (session != null || session.getAttribute("userinfo") != null) {
+            if (session != null || (session.getAttribute("userinfo") != null)) {
                 person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
 
                 if (pathPart != null) {
