@@ -53,6 +53,12 @@ public class RoomsServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
+        String pathPart = null;
+        String pathInfo = req.getPathInfo();
+        if (pathInfo != null && !pathInfo.equals("/")) {
+            pathPart = pathInfo.substring(1);
+        }
+
         String hotelId = req.getParameter("hotel_id");
         Hotel hotel = null;
         List<Hotel> hotels = null;
@@ -80,6 +86,10 @@ public class RoomsServlet extends HttpServlet {
             req.setAttribute("addresses", addresses);
             req.setAttribute("rooms", rooms);
             req.setAttribute("hotel_id", hotelId);
+
+            if (pathPart != null) {
+                req.setAttribute("room_id", pathPart);
+            }
 
         } catch (ServiceException | DaoException e) {
             System.out.println(e.getMessage());

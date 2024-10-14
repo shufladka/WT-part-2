@@ -25,18 +25,20 @@
         <%
             List<Room> roomList = (List<Room>) request.getAttribute("rooms");
             String hotelId = (String) request.getAttribute("hotel_id");
+            String roomId = (String) request.getAttribute("room_id");
 
             if (roomList != null && !roomList.isEmpty()) {
+                boolean hasRooms = false;
+
+                // Если указан hotelId, фильтруем комнаты по отелю
                 if (hotelId != null) {
                     int hotelIdValue = Integer.parseInt(hotelId);
-                    boolean hasRooms = false;
-
                     for (Room room : roomList) {
                         if (room.getHotelId() == hotelIdValue) {
                             request.setAttribute("room", room);
                             hasRooms = true;
         %>
-        <jsp:include page="templates/room-card.jsp" />
+        <jsp:include page="templates/room-card.jsp"/>
         <%
                 }
             }
@@ -49,11 +51,24 @@
         <%
             }
 
+            // Если указан roomId, показываем только эту комнату
+        } else if (roomId != null) {
+            int roomIdValue = Integer.parseInt(roomId);
+            for (Room room : roomList) {
+                if (room.getId() == roomIdValue) {
+                    request.setAttribute("room", room);
+        %>
+        <jsp:include page="templates/room-card.jsp"/>
+        <%
+                }
+            }
+
+            // Если нет ни hotelId, ни roomId, показываем все комнаты
         } else {
             for (Room room : roomList) {
                 request.setAttribute("room", room);
         %>
-        <jsp:include page="templates/room-card.jsp" />
+        <jsp:include page="templates/room-card.jsp"/>
         <%
                 }
             }
@@ -69,3 +84,4 @@
     <jsp:include page="templates/footer.jsp"/>
 </div>
 </body>
+
