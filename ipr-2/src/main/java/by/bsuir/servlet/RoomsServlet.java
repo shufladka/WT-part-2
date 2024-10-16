@@ -3,14 +3,12 @@ package by.bsuir.servlet;
 import by.bsuir.connection.ConnectionPool;
 import by.bsuir.entity.Address;
 import by.bsuir.entity.Hotel;
+import by.bsuir.entity.Order;
 import by.bsuir.entity.Room;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
-import by.bsuir.service.AddressService;
-import by.bsuir.service.HotelService;
-import by.bsuir.service.RoomService;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,17 +58,17 @@ public class RoomsServlet extends HttpServlet {
         }
 
         String hotelId = req.getParameter("hotel_id");
-        Hotel hotel = null;
-        List<Hotel> hotels = null;
-        HotelService hotelService = null;
+        List<Hotel> hotels;
+        HotelService hotelService;
 
-        Address address = null;
-        List<Address> addresses = null;
-        AddressService addressService = null;
+        List<Address> addresses;
+        AddressService addressService;
 
-        Room room = null;
-        List<Room> rooms = null;
-        RoomService roomService = null;
+        List<Room> rooms;
+        RoomService roomService;
+
+        List<Order> orders;
+        OrderService orderService;
 
         try {
             ServiceSingleton service = ServiceSingleton.getInstance();
@@ -81,6 +79,10 @@ public class RoomsServlet extends HttpServlet {
             hotels = hotelService.findAll();
             addresses = addressService.findAll();
             rooms = roomService.findAll();
+
+            orderService = service.getOrderService();
+            orders = orderService.findAll();
+            req.setAttribute("orders", orders);
 
             req.setAttribute("hotels", hotels);
             req.setAttribute("addresses", addresses);

@@ -1,6 +1,4 @@
-<%@ page import="by.bsuir.service.ServiceSingleton" %>
-<%@ page import="by.bsuir.service.AuthService" %>
-<%@ page import="by.bsuir.entity.Person" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: klezo
   Date: 06.10.2024
@@ -18,7 +16,6 @@
     <div class="bg-light py-3 py-md-3 py-xl-8">
         <div class="container overflow-hidden">
             <div class="col gy-3 gy-md-3 gy-xl-0 align-items-center">
-
                 <div class="bg-light mb-3">
                     <div class="container overflow-hidden">
                         <div class="row">
@@ -46,28 +43,6 @@
                         <li class="nav-item">
                             <a class="nav-link link-secondary px-2 px-md-3" href="/orders"><fmt:message bundle="${lang}" key="lang.footer.orders"/></a>
                         </li>
-
-                        <%
-                            ServiceSingleton service = new ServiceSingleton();
-                            AuthService authService = service.getAuthService();
-                            boolean isAdmin = false;
-
-                            if (session.getAttribute("userinfo") != null) {
-                                Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
-                                isAdmin = authService.isAdmin(person);
-                            }
-
-                            if (isAdmin) {
-                        %>
-                        <li class="nav-item">
-                            <a class="nav-link link-secondary px-2 px-md-3" href="/profiles">профили</a>
-                        </li>
-
-                        <%
-                            }
-                        %>
-
-
                         <c:if test="${sessionScope.lang == 'ru' || sessionScope.lang == null}">
                             <li class="nav-item">
                                 <a class="nav-link link-secondary px-2 px-md-3"href="?lang=en"><fmt:message bundle="${lang}" key="lang.footer.change_language"/></a>

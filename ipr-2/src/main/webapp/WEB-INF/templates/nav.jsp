@@ -20,29 +20,9 @@
     </a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav fs-5">
-        <a class="nav-link disabled" href="/"><fmt:message bundle="${lang}" key="lang.nav.home"/></a>
         <a class="nav-link" href="/hotels"><fmt:message bundle="${lang}" key="lang.nav.hotels"/></a>
         <a class="nav-link" href="/rooms"><fmt:message bundle="${lang}" key="lang.nav.rooms"/></a>
         <a class="nav-link" href="/orders"><fmt:message bundle="${lang}" key="lang.nav.orders"/></a>
-
-        <%
-          ServiceSingleton service = new ServiceSingleton();
-          AuthService authService = service.getAuthService();
-          boolean isAdmin = false;
-
-          if (session.getAttribute("userinfo") != null) {
-            Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
-            isAdmin = authService.isAdmin(person);
-          }
-
-          if (isAdmin) {
-        %>
-        <a class="nav-link" href="/profiles">Профили</a>
-
-        <%
-          }
-        %>
-
       </div>
     </div>
   </div>
@@ -50,7 +30,6 @@
     <%
         if (session.getAttribute("userinfo") != null) {
     %>
-    <a class="btn btn-outline-primary disabled" href="profile"><fmt:message bundle="${lang}" key="lang.nav.profile"/></a>
     <a class="btn btn-outline-danger" href="logout"><fmt:message bundle="${lang}" key="lang.nav.logout"/></a>
     <%
         } else {
@@ -60,8 +39,5 @@
     <%
         }
     %>
-<%--    <a class="m-2 btn btn-outline-success" href="login"><fmt:message bundle="${lang}" key="lang.intro.login"/></a>--%>
-<%--    <a class="m-2 btn btn-outline-primary" href="registration"><fmt:message bundle="${lang}" key="lang.intro.signup"/></a>--%>
-<%--    <a class="btn btn-outline-danger" href="logout"><fmt:message bundle="${lang}" key="lang.nav.logout"/></a>--%>
   </div>
 </nav>

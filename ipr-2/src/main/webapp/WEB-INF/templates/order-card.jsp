@@ -57,6 +57,11 @@
   }
 
   if (currentPerson != null && currentRoom != null && currentHotel != null && currentAddress != null) {
+
+    boolean isAdminValue = false;
+      if (isAdmin != null) {
+        isAdminValue = Boolean.parseBoolean(isAdmin);
+    }
 %>
 
 <div class="col mx-4">
@@ -74,8 +79,7 @@
             <div class="d-flex justify-content-start">
 
               <%
-                boolean isAdminValue = Boolean.parseBoolean(isAdmin);
-                if (isAdminValue) {
+                if (isAdminValue && order.getStatus().equals("CREATED")) {
               %>
               <form method="post" action="${pageContext.request.contextPath}/orders/update" class="me-2">
                 <input type="hidden" name="chosen_order_id" value="<%= order.getId() %>">
@@ -84,13 +88,17 @@
               <%
                 }
               %>
-
+              <%
+                if ((isAdminValue && !order.getStatus().equals("CLOSED")) || (!isAdminValue && order.getStatus().equals("CREATED"))) {
+              %>
               <form method="post" action="${pageContext.request.contextPath}/orders/delete">
                 <input type="hidden" name="chosen_order_id" value="<%= order.getId() %>">
                 <button type="submit" class="btn btn-outline-danger">Отменить</button>
               </form>
+              <%
+                }
+              %>
             </div>
-
           </div>
         </div>
 

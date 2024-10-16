@@ -23,4 +23,16 @@ public class RoomServiceImpl implements RoomService {
     public List<Room> findByHotelId(int hotelId) throws DaoException {
         return roomDao.findByHotelId(hotelId);
     }
+
+    @Override
+    public Room findById(int id) throws ServiceException, DaoException {
+        return roomDao.findById(id);
+    }
+
+    @Override
+    public void updateAvailableStatus(int id, boolean available) throws DaoException, ServiceException {
+        Room room = findById(id);
+        room.setAvailable(available);
+        roomDao.update(room);
+    }
 }

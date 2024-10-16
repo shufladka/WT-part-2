@@ -27,7 +27,7 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room> implements RoomDao {
     private static final String FIND_BY_ROOM = "select * from " + Tables.ROOMS + " where hotel_id=?";
     private static final String FIND_BY_AVAILABLE = "select * from " + Tables.ROOMS + " where is_available=?";
     private static final String UPDATE =  "update " + Tables.ROOMS +
-            " set name=?, capacity=?, floor=?, basic_price=?, weekend_price=?, image_path=?, hotel_id=?, is_available=?, where id=?";
+            " set name=?, capacity=?, floor=?, basic_price=?, weekend_price=?, image_path=?, hotel_id=?, is_available=? where id=?";
 
     public RoomDaoImpl() {
         super(RecordMapperSingleton.getInstance().getRoomRecordMapper(), Tables.ROOMS);
@@ -36,7 +36,7 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room> implements RoomDao {
     @Override
     public void save(Room room) throws DaoException {
         executeInsertQuery(SAVE, room.getId(), room.getName(), room.getCapacity(),
-                room.getFloor(), room.getBasicPrice(), room.getWeekendPrice(), room.getImagePath());
+                room.getFloor(), room.getBasicPrice(), room.getWeekendPrice(), room.getImagePath(), room.getHotelId(), true);
     }
 
     @Override
@@ -82,6 +82,6 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room> implements RoomDao {
     @Override
     public void update(Room room) throws DaoException {
         executeInsertQuery(UPDATE, room.getName(), room.getCapacity(), room.getFloor(),
-                room.getBasicPrice(), room.getWeekendPrice(), room.getImagePath(), room.isAvailable(), room.getId());
+                room.getBasicPrice(), room.getWeekendPrice(), room.getImagePath(), room.getHotelId(), room.isAvailable(), room.getId());
     }
 }

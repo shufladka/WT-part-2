@@ -93,7 +93,7 @@ public class OrderServlet extends HttpServlet {
             req.setAttribute("orders", orders);
 
             HttpSession session = req.getSession();
-            if (session != null || session.getAttribute("userinfo") != null) {
+            if (session != null && session.getAttribute("userinfo") != null) {
                 person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
                 boolean isAdmin = authService.isAdmin(person);
 
@@ -171,19 +171,29 @@ public class OrderServlet extends HttpServlet {
             req.setAttribute("orders", orders);
 
             HttpSession session = req.getSession();
-            if (session != null || (session.getAttribute("userinfo") != null)) {
+            if (session != null && (session.getAttribute("userinfo") != null)) {
                 person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
+                boolean isAdmin = authService.isAdmin(person);
 
                 if (pathPart != null) {
                     switch (pathPart) {
                         case "save":
                             orderService.save(person, Integer.parseInt(roomId));
+                            roomService.updateAvailableStatus(Integer.parseInt(roomId), false);
                             break;
                         case "update":
-                            orderService.update(orderService.findById(Integer.parseInt(orderId)));
+                            if (isAdmin) {
+                                Order order = orderService.findById(Integer.parseInt(orderId));
+                                int id = order.getRoomId();
+                                orderService.update(order);
+                                roomService.updateAvailableStatus(id, false);
+                            }
                             break;
                         case "delete":
+                            Order order = orderService.findById(Integer.parseInt(orderId));
+                            int id = order.getRoomId();
                             orderService.delete(Integer.parseInt(orderId));
+                            roomService.updateAvailableStatus(id, true);
                             break;
                         default:
                             req.setAttribute("order_id", pathPart);
