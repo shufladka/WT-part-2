@@ -70,12 +70,12 @@
       <div class="row g-0 d-flex align-items-center">
         <div class="col-md-8 d-flex align-items-center">
           <div class="card-body">
-            <h5 class="card-title">Заказ № <%= order.getId() %></h5>
-            <p class="card-text m-0">Клиент: <%= currentPerson.getUsername() %></p>
-            <p class="card-text m-0">Полное имя: <%= currentPerson.getFirstName() %> <%= currentPerson.getLastName() %></p>
-            <p class="card-text m-0">Комната: <%= currentRoom.getName() %></p>
-            <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.hotels.name"/> "<%= currentHotel.getName() %>" (<%= currentAddress.getCity() %>, <%= currentAddress.getStreet() %>, <%= currentAddress.getBuilding() %>, <%= currentRoom.getFloor() %> <fmt:message bundle="${lang}" key="lang.rooms.floor"/>)</p>
-            <p class="card-text mb-2">Статус заказа: <%= order.getStatus() %></p>
+            <h5 class="card-title"><fmt:message bundle="${lang}" key="lang.orders.order"/> № <%= order.getId() %></h5>
+            <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.orders.client"/>: <%= currentPerson.getUsername() %></p>
+            <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.orders.full_name"/>: <%= currentPerson.getFirstName() %> <%= currentPerson.getLastName() %></p>
+            <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.orders.room_name"/>: <%= currentRoom.getName() %></p>
+            <p class="card-text m-0"><fmt:message bundle="${lang}" key="lang.orders.hotel_name"/> "<%= currentHotel.getName() %>" (<%= currentAddress.getCity() %>, <%= currentAddress.getStreet() %>, <%= currentAddress.getBuilding() %>, <%= currentRoom.getFloor() %> <fmt:message bundle="${lang}" key="lang.rooms.floor"/>)</p>
+            <p class="card-text mb-2"><fmt:message bundle="${lang}" key="lang.orders.order_status"/>: <%= order.getStatus() %></p>
             <div class="d-flex justify-content-start">
 
               <%
@@ -83,7 +83,7 @@
               %>
               <form method="post" action="${pageContext.request.contextPath}/orders/update" class="me-2">
                 <input type="hidden" name="chosen_order_id" value="<%= order.getId() %>">
-                <button type="submit" class="btn btn-outline-success">Принять в работу</button>
+                <button type="submit" class="btn btn-outline-success"><fmt:message bundle="${lang}" key="lang.orders.accept_for_work"/></button>
               </form>
               <%
                 }
@@ -93,7 +93,7 @@
               %>
               <form method="post" action="${pageContext.request.contextPath}/orders/delete">
                 <input type="hidden" name="chosen_order_id" value="<%= order.getId() %>">
-                <button type="submit" class="btn btn-outline-danger">Отменить</button>
+                <button type="submit" class="btn btn-outline-danger"><fmt:message bundle="${lang}" key="lang.orders.cancel"/></button>
               </form>
               <%
                 }
@@ -126,7 +126,7 @@
 %>
 
 <div class="col mx-4">
-  <p>No orders available.</p>
+  <p><fmt:message bundle="${lang}" key="lang.orders.no_orders"/>.</p>
 </div>
 
 <%

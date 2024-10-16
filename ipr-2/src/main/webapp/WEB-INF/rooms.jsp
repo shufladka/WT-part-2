@@ -50,7 +50,7 @@
             if (!hasRooms) {
         %>
         <div class="col mx-4">
-            <p>No rooms available for this hotel.</p>
+            <p><fmt:message bundle="${lang}" key="lang.rooms.no_rooms"/>.</p>
         </div>
         <%
             }
@@ -79,7 +79,7 @@
         } else {
         %>
         <div class="col mx-4">
-            <p>No rooms available.</p>
+            <p><fmt:message bundle="${lang}" key="lang.rooms.no_rooms"/>.</p>
         </div>
         <%
             }

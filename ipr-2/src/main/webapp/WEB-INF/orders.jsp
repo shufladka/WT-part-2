@@ -66,7 +66,7 @@
             if (!hasOrders) {
         %>
         <div class="col mx-4">
-            <p>No orders available for this person.</p>
+            <p><fmt:message bundle="${lang}" key="lang.orders.no_orders"/>.</p>
         </div>
         <%
             }
@@ -83,7 +83,7 @@
         } else {
         %>
         <div class="col mx-4">
-            <p>No orders available.</p>
+            <p><fmt:message bundle="${lang}" key="lang.orders.no_orders"/>.</p>
         </div>
         <%
             }
