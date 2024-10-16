@@ -54,16 +54,10 @@
         <jsp:include page="templates/hotel-card.jsp" />
 
         <%
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
         %>
         <div class="col mx-4">
-            <p>Invalid hotel ID format.</p>
-        </div>
-        <%
-        } catch (IndexOutOfBoundsException e) {
-        %>
-        <div class="col mx-4">
-            <p>No hotels available.</p>
+            <p><fmt:message bundle="${lang}" key="lang.hotels.no_hotels"/>.</p>
         </div>
         <%
                 }
@@ -71,7 +65,7 @@
         } else {
         %>
         <div class="col mx-4">
-            <p>No hotels available.</p>
+            <p><fmt:message bundle="${lang}" key="lang.hotels.no_hotels"/>.</p>
         </div>
         <%
             }

@@ -84,7 +84,7 @@
               <%
                   } else {
               %>
-              <p class="btn btn-danger disabled"><fmt:message bundle="${lang}" key="lang.rooms.busy"/>.</p>
+              <p class="btn btn-danger disabled"><fmt:message bundle="${lang}" key="lang.rooms.busy"/></p>
               <%
                   }
               %>
