@@ -1,6 +1,6 @@
 package by.bsuir.connection;
 
-import by.bsuir.dao.DaoSingleton;
+import by.bsuir.dao.DaoFactory;
 import by.bsuir.exceptions.ConnectionException;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class ConnectionPool {
     public static ConnectionPool getInstance()
     {
         if (INSTANCE == null) {
-            synchronized (DaoSingleton.class) {
+            synchronized (DaoFactory.class) {
                 if (INSTANCE == null) {
                     INSTANCE = new ConnectionPool();
                 }

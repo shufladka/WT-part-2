@@ -3,8 +3,8 @@ package by.bsuir.mapper;
 import by.bsuir.entity.*;
 import by.bsuir.mapper.impl.*;
 
-public class RecordMapperSingleton {
-    private static RecordMapperSingleton INSTANCE;
+public class RecordMapperFactory {
+    private static RecordMapperFactory INSTANCE;
     private final RecordMapper<Address> addressRecordMapper = new AddressRecordMapperImpl();
     private final RecordMapper<Hotel> hotelRecordMapper = new HotelRecordMapperImpl();
     private final RecordMapper<Person> personRecordMapper = new PersonRecordMapperImpl();
@@ -12,12 +12,12 @@ public class RecordMapperSingleton {
     private final RecordMapper<Room> roomRecordMapper = new RoomRecordMapperImpl();
     private final RecordMapper<Order> orderRecordMapper = new OrderRecordMapperImpl();
 
-    public static RecordMapperSingleton getInstance()
+    public static RecordMapperFactory getInstance()
     {
         if (INSTANCE == null) {
-            synchronized (RecordMapperSingleton.class) {
+            synchronized (RecordMapperFactory.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new RecordMapperSingleton();
+                    INSTANCE = new RecordMapperFactory();
                 }
             }
         }

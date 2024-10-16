@@ -5,7 +5,7 @@ import by.bsuir.entity.Person;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.ServiceFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,7 +64,7 @@ public class RegistrationServlet extends HttpServlet {
         boolean isRegisterSuccess = false;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             isRegisterSuccess = service.getAuthService().registration(person);
         } catch (ServiceException | DaoException e) {
             System.out.println(e.getMessage());

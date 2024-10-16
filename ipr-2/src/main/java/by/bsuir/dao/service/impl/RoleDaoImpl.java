@@ -5,7 +5,7 @@ import by.bsuir.dao.Tables;
 import by.bsuir.dao.service.RoleDao;
 import by.bsuir.entity.Role;
 import by.bsuir.exceptions.DaoException;
-import by.bsuir.mapper.RecordMapperSingleton;
+import by.bsuir.mapper.RecordMapperFactory;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class RoleDaoImpl extends AbstractDaoImpl<Role> implements RoleDao {
     private static final String DELETE = "delete from " + Tables.ROLES + " where id=?";
 
     public RoleDaoImpl() {
-        super(RecordMapperSingleton.getInstance().getRoleRecordMapper(), Tables.ROLES);
+        super(RecordMapperFactory.getInstance().getRoleRecordMapper(), Tables.ROLES);
     }
 
     @Override

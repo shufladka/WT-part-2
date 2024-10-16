@@ -3,9 +3,7 @@ package by.bsuir.servlet;
 import by.bsuir.connection.ConnectionPool;
 import by.bsuir.entity.Person;
 import by.bsuir.exceptions.ConnectionException;
-import by.bsuir.exceptions.DaoException;
-import by.bsuir.exceptions.ServiceException;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.ServiceFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,7 +59,7 @@ public class LoginServlet extends HttpServlet {
         Person person = null;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             person = service.getAuthService().login(username, password);
 
             // Сериализация объекта Person с добавлением произвольных параметров и хешированием в Base64

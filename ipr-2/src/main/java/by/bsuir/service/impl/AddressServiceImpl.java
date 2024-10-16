@@ -1,6 +1,6 @@
 package by.bsuir.service.impl;
 
-import by.bsuir.dao.DaoSingleton;
+import by.bsuir.dao.DaoFactory;
 import by.bsuir.dao.service.AddressDao;
 import by.bsuir.entity.Address;
 import by.bsuir.exceptions.DaoException;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AddressServiceImpl implements AddressService {
 
-    DaoSingleton dao = DaoSingleton.getInstance();
+    DaoFactory dao = DaoFactory.getInstance();
     AddressDao addressDao = dao.getAddressDao();
 
     @Override

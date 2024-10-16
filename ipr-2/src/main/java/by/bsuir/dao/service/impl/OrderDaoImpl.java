@@ -5,7 +5,7 @@ import by.bsuir.dao.Tables;
 import by.bsuir.dao.service.OrderDao;
 import by.bsuir.entity.Order;
 import by.bsuir.exceptions.DaoException;
-import by.bsuir.mapper.RecordMapperSingleton;
+import by.bsuir.mapper.RecordMapperFactory;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,7 +25,7 @@ public class OrderDaoImpl extends AbstractDaoImpl<Order> implements OrderDao {
             " set closed_at=?, status=? where id=?";
 
     public OrderDaoImpl() {
-        super(RecordMapperSingleton.getInstance().getOrderRecordMapper(), Tables.ORDERS);
+        super(RecordMapperFactory.getInstance().getOrderRecordMapper(), Tables.ORDERS);
     }
 
     @Override

@@ -1,6 +1,4 @@
-<%@ page import="by.bsuir.service.ServiceSingleton" %>
-<%@ page import="by.bsuir.entity.Person" %>
-<%@ page import="by.bsuir.service.AuthService" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: klezo
   Date: 12.10.2024
@@ -20,9 +18,9 @@
     </a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav fs-5">
-        <a class="nav-link" href="/hotels"><fmt:message bundle="${lang}" key="lang.nav.hotels"/></a>
-        <a class="nav-link" href="/rooms"><fmt:message bundle="${lang}" key="lang.nav.rooms"/></a>
-        <a class="nav-link" href="/orders"><fmt:message bundle="${lang}" key="lang.nav.orders"/></a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/hotels"><fmt:message bundle="${lang}" key="lang.nav.hotels"/></a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/rooms"><fmt:message bundle="${lang}" key="lang.nav.rooms"/></a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/orders"><fmt:message bundle="${lang}" key="lang.nav.orders"/></a>
       </div>
     </div>
   </div>

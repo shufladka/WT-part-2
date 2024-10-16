@@ -17,14 +17,10 @@
 <%
     List<Address> addressList = (List<Address>) request.getAttribute("addresses");
     Hotel hotel = (Hotel) request.getAttribute("hotel");
-    String hotelId = (String) request.getAttribute("hotel_id");
-    String roomId = (String) request.getAttribute("room_id");
 
     if (hotel != null && addressList != null) {
 %>
 
-<%--hotel <%= hotelId %>--%>
-<%--room <%= roomId %>--%>
 <div class="col mx-4">
     <div class="row mb-4">
         <div class="card p-0">
@@ -42,14 +38,6 @@
                             </p>
                         </div>
                         <p class="card-text mb-3"><%= addressList.get(hotel.getAddressId()).getRegion() %>,  <%= addressList.get(hotel.getAddressId()).getCity() %>, <%= addressList.get(hotel.getAddressId()).getStreet() %> <%= addressList.get(hotel.getAddressId()).getBuilding() %>, <%= addressList.get(hotel.getAddressId()).getZip() %></p>
-
-                        <%--<form method="post" action="/rooms">--%>
-<%--                            <input type="hidden" name="hotel_id" value="<%= hotel.getId() %>">--%>
-<%--                            <button type="submit" class="btn btn-outline-primary">--%>
-<%--                                <fmt:message bundle="${lang}" key="lang.hotels.redirect"/>--%>
-<%--                            </button>--%>
-<%--                        </form>--%>
-
                         <a href="/rooms?hotel_id=<%= hotel.getId() %>" class="btn btn-outline-primary"><fmt:message bundle="${lang}" key="lang.hotels.redirect"/></a>
                     </div>
                 </div>

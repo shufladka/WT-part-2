@@ -8,14 +8,13 @@ import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
 import by.bsuir.service.AddressService;
 import by.bsuir.service.HotelService;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.ServiceFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class HotelsServlet extends HttpServlet {
         AddressService addressService = null;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             hotelService = service.getHotelService();
             addressService = service.getAddressService();
 

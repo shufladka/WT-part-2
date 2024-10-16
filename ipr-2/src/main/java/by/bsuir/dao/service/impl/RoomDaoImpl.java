@@ -3,10 +3,9 @@ package by.bsuir.dao.service.impl;
 import by.bsuir.dao.AbstractDaoImpl;
 import by.bsuir.dao.Tables;
 import by.bsuir.dao.service.RoomDao;
-import by.bsuir.entity.Hotel;
 import by.bsuir.entity.Room;
 import by.bsuir.exceptions.DaoException;
-import by.bsuir.mapper.RecordMapperSingleton;
+import by.bsuir.mapper.RecordMapperFactory;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room> implements RoomDao {
             " set name=?, capacity=?, floor=?, basic_price=?, weekend_price=?, image_path=?, hotel_id=?, is_available=? where id=?";
 
     public RoomDaoImpl() {
-        super(RecordMapperSingleton.getInstance().getRoomRecordMapper(), Tables.ROOMS);
+        super(RecordMapperFactory.getInstance().getRoomRecordMapper(), Tables.ROOMS);
     }
 
     @Override

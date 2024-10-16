@@ -68,7 +68,7 @@ public class OrderServlet extends HttpServlet {
         OrderService orderService;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             AuthService authService = service.getAuthService();
 
             personService = service.getPersonService();
@@ -147,7 +147,7 @@ public class OrderServlet extends HttpServlet {
         OrderService orderService;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             AuthService authService = service.getAuthService();
 
             personService = service.getPersonService();

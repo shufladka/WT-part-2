@@ -3,9 +3,9 @@ package by.bsuir.dao;
 import by.bsuir.dao.service.*;
 import by.bsuir.dao.service.impl.*;
 
-public class DaoSingleton {
+public class DaoFactory {
 
-    private static DaoSingleton INSTANCE;
+    private static DaoFactory INSTANCE;
     private final AddressDao addressDao = new AddressDaoImpl();
     private final HotelDao hotelDao = new HotelDaoImpl();
     private final PersonDao personDao = new PersonDaoImpl();
@@ -37,12 +37,12 @@ public class DaoSingleton {
         return orderDao;
     }
 
-    public static DaoSingleton getInstance()
+    public static DaoFactory getInstance()
     {
         if (INSTANCE == null) {
-            synchronized (DaoSingleton.class) {
+            synchronized (DaoFactory.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new DaoSingleton();
+                    INSTANCE = new DaoFactory();
                 }
             }
         }

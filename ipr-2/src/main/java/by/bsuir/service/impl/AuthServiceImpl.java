@@ -1,31 +1,28 @@
 package by.bsuir.service.impl;
 
-import by.bsuir.dao.DaoSingleton;
+import by.bsuir.dao.DaoFactory;
 import by.bsuir.dao.service.PersonDao;
 import by.bsuir.entity.Person;
-import by.bsuir.entity.Role;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
 import by.bsuir.mapper.Attributes;
 import by.bsuir.service.AuthService;
 import by.bsuir.service.RoleService;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.ServiceFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 public class AuthServiceImpl implements AuthService {
 
-    DaoSingleton dao = DaoSingleton.getInstance();
+    DaoFactory dao = DaoFactory.getInstance();
     PersonDao personDao = dao.getPersonDao();
 
     @Override
@@ -66,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean isAdmin(Person person) throws ServiceException, DaoException {
-        ServiceSingleton service = ServiceSingleton.getInstance();
+        ServiceFactory service = ServiceFactory.getInstance();
         RoleService roleService = service.getRoleService();
         int adminRoleId = roleService.findAdminRoleId();
 

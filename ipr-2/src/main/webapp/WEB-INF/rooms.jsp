@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="by.bsuir.entity.Room" %>
-<%@ page import="java.util.Collections" %>
 <%@ page import="java.util.Comparator" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -30,14 +29,9 @@
             String roomId = (String) request.getAttribute("room_id");
 
             // Сортировка по room ID
-            Collections.sort(roomList, new Comparator<Room>() {
-                @Override
-                public int compare(Room r1, Room r2) {
-                    return Integer.compare(r1.getId(), r2.getId());
-                }
-            });
+            roomList.sort(Comparator.comparingInt(Room::getId));
 
-            if (roomList != null && !roomList.isEmpty()) {
+            if (!roomList.isEmpty()) {
                 boolean hasRooms = false;
 
                 // Если указан hotelId, фильтруем комнаты по отелю
