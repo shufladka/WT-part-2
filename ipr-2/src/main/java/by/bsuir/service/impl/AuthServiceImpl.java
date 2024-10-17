@@ -5,7 +5,6 @@ import by.bsuir.dao.service.PersonDao;
 import by.bsuir.entity.Person;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
-import by.bsuir.filter.AuthFilter;
 import by.bsuir.mapper.Attributes;
 import by.bsuir.service.AuthService;
 import by.bsuir.service.RoleService;
