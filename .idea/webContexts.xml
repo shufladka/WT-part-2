@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/home.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF" />
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/hotels.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF" />
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/orders.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF" />
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/profiles.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF" />
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/rooms.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF" />
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/templates/footer.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/templates" />
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/templates/nav.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/templates" />
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/templates/order-card.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/templates" />
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/templates/room-card.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/templates" />
+        <entry key="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/view/templates/headLinks.jsp" value="file://$PROJECT_DIR$/ipr-2/src/main/webapp/WEB-INF/view/templates" />
+      </map>
+    </option>
+  </component>
+</project>
