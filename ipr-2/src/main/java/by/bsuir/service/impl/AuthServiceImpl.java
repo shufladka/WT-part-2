@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void logout(Person person) throws ServiceException {
-
+        // можно было бы сделать сохранение времени создания/удаления аккаунта, входа и выхода в БД, но проще подключить Keycloak :(
     }
 
     @Override
