@@ -14,13 +14,16 @@
 <%@ page import="by.bsuir.entity.Hotel" %>
 <%@ page import="by.bsuir.entity.Address" %>
 <%@ page import="by.bsuir.entity.Room" %>
+<%@ page import="by.bsuir.entity.Order" %>
 
 <%
   Room room = (Room) request.getAttribute("room");
   List<Hotel> hotelList = (List<Hotel>) request.getAttribute("hotels");
   List<Address> addressList = (List<Address>) request.getAttribute("addresses");
+  List<Order> orderList = (List<Order>) request.getAttribute("orders");
   Hotel currentHotel = null;
   Address currentAddress = null;
+  Order currentOrder = null;
 
   if (hotelList != null && addressList != null) {
       for (Hotel hotel : hotelList) {
@@ -32,6 +35,14 @@
       for (Address address : addressList) {
           if (address.getId() == currentHotel.getAddressId()) {
               currentAddress = address;
+          }
+      }
+  }
+
+  if (orderList != null) {
+      for (Order order : orderList) {
+          if (room.getId() == order.getRoomId() && !room.isAvailable()) {
+              currentOrder = order;
           }
       }
   }
@@ -65,9 +76,18 @@
 
               <%
                   request.setAttribute("chosen_room_id", String.valueOf(room.getId()));
+
+                  // Проверка на занятость номера
+                  if (currentOrder == null) {
               %>
               <jsp:include page="order-modal.jsp" />
-
+              <%
+                  } else {
+              %>
+              <p class="btn btn-danger disabled"><fmt:message bundle="${lang}" key="lang.rooms.busy"/></p>
+              <%
+                  }
+              %>
           </div>
         </div>
 
@@ -92,7 +112,7 @@
 } else {
 %>
 <div class="col mx-4">
-  <p>No rooms available.</p>
+  <p><fmt:message bundle="${lang}" key="lang.rooms.no_rooms"/>.</p>
 </div>
 <%
   }

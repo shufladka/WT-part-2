@@ -7,7 +7,7 @@ import by.bsuir.entity.Address;
 import by.bsuir.entity.Hotel;
 import by.bsuir.entity.Room;
 import by.bsuir.exceptions.DaoException;
-import by.bsuir.mapper.RecordMapperSingleton;
+import by.bsuir.mapper.RecordMapperFactory;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class HotelDaoImpl extends AbstractDaoImpl<Hotel> implements HotelDao {
             " set name=?, description=?, adderess_id=?, level=?, available_to_book=?, image_path=? where id=?";
 
     public HotelDaoImpl() {
-        super(RecordMapperSingleton.getInstance().getHotelRecordMapper(), Tables.HOTELS);
+        super(RecordMapperFactory.getInstance().getHotelRecordMapper(), Tables.HOTELS);
     }
 
     @Override

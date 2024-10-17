@@ -1,6 +1,6 @@
 package by.bsuir.service.impl;
 
-import by.bsuir.dao.DaoSingleton;
+import by.bsuir.dao.DaoFactory;
 import by.bsuir.dao.service.PersonDao;
 import by.bsuir.entity.Person;
 import by.bsuir.exceptions.DaoException;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PersonServiceImpl implements PersonService {
 
-    DaoSingleton dao = DaoSingleton.getInstance();
+    DaoFactory dao = DaoFactory.getInstance();
     PersonDao personDao = dao.getPersonDao();
 
     @Override

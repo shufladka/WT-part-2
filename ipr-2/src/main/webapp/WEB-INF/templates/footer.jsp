@@ -1,6 +1,4 @@
-<%@ page import="by.bsuir.service.ServiceSingleton" %>
-<%@ page import="by.bsuir.service.AuthService" %>
-<%@ page import="by.bsuir.entity.Person" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: klezo
   Date: 06.10.2024
@@ -18,12 +16,11 @@
     <div class="bg-light py-3 py-md-3 py-xl-8">
         <div class="container overflow-hidden">
             <div class="col gy-3 gy-md-3 gy-xl-0 align-items-center">
-
                 <div class="bg-light mb-3">
                     <div class="container overflow-hidden">
                         <div class="row">
                             <div class="footer-copyright-wrapper text-center">
-                                <a class="navbar-brand" href="/">
+                                <a class="navbar-brand" href="${pageContext.request.contextPath}/">
                                     <img src="https://i.imgur.com/KlMVi1H.png" alt="brand" width="30" height="30" class="d-inline-block align-text-top">
                                     <span class="navbar-brand mb-0 h1 fs-5 text-body">Bookin</span>
                                 </a>
@@ -35,42 +32,20 @@
                 <div class="col order-2 order-xl-1">
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link link-secondary px-2 px-md-3 disabled" href="/"><fmt:message bundle="${lang}" key="lang.footer.home"/></a>
+                            <a class="nav-link link-secondary px-2 px-md-3 disabled" href="${pageContext.request.contextPath}/"><fmt:message bundle="${lang}" key="lang.footer.home"/></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link-secondary px-2 px-md-3" href="/hotels"><fmt:message bundle="${lang}" key="lang.footer.hotels"/></a>
+                            <a class="nav-link link-secondary px-2 px-md-3" href="${pageContext.request.contextPath}/hotels"><fmt:message bundle="${lang}" key="lang.footer.hotels"/></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link-secondary px-2 px-md-3" href="/rooms"><fmt:message bundle="${lang}" key="lang.footer.rooms"/></a>
+                            <a class="nav-link link-secondary px-2 px-md-3" href="${pageContext.request.contextPath}/rooms"><fmt:message bundle="${lang}" key="lang.footer.rooms"/></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link-secondary px-2 px-md-3" href="/orders"><fmt:message bundle="${lang}" key="lang.footer.orders"/></a>
+                            <a class="nav-link link-secondary px-2 px-md-3" href="${pageContext.request.contextPath}/orders"><fmt:message bundle="${lang}" key="lang.footer.orders"/></a>
                         </li>
-
-                        <%
-                            ServiceSingleton service = new ServiceSingleton();
-                            AuthService authService = service.getAuthService();
-                            boolean isAdmin = false;
-
-                            if (session.getAttribute("userinfo") != null) {
-                                Person person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
-                                isAdmin = authService.isAdmin(person);
-                            }
-
-                            if (isAdmin) {
-                        %>
-                        <li class="nav-item">
-                            <a class="nav-link link-secondary px-2 px-md-3" href="/profiles">профили</a>
-                        </li>
-
-                        <%
-                            }
-                        %>
-
-
                         <c:if test="${sessionScope.lang == 'ru' || sessionScope.lang == null}">
                             <li class="nav-item">
-                                <a class="nav-link link-secondary px-2 px-md-3"href="?lang=en"><fmt:message bundle="${lang}" key="lang.footer.change_language"/></a>
+                                <a class="nav-link link-secondary px-2 px-md-3" href="?lang=en"><fmt:message bundle="${lang}" key="lang.footer.change_language"/></a>
                             </li>
                         </c:if>
                         <c:if test="${sessionScope.lang == 'en'}">

@@ -4,6 +4,8 @@ import by.bsuir.connection.ConnectionPool;
 import by.bsuir.entity.*;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.service.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +18,15 @@ import java.util.List;
 
 @WebServlet("/orders/*")
 public class OrderServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(OrderServlet.class);
+
     @Override
     public void init() throws ServletException {
         try {
             ConnectionPool.getInstance().initialize();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[OrderServlet] {}", e.getMessage());
         }
         super.init();
     }
@@ -45,35 +50,30 @@ public class OrderServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
-
         String pathPart = null;
         String pathInfo = req.getPathInfo();
         if (pathInfo != null && !pathInfo.equals("/")) {
             pathPart = pathInfo.substring(1);
         }
 
-        Room room = null;
-        List<Room> rooms = null;
-        RoomService roomService = null;
+        List<Room> rooms;
+        RoomService roomService;
 
-        Address address = null;
-        List<Address> addresses = null;
-        AddressService addressService = null;
+        List<Address> addresses;
+        AddressService addressService;
 
-        Hotel hotel = null;
-        List<Hotel> hotels = null;
-        HotelService hotelService = null;
+        List<Hotel> hotels;
+        HotelService hotelService;
 
-        Person person = null;
-        List<Person> people = null;
-        PersonService personService = null;
+        Person person ;
+        List<Person> people;
+        PersonService personService;
 
-        Order order = null;
-        List<Order> orders = null;
-        OrderService orderService = null;
+        List<Order> orders;
+        OrderService orderService;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             AuthService authService = service.getAuthService();
 
             personService = service.getPersonService();
@@ -98,7 +98,7 @@ public class OrderServlet extends HttpServlet {
             req.setAttribute("orders", orders);
 
             HttpSession session = req.getSession();
-            if (session != null || session.getAttribute("userinfo") != null) {
+            if (session != null && session.getAttribute("userinfo") != null) {
                 person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
                 boolean isAdmin = authService.isAdmin(person);
 
@@ -112,9 +112,10 @@ public class OrderServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.error("[OrderServlet] {}", e.getMessage());
         }
 
+        logger.info("[OrderServlet] [GET] RequestDispatcher '/WEB-INF/orders.jsp'");
         req.getRequestDispatcher("/WEB-INF/orders.jsp").forward(req, resp);
     }
 
@@ -135,35 +136,29 @@ public class OrderServlet extends HttpServlet {
             pathPart = pathInfo.substring(1);
         }
 
-        Room room = null;
-        List<Room> rooms = null;
-        RoomService roomService = null;
+        List<Room> rooms;
+        RoomService roomService;
 
-        Address address = null;
-        List<Address> addresses = null;
-        AddressService addressService = null;
+        List<Address> addresses;
+        AddressService addressService;
 
-        Hotel hotel = null;
-        List<Hotel> hotels = null;
-        HotelService hotelService = null;
+        List<Hotel> hotels;
+        HotelService hotelService;
 
-        Person person = null;
-        List<Person> people = null;
-        PersonService personService = null;
+        Person person;
+        List<Person> people;
+        PersonService personService;
 
-        Order order = null;
-        List<Order> orders = null;
-        OrderService orderService = null;
+        List<Order> orders;
+        OrderService orderService;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             AuthService authService = service.getAuthService();
 
             personService = service.getPersonService();
             people = personService.findAll();
             req.setAttribute("people", people);
-
-            System.out.println();
 
             roomService = service.getRoomService();
             rooms = roomService.findAll();
@@ -182,29 +177,42 @@ public class OrderServlet extends HttpServlet {
             req.setAttribute("orders", orders);
 
             HttpSession session = req.getSession();
-            if (session != null || session.getAttribute("userinfo") != null) {
+            if (session != null && (session.getAttribute("userinfo") != null)) {
                 person = authService.deserializePersonBase64(session.getAttribute("userinfo").toString());
+                boolean isAdmin = authService.isAdmin(person);
 
                 if (pathPart != null) {
                     switch (pathPart) {
                         case "save":
                             orderService.save(person, Integer.parseInt(roomId));
+                            roomService.updateAvailableStatus(Integer.parseInt(roomId), false);
                             break;
                         case "update":
-                            orderService.update(orderService.findById(Integer.parseInt(orderId)));
+                            if (isAdmin) {
+                                Order order = orderService.findById(Integer.parseInt(orderId));
+                                int id = order.getRoomId();
+                                orderService.update(order);
+                                roomService.updateAvailableStatus(id, false);
+                            }
                             break;
                         case "delete":
+                            Order order = orderService.findById(Integer.parseInt(orderId));
+                            int id = order.getRoomId();
                             orderService.delete(Integer.parseInt(orderId));
+                            roomService.updateAvailableStatus(id, true);
                             break;
                         default:
                             req.setAttribute("order_id", pathPart);
+                            break;
                     }
+                    logger.info("[OrderServlet] [POST] Gonna to path 'orders/{}'", pathPart);
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.error("[OrderServlet] {}", e.getMessage());
         }
 
+        logger.info("[OrderServlet] [POST] Redirect to '/'");
         resp.sendRedirect("/orders");
     }
 
@@ -213,7 +221,7 @@ public class OrderServlet extends HttpServlet {
         try {
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[OrderServlet] {}", e.getMessage());
         }
 
         super.destroy();

@@ -5,7 +5,7 @@ import by.bsuir.dao.Tables;
 import by.bsuir.dao.service.AddressDao;
 import by.bsuir.entity.Address;
 import by.bsuir.exceptions.DaoException;
-import by.bsuir.mapper.RecordMapperSingleton;
+import by.bsuir.mapper.RecordMapperFactory;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class AddressDaoImpl extends AbstractDaoImpl<Address> implements AddressD
             " set region=?, city=?, street=?, building=?, zip=? where id=?";
 
     public AddressDaoImpl() {
-        super(RecordMapperSingleton.getInstance().getAddressRecordMapper(), Tables.ADDRESSES);
+        super(RecordMapperFactory.getInstance().getAddressRecordMapper(), Tables.ADDRESSES);
     }
 
     @Override

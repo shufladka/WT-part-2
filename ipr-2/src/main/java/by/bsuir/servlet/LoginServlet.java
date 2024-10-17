@@ -3,9 +3,9 @@ package by.bsuir.servlet;
 import by.bsuir.connection.ConnectionPool;
 import by.bsuir.entity.Person;
 import by.bsuir.exceptions.ConnectionException;
-import by.bsuir.exceptions.DaoException;
-import by.bsuir.exceptions.ServiceException;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,12 +20,14 @@ import java.util.Objects;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
+    private static final Logger logger = LogManager.getLogger(LoginServlet.class);
+
     @Override
     public void init() throws ServletException {
         try {
             ConnectionPool.getInstance().initialize();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[LoginServlet] {}", e.getMessage());
         }
         super.init();
     }
@@ -43,6 +45,7 @@ public class LoginServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
+        logger.info("[LoginServlet] [GET] RequestDispatcher '/WEB-INF/login.jsp'");
         req.getRequestDispatcher("WEB-INF/login.jsp").forward(req,resp);
     }
 
@@ -61,7 +64,7 @@ public class LoginServlet extends HttpServlet {
         Person person = null;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             person = service.getAuthService().login(username, password);
 
             // Сериализация объекта Person с добавлением произвольных параметров и хешированием в Base64
@@ -83,15 +86,20 @@ public class LoginServlet extends HttpServlet {
                 session.setMaxInactiveInterval(-1);
             }
 
+            logger.info("[LoginServlet] [POST] Session InactiveInterval is {} seconds", session.getMaxInactiveInterval());
             session.setAttribute("userinfo", hash);
 
         } catch (Exception e) {
+            logger.error("[LoginServlet] {}", e.getMessage());
+            logger.info("[LoginServlet] [POST] RequestDispatcher '/WEB-INF/login.jsp'");
             req.getRequestDispatcher("WEB-INF/login.jsp").forward(req,resp);
         }
 
         if (person != null) {
+            logger.info("[HotelsServlet] [POST] Redirect to '/'");
             resp.sendRedirect("/");
         } else {
+            logger.info("[HotelsServlet] [POST] Redirect to '/login?error=not_exists'");
             resp.sendRedirect("/login?error=not_exists");
         }
     }
@@ -101,7 +109,7 @@ public class LoginServlet extends HttpServlet {
         try {
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[LoginServlet] {}", e.getMessage());
         }
 
         super.destroy();

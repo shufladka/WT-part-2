@@ -1,6 +1,6 @@
 package by.bsuir.service.impl;
 
-import by.bsuir.dao.DaoSingleton;
+import by.bsuir.dao.DaoFactory;
 import by.bsuir.dao.service.RoleDao;
 import by.bsuir.entity.Role;
 import by.bsuir.exceptions.DaoException;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RoleServiceImpl implements RoleService {
 
-    DaoSingleton dao = DaoSingleton.getInstance();
+    DaoFactory dao = DaoFactory.getInstance();
     RoleDao roleDao = dao.getRoleDao();
 
     @Override

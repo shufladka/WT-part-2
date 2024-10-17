@@ -1,6 +1,6 @@
 package by.bsuir.service.impl;
 
-import by.bsuir.dao.DaoSingleton;
+import by.bsuir.dao.DaoFactory;
 import by.bsuir.dao.service.OrderDao;
 import by.bsuir.entity.Order;
 import by.bsuir.entity.Person;
@@ -9,7 +9,7 @@ import by.bsuir.exceptions.ServiceException;
 import by.bsuir.service.MailService;
 import by.bsuir.service.OrderService;
 import by.bsuir.service.PersonService;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.ServiceFactory;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -17,12 +17,12 @@ import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
 
-    DaoSingleton dao = DaoSingleton.getInstance();
+    DaoFactory dao = DaoFactory.getInstance();
     OrderDao orderDao = dao.getOrderDao();
 
     @Override
     public void save(Person person, int roomId) throws DaoException, ServiceException, IOException {
-        ServiceSingleton service = ServiceSingleton.getInstance();
+        ServiceFactory service = ServiceFactory.getInstance();
         MailService mailService = service.getMailService();
 
         int id = 0;
@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void update(Order order) throws ServiceException, DaoException, IOException {
-        ServiceSingleton service = ServiceSingleton.getInstance();
+        ServiceFactory service = ServiceFactory.getInstance();
         MailService mailService = service.getMailService();
         PersonService personService = service.getPersonService();
 
@@ -93,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void delete(int orderId) throws ServiceException, DaoException, IOException {
-        ServiceSingleton service = ServiceSingleton.getInstance();
+        ServiceFactory service = ServiceFactory.getInstance();
         MailService mailService = service.getMailService();
         PersonService personService = service.getPersonService();
 

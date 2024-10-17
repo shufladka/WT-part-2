@@ -3,10 +3,9 @@ package by.bsuir.dao.service.impl;
 import by.bsuir.dao.AbstractDaoImpl;
 import by.bsuir.dao.Tables;
 import by.bsuir.dao.service.RoomDao;
-import by.bsuir.entity.Hotel;
 import by.bsuir.entity.Room;
 import by.bsuir.exceptions.DaoException;
-import by.bsuir.mapper.RecordMapperSingleton;
+import by.bsuir.mapper.RecordMapperFactory;
 
 import java.util.List;
 
@@ -27,16 +26,16 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room> implements RoomDao {
     private static final String FIND_BY_ROOM = "select * from " + Tables.ROOMS + " where hotel_id=?";
     private static final String FIND_BY_AVAILABLE = "select * from " + Tables.ROOMS + " where is_available=?";
     private static final String UPDATE =  "update " + Tables.ROOMS +
-            " set name=?, capacity=?, floor=?, basic_price=?, weekend_price=?, image_path=?, hotel_id=?, is_available=?, where id=?";
+            " set name=?, capacity=?, floor=?, basic_price=?, weekend_price=?, image_path=?, hotel_id=?, is_available=? where id=?";
 
     public RoomDaoImpl() {
-        super(RecordMapperSingleton.getInstance().getRoomRecordMapper(), Tables.ROOMS);
+        super(RecordMapperFactory.getInstance().getRoomRecordMapper(), Tables.ROOMS);
     }
 
     @Override
     public void save(Room room) throws DaoException {
         executeInsertQuery(SAVE, room.getId(), room.getName(), room.getCapacity(),
-                room.getFloor(), room.getBasicPrice(), room.getWeekendPrice(), room.getImagePath());
+                room.getFloor(), room.getBasicPrice(), room.getWeekendPrice(), room.getImagePath(), room.getHotelId(), true);
     }
 
     @Override
@@ -82,6 +81,6 @@ public class RoomDaoImpl extends AbstractDaoImpl<Room> implements RoomDao {
     @Override
     public void update(Room room) throws DaoException {
         executeInsertQuery(UPDATE, room.getName(), room.getCapacity(), room.getFloor(),
-                room.getBasicPrice(), room.getWeekendPrice(), room.getImagePath(), room.isAvailable(), room.getId());
+                room.getBasicPrice(), room.getWeekendPrice(), room.getImagePath(), room.getHotelId(), room.isAvailable(), room.getId());
     }
 }

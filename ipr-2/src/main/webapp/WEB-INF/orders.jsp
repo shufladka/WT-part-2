@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="by.bsuir.entity.Order" %>
-<%@ page import="by.bsuir.entity.Person" %>
+<%@ page import="java.util.Comparator" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -27,30 +27,23 @@
             String orderId = (String) request.getAttribute("order_id");
             String personId = (String) request.getAttribute("person_id");
             String isAdmin = (String) request.getAttribute("is_admin");
-            List<Person> personList = (List<Person>) request.getAttribute("people");
+
+            // Сортировка по order ID
+            orderList.sort(Comparator.comparingInt(Order::getId).reversed());
 
             // Если указан orderId, показываем только этот заказ
             if (orderId != null) {
-                if (orderList != null) {
-                    int orderIdValue = Integer.parseInt(orderId);
-                    for (Order order : orderList) {
-                        if (order.getId() == orderIdValue) {
-                            request.setAttribute("order", order);
-        %>
+                int orderIdValue = Integer.parseInt(orderId);
+                for (Order order : orderList) {
+                    if (order.getId() == orderIdValue) {
+                        request.setAttribute("order", order);
+    %>
 
-
-        <jsp:include page="templates/order-card.jsp"/>
-        <%
-                }
+    <jsp:include page="templates/order-card.jsp"/>
+    <%
             }
-        } else {
-        %>
-        <div class="col mx-4">
-            <p>No orders available.</p>
-        </div>
-        <%
-            }
-        } else if (orderList != null && !orderList.isEmpty()) {
+        }
+        } else if (!orderList.isEmpty()) {
             boolean hasOrders = false;
 
             // Если указан personId, фильтруем заказы по id пользователя или показываем все для администратора
@@ -73,7 +66,7 @@
             if (!hasOrders) {
         %>
         <div class="col mx-4">
-            <p>No orders available for this person.</p>
+            <p><fmt:message bundle="${lang}" key="lang.orders.no_orders"/>.</p>
         </div>
         <%
             }
@@ -90,7 +83,7 @@
         } else {
         %>
         <div class="col mx-4">
-            <p>No orders available.</p>
+            <p><fmt:message bundle="${lang}" key="lang.orders.no_orders"/>.</p>
         </div>
         <%
             }

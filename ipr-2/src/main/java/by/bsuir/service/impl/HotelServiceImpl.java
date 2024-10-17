@@ -1,6 +1,6 @@
 package by.bsuir.service.impl;
 
-import by.bsuir.dao.DaoSingleton;
+import by.bsuir.dao.DaoFactory;
 import by.bsuir.dao.service.HotelDao;
 import by.bsuir.entity.Hotel;
 import by.bsuir.exceptions.DaoException;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class HotelServiceImpl implements HotelService {
 
-    DaoSingleton dao = DaoSingleton.getInstance();
+    DaoFactory dao = DaoFactory.getInstance();
     HotelDao hotelDao = dao.getHotelDao();
 
     @Override

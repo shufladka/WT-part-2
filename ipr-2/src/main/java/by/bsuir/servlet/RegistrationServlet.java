@@ -5,7 +5,9 @@ import by.bsuir.entity.Person;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,12 +20,14 @@ import java.time.LocalDate;
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 
+    private static final Logger logger = LogManager.getLogger(RegistrationServlet.class);
+
     @Override
     public void init() throws ServletException {
         try {
             ConnectionPool.getInstance().initialize();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[RegistrationServlet] {}", e.getMessage());
         }
         super.init();
     }
@@ -35,12 +39,13 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         // Устанавливаем кодировку для ответа
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-
+        logger.error("[RegistrationServlet] [GET] RequestDispatcher 'WEB-INF/registration.jsp'");
         req.getRequestDispatcher("WEB-INF/registration.jsp").forward(req,resp);
     }
 
@@ -64,15 +69,17 @@ public class RegistrationServlet extends HttpServlet {
         boolean isRegisterSuccess = false;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             isRegisterSuccess = service.getAuthService().registration(person);
         } catch (ServiceException | DaoException e) {
-            System.out.println(e.getMessage());
+            logger.error("[RegistrationServlet] {}", e.getMessage());
         }
 
         if (isRegisterSuccess) {
+            logger.info("[RegistrationServlet] [POST] Redirect to '/login'");
             resp.sendRedirect("/login");
         } else {
+            logger.info("[RegistrationServlet] [POST] Redirect to '/registration?error=exists'");
             resp.sendRedirect("/registration?error=exists");
         }
     }
@@ -82,7 +89,7 @@ public class RegistrationServlet extends HttpServlet {
         try {
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[RegistrationServlet] {}", e.getMessage());
         }
 
         super.destroy();

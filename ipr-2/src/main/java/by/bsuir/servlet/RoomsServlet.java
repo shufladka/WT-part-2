@@ -3,33 +3,34 @@ package by.bsuir.servlet;
 import by.bsuir.connection.ConnectionPool;
 import by.bsuir.entity.Address;
 import by.bsuir.entity.Hotel;
+import by.bsuir.entity.Order;
 import by.bsuir.entity.Room;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
-import by.bsuir.service.AddressService;
-import by.bsuir.service.HotelService;
-import by.bsuir.service.RoomService;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/rooms/*")
 public class RoomsServlet extends HttpServlet {
 
+    private static final Logger logger = LogManager.getLogger(RoomsServlet.class);
+
     @Override
     public void init() throws ServletException {
         try {
             ConnectionPool.getInstance().initialize();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[RoomsServlet] {}", e.getMessage());
         }
         super.init();
     }
@@ -60,20 +61,20 @@ public class RoomsServlet extends HttpServlet {
         }
 
         String hotelId = req.getParameter("hotel_id");
-        Hotel hotel = null;
-        List<Hotel> hotels = null;
-        HotelService hotelService = null;
+        List<Hotel> hotels;
+        HotelService hotelService;
 
-        Address address = null;
-        List<Address> addresses = null;
-        AddressService addressService = null;
+        List<Address> addresses;
+        AddressService addressService;
 
-        Room room = null;
-        List<Room> rooms = null;
-        RoomService roomService = null;
+        List<Room> rooms;
+        RoomService roomService;
+
+        List<Order> orders;
+        OrderService orderService;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             hotelService = service.getHotelService();
             addressService = service.getAddressService();
             roomService = service.getRoomService();
@@ -81,6 +82,10 @@ public class RoomsServlet extends HttpServlet {
             hotels = hotelService.findAll();
             addresses = addressService.findAll();
             rooms = roomService.findAll();
+
+            orderService = service.getOrderService();
+            orders = orderService.findAll();
+            req.setAttribute("orders", orders);
 
             req.setAttribute("hotels", hotels);
             req.setAttribute("addresses", addresses);
@@ -92,10 +97,10 @@ public class RoomsServlet extends HttpServlet {
             }
 
         } catch (ServiceException | DaoException e) {
-            System.out.println(e.getMessage());
+            logger.error("[RoomsServlet] {}", e.getMessage());
         }
 
-        // для тестов
+        logger.info("[RoomsServlet] [GET] RequestDispatcher '/WEB-INF/rooms.jsp'");
         req.getRequestDispatcher("/WEB-INF/rooms.jsp").forward(req, resp);
     }
 
@@ -107,8 +112,7 @@ public class RoomsServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-//        String id = req.getParameter("hotel_id");
-//        resp.sendRedirect("/rooms/" + id);
+        logger.info("[RoomsServlet] [POST] Redirect to '/rooms'");
         resp.sendRedirect("/rooms");
     }
 
@@ -117,7 +121,7 @@ public class RoomsServlet extends HttpServlet {
         try {
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[RoomsServlet] {}", e.getMessage());
         }
 
         super.destroy();

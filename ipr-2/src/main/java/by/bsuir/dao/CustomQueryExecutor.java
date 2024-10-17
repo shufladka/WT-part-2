@@ -8,7 +8,6 @@ import by.bsuir.mapper.RecordMapper;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CustomQueryExecutor<T> {
     private final RecordMapper<T> mapper;

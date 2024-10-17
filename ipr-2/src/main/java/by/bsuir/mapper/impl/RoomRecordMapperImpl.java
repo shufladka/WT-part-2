@@ -2,7 +2,6 @@ package by.bsuir.mapper.impl;
 
 import by.bsuir.mapper.Attributes;
 import by.bsuir.mapper.RecordMapper;
-import by.bsuir.entity.Hotel;
 import by.bsuir.entity.Room;
 
 import java.sql.ResultSet;

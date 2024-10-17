@@ -6,7 +6,7 @@ import by.bsuir.dao.service.PersonDao;
 import by.bsuir.entity.Person;
 import by.bsuir.entity.Role;
 import by.bsuir.exceptions.DaoException;
-import by.bsuir.mapper.RecordMapperSingleton;
+import by.bsuir.mapper.RecordMapperFactory;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,7 +25,7 @@ public class PersonDaoImpl extends AbstractDaoImpl<Person> implements PersonDao 
             " set username=?, password=?, first_name=?, last_name=?, birth_date=?, email=?, role_id=? where id=?";
 
     public PersonDaoImpl() {
-        super(RecordMapperSingleton.getInstance().getPersonRecordMapper(), Tables.PEOPLE);
+        super(RecordMapperFactory.getInstance().getPersonRecordMapper(), Tables.PEOPLE);
     }
 
     @Override

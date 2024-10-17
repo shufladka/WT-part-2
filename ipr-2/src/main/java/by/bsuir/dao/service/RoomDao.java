@@ -1,7 +1,6 @@
 package by.bsuir.dao.service;
 
 import by.bsuir.dao.Dao;
-import by.bsuir.entity.Hotel;
 import by.bsuir.entity.Room;
 import by.bsuir.exceptions.DaoException;
 

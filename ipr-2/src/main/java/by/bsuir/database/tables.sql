@@ -80,8 +80,8 @@ insert into hotels (id, name, description, address_id, level, available_to_book,
            values (0, 'Алеся', 'Самый крутой отель', 0, 5, true, '');
 
 -- [5] заполнение таблицы комнат
-insert into rooms (id, name, capacity, floor, basic_price, weekend_price, image_path, hotel_id)
-           values (0, '10', 2, 3, 150.00, 200.00, '', 0);
+insert into rooms (id, name, capacity, floor, basic_price, weekend_price, image_path, hotel_id, is_available)
+           values (0, '10', 2, 3, 150.00, 200.00, '', 0, true);
 
 select * from rooms where basic_price>=10.00 and basic_price<=160 or weekend_price>=10.00 and weekend_price<=180;
 
@@ -94,3 +94,4 @@ drop table if exists hotels;
 
 alter table rooms add is_available boolean;
 
+update rooms set name='11', capacity=2, floor=3, basic_price=150.0, weekend_price=200.0, hotel_id=0, is_available=false where id=2;

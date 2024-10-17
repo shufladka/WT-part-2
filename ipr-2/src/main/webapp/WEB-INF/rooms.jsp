@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="by.bsuir.entity.Room" %>
+<%@ page import="java.util.Comparator" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -27,7 +28,10 @@
             String hotelId = (String) request.getAttribute("hotel_id");
             String roomId = (String) request.getAttribute("room_id");
 
-            if (roomList != null && !roomList.isEmpty()) {
+            // Сортировка по room ID
+            roomList.sort(Comparator.comparingInt(Room::getId));
+
+            if (!roomList.isEmpty()) {
                 boolean hasRooms = false;
 
                 // Если указан hotelId, фильтруем комнаты по отелю
@@ -46,7 +50,7 @@
             if (!hasRooms) {
         %>
         <div class="col mx-4">
-            <p>No rooms available for this hotel.</p>
+            <p><fmt:message bundle="${lang}" key="lang.rooms.no_rooms"/>.</p>
         </div>
         <%
             }
@@ -75,7 +79,7 @@
         } else {
         %>
         <div class="col mx-4">
-            <p>No rooms available.</p>
+            <p><fmt:message bundle="${lang}" key="lang.rooms.no_rooms"/>.</p>
         </div>
         <%
             }

@@ -8,26 +8,29 @@ import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
 import by.bsuir.service.AddressService;
 import by.bsuir.service.HotelService;
-import by.bsuir.service.ServiceSingleton;
+import by.bsuir.service.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/hotels/*")
 public class HotelsServlet extends HttpServlet {
 
+    private static final Logger logger = LogManager.getLogger(HotelsServlet.class);
+
     @Override
     public void init() throws ServletException {
         try {
             ConnectionPool.getInstance().initialize();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[HotelsServlet] {}", e.getMessage());
         }
         super.init();
     }
@@ -57,16 +60,14 @@ public class HotelsServlet extends HttpServlet {
             req.setAttribute("id", id);
         }
 
-        Hotel hotel = null;
-        List<Hotel> hotels = null;
-        HotelService hotelService = null;
+        List<Hotel> hotels;
+        HotelService hotelService;
 
-        Address address = null;
-        List<Address> addresses = null;
-        AddressService addressService = null;
+        List<Address> addresses;
+        AddressService addressService;
 
         try {
-            ServiceSingleton service = ServiceSingleton.getInstance();
+            ServiceFactory service = ServiceFactory.getInstance();
             hotelService = service.getHotelService();
             addressService = service.getAddressService();
 
@@ -77,10 +78,10 @@ public class HotelsServlet extends HttpServlet {
             req.setAttribute("addresses", addresses);
 
         } catch (ServiceException | DaoException e) {
-            System.out.println(e.getMessage());
+            logger.error("[HotelsServlet] {}", e.getMessage());
         }
 
-        // для тестов
+        logger.info("[HotelsServlet] [GET] RequestDispatcher '/WEB-INF/hotels.jsp'");
         req.getRequestDispatcher("/WEB-INF/hotels.jsp").forward(req, resp);
     }
 
@@ -94,6 +95,7 @@ public class HotelsServlet extends HttpServlet {
 
         String id = req.getParameter("hotel_id");
 
+        logger.info("[HotelsServlet] [POST] Redirect to '/hotels/{}'", id);
         resp.sendRedirect("/hotels/" + id);
     }
 
@@ -102,7 +104,7 @@ public class HotelsServlet extends HttpServlet {
         try {
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[HotelsServlet] {}", e.getMessage());
         }
 
         super.destroy();

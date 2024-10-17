@@ -2,9 +2,9 @@ package by.bsuir.service;
 
 import by.bsuir.service.impl.*;
 
-public class ServiceSingleton {
+public class ServiceFactory {
 
-    private static ServiceSingleton INSTANCE;
+    private static ServiceFactory INSTANCE;
     private final AuthService authService = new AuthServiceImpl();
     private final HotelService hotelService = new HotelServiceImpl();
     private final AddressService addressService = new AddressServiceImpl();
@@ -46,12 +46,12 @@ public class ServiceSingleton {
         return mailService;
     }
 
-    public static ServiceSingleton getInstance()
+    public static ServiceFactory getInstance()
     {
         if (INSTANCE == null) {
-            synchronized (ServiceSingleton.class) {
+            synchronized (ServiceFactory.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new ServiceSingleton();
+                    INSTANCE = new ServiceFactory();
                 }
             }
         }

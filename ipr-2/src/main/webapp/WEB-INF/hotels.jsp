@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="by.bsuir.entity.Hotel" %>
+<%@ page import="java.util.Comparator" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -27,7 +28,10 @@
             Object addressesReq = request.getAttribute("addresses");
             String id = (String) request.getAttribute("id");
 
-            if (hotelList != null && addressesReq != null) {
+            // Сортировка по hotel ID
+            hotelList.sort(Comparator.comparingInt(Hotel::getId));
+
+            if (addressesReq != null) {
                 if (id == null) {
                     for (Hotel hotel : hotelList) {
                         request.setAttribute("hotel", hotel);
@@ -50,16 +54,10 @@
         <jsp:include page="templates/hotel-card.jsp" />
 
         <%
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
         %>
         <div class="col mx-4">
-            <p>Invalid hotel ID format.</p>
-        </div>
-        <%
-        } catch (IndexOutOfBoundsException e) {
-        %>
-        <div class="col mx-4">
-            <p>No hotels available.</p>
+            <p><fmt:message bundle="${lang}" key="lang.hotels.no_hotels"/>.</p>
         </div>
         <%
                 }
@@ -67,7 +65,7 @@
         } else {
         %>
         <div class="col mx-4">
-            <p>No hotels available.</p>
+            <p><fmt:message bundle="${lang}" key="lang.hotels.no_hotels"/>.</p>
         </div>
         <%
             }
