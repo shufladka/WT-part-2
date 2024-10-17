@@ -2,6 +2,8 @@ package by.bsuir.servlet;
 
 import by.bsuir.connection.ConnectionPool;
 import by.bsuir.exceptions.ConnectionException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,12 +15,14 @@ import java.io.IOException;
 @WebServlet("/")
 public class HomeServlet extends HttpServlet {
 
+    private static final Logger logger = LogManager.getLogger(HomeServlet.class);
+
     @Override
     public void init() throws ServletException {
         try {
             ConnectionPool.getInstance().initialize();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[HomeServlet] {}", e.getMessage());
         }
         super.init();
     }
@@ -29,7 +33,7 @@ public class HomeServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         // Устанавливаем кодировку для ответа
         resp.setContentType("text/html; charset=UTF-8");
@@ -42,6 +46,7 @@ public class HomeServlet extends HttpServlet {
             req.getSession().setAttribute("lang", language);
         }
 
+        logger.info("[HomeServlet] [GET] Redirect to '/hotels' from '/'");
         resp.sendRedirect("/hotels");
     }
 
@@ -53,6 +58,7 @@ public class HomeServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
+        logger.info("[HomeServlet] [POST] Redirect to '/hotels' from '/'");
         resp.sendRedirect("/hotels");
     }
 
@@ -61,7 +67,7 @@ public class HomeServlet extends HttpServlet {
         try {
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[HomeServlet] {}", e.getMessage());
         }
 
         super.destroy();

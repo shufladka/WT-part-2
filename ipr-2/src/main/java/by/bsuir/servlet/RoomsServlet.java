@@ -9,6 +9,8 @@ import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
 import by.bsuir.service.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,12 +23,14 @@ import java.util.List;
 @WebServlet("/rooms/*")
 public class RoomsServlet extends HttpServlet {
 
+    private static final Logger logger = LogManager.getLogger(RoomsServlet.class);
+
     @Override
     public void init() throws ServletException {
         try {
             ConnectionPool.getInstance().initialize();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[RoomsServlet] {}", e.getMessage());
         }
         super.init();
     }
@@ -93,10 +97,10 @@ public class RoomsServlet extends HttpServlet {
             }
 
         } catch (ServiceException | DaoException e) {
-            System.out.println(e.getMessage());
+            logger.error("[RoomsServlet] {}", e.getMessage());
         }
 
-        // для тестов
+        logger.info("[RoomsServlet] [GET] RequestDispatcher '/WEB-INF/rooms.jsp'");
         req.getRequestDispatcher("/WEB-INF/rooms.jsp").forward(req, resp);
     }
 
@@ -108,8 +112,7 @@ public class RoomsServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-//        String id = req.getParameter("hotel_id");
-//        resp.sendRedirect("/rooms/" + id);
+        logger.info("[RoomsServlet] [POST] Redirect to '/rooms'");
         resp.sendRedirect("/rooms");
     }
 
@@ -118,7 +121,7 @@ public class RoomsServlet extends HttpServlet {
         try {
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[RoomsServlet] {}", e.getMessage());
         }
 
         super.destroy();

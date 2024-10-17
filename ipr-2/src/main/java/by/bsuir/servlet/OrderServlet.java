@@ -4,6 +4,8 @@ import by.bsuir.connection.ConnectionPool;
 import by.bsuir.entity.*;
 import by.bsuir.exceptions.ConnectionException;
 import by.bsuir.service.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +18,15 @@ import java.util.List;
 
 @WebServlet("/orders/*")
 public class OrderServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(OrderServlet.class);
+
     @Override
     public void init() throws ServletException {
         try {
             ConnectionPool.getInstance().initialize();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[OrderServlet] {}", e.getMessage());
         }
         super.init();
     }
@@ -107,9 +112,10 @@ public class OrderServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.error("[OrderServlet] {}", e.getMessage());
         }
 
+        logger.info("[OrderServlet] [GET] RequestDispatcher '/WEB-INF/orders.jsp'");
         req.getRequestDispatcher("/WEB-INF/orders.jsp").forward(req, resp);
     }
 
@@ -197,13 +203,16 @@ public class OrderServlet extends HttpServlet {
                             break;
                         default:
                             req.setAttribute("order_id", pathPart);
+                            break;
                     }
+                    logger.info("[OrderServlet] [POST] Gonna to path 'orders/{}'", pathPart);
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.error("[OrderServlet] {}", e.getMessage());
         }
 
+        logger.info("[OrderServlet] [POST] Redirect to '/'");
         resp.sendRedirect("/orders");
     }
 
@@ -212,7 +221,7 @@ public class OrderServlet extends HttpServlet {
         try {
             ConnectionPool.getInstance().destroy();
         } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            logger.error("[OrderServlet] {}", e.getMessage());
         }
 
         super.destroy();

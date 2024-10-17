@@ -1,12 +1,12 @@
 package by.bsuir.service.impl;
 
 import by.bsuir.connection.ConnectionFactory;
-import by.bsuir.exceptions.DaoException;
-import by.bsuir.exceptions.ServiceException;
 import by.bsuir.service.MailService;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -14,10 +14,11 @@ import java.util.Properties;
 
 public class MailServiceImpl implements MailService {
 
+    private static final Logger logger = LogManager.getLogger(MailServiceImpl.class);
     private static final String MAIL_PROPERTIES = "mail.properties";
 
     @Override
-    public void sendEmail(String recipient, String subject, String messageBody) throws ServiceException, DaoException, IOException {
+    public void sendEmail(String recipient, String subject, String messageBody) throws IOException {
 
         // Настройка свойств для подключения к SMTP-серверу
         Properties properties = new Properties();
@@ -54,7 +55,7 @@ public class MailServiceImpl implements MailService {
             Transport.send(message);
 
         } catch (MessagingException | UnsupportedEncodingException e) {
-            throw new RuntimeException("Ошибка при отправке письма: " + e.getMessage(), e);
+            logger.error("[MailServiceImpl] Error sending email" + e.getMessage());
         }
     }
 }

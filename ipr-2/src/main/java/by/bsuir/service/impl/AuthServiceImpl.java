@@ -5,6 +5,7 @@ import by.bsuir.dao.service.PersonDao;
 import by.bsuir.entity.Person;
 import by.bsuir.exceptions.DaoException;
 import by.bsuir.exceptions.ServiceException;
+import by.bsuir.filter.AuthFilter;
 import by.bsuir.mapper.Attributes;
 import by.bsuir.service.AuthService;
 import by.bsuir.service.RoleService;
@@ -12,6 +13,8 @@ import by.bsuir.service.ServiceFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.Base64;
@@ -22,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class AuthServiceImpl implements AuthService {
 
+    private static final Logger logger = LogManager.getLogger(AuthServiceImpl.class);
     DaoFactory dao = DaoFactory.getInstance();
     PersonDao personDao = dao.getPersonDao();
 
@@ -41,6 +45,7 @@ public class AuthServiceImpl implements AuthService {
 
         person.setPassword(hashPassword(person.getPassword()));
         personDao.save(person);
+        logger.info("[AuthServiceImpl] User '{}' registered", person.getUsername());
 
         return true;
     }
@@ -50,6 +55,7 @@ public class AuthServiceImpl implements AuthService {
         Person person = personDao.findByUsername(username);
         if (person != null) {
             if (verifyPassword(password, person.getPassword())) {
+                logger.info("[AuthServiceImpl] User '{}' logged in", person.getUsername());
                 return person;
             }
         }
@@ -93,7 +99,7 @@ public class AuthServiceImpl implements AuthService {
 
         // Проверяем параметры и добавляем их в JSON
         if (params.length % 2 != 0) {
-            throw new IllegalArgumentException("Неверное количество аргументов. Должны быть пары ключ-значение.");
+            logger.error("[AuthServiceImpl] Invalid number of arguments. Must be key-value pairs.");
         }
 
         for (int i = 0; i < params.length; i += 2) {
@@ -109,10 +115,10 @@ public class AuthServiceImpl implements AuthService {
             // Преобразуем строку JSON в Base64
             return Base64.getEncoder().encodeToString(jsonString.getBytes(StandardCharsets.UTF_8));
         } catch (JsonProcessingException e) {
-
-            // В случае ошибки выбрасываем исключение
-            throw new RuntimeException("Ошибка сериализации объекта Person в JSON с добавлением параметров", e);
+            logger.error("[AuthServiceImpl] Error serializing Person object to JSON with added parameters");
         }
+
+        return null;
     }
 
     // Метод для десериализации объекта Person из строки Base64
@@ -142,8 +148,10 @@ public class AuthServiceImpl implements AuthService {
             return person;
 
         } catch (Exception e) {
-            throw new RuntimeException("Ошибка десериализации из Base64 в объект Person", e);
+            logger.error("[AuthServiceImpl] Error deserializing from Base64 to Person object.");
         }
+
+        return null;
     }
 
     // Метод для хеширования пароля с использованием SHA-256
@@ -158,8 +166,10 @@ public class AuthServiceImpl implements AuthService {
             // Преобразуем хешированный пароль в строку
             return bytesToHex(encodedHash);
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Ошибка хеширования пароля", e);
+            logger.error("[AuthServiceImpl] Password hashing error.");
         }
+
+        return null;
     }
 
     // Вспомогательный метод для преобразования байтов в шестнадцатеричную строку

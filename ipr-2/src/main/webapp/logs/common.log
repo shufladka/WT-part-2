@@ -1,0 +1,37 @@
+2024-10-18 00:09:05 [http-nio-8080-exec-1] INFO  by.bsuir.servlet.HomeServlet - [HomeServlet] [GET] Redirect to '/hotels' from '/'
+2024-10-18 00:09:05 [http-nio-8080-exec-1] INFO  by.bsuir.servlet.HotelsServlet - [HotelsServlet] [GET] RequestDispatcher '/WEB-INF/hotels.jsp'
+2024-10-18 00:09:06 [http-nio-8080-exec-3] INFO  by.bsuir.servlet.HomeServlet - [HomeServlet] [GET] Redirect to '/hotels' from '/'
+2024-10-18 00:09:06 [http-nio-8080-exec-2] INFO  by.bsuir.servlet.HotelsServlet - [HotelsServlet] [GET] RequestDispatcher '/WEB-INF/hotels.jsp'
+2024-10-18 00:09:06 [http-nio-8080-exec-4] INFO  by.bsuir.servlet.HomeServlet - [HomeServlet] [GET] Redirect to '/hotels' from '/'
+2024-10-18 00:09:06 [http-nio-8080-exec-7] INFO  by.bsuir.servlet.HotelsServlet - [HotelsServlet] [GET] RequestDispatcher '/WEB-INF/hotels.jsp'
+2024-10-18 00:09:14 [http-nio-8080-exec-5] INFO  by.bsuir.servlet.LoginServlet - [LoginServlet] [GET] RequestDispatcher '/WEB-INF/login.jsp'
+2024-10-18 00:09:19 [http-nio-8080-exec-6] INFO  by.bsuir.servlet.LoginServlet - [LoginServlet] [POST] Session InactiveInterval is -1 seconds
+2024-10-18 00:09:19 [http-nio-8080-exec-6] INFO  by.bsuir.servlet.LoginServlet - [HotelsServlet] [POST] Redirect to '/'
+2024-10-18 00:09:19 [http-nio-8080-exec-8] INFO  by.bsuir.servlet.HomeServlet - [HomeServlet] [GET] Redirect to '/hotels' from '/'
+2024-10-18 00:09:19 [http-nio-8080-exec-9] INFO  by.bsuir.servlet.HotelsServlet - [HotelsServlet] [GET] RequestDispatcher '/WEB-INF/hotels.jsp'
+2024-10-18 00:09:50 [http-nio-8080-exec-3] ERROR by.bsuir.servlet.RoomsServlet - [RoomsServlet] [GET] RequestDispatcher '/WEB-INF/rooms.jsp'
+2024-10-18 00:09:50 [http-nio-8080-exec-3] INFO  by.bsuir.filter.AuthFilter - [AuthFilter] The user credentials are invalid
+2024-10-18 00:10:05 [http-nio-8080-exec-2] INFO  by.bsuir.servlet.OrderServlet - [OrderServlet] [POST] Gonna to path 'orders/save'
+2024-10-18 00:10:05 [http-nio-8080-exec-2] INFO  by.bsuir.servlet.OrderServlet - [OrderServlet] [POST] Redirect to '/'
+2024-10-18 00:10:05 [http-nio-8080-exec-2] INFO  by.bsuir.filter.AuthFilter - [AuthFilter] The user credentials are invalid
+2024-10-18 00:10:06 [http-nio-8080-exec-4] ERROR by.bsuir.servlet.OrderServlet - [OrderServlet] [GET] RequestDispatcher '/WEB-INF/orders.jsp'
+2024-10-18 00:10:06 [http-nio-8080-exec-4] INFO  by.bsuir.filter.AuthFilter - [AuthFilter] The user credentials are invalid
+2024-10-18 00:10:27 [http-nio-8080-exec-6] ERROR by.bsuir.servlet.OrderServlet - [OrderServlet] [GET] RequestDispatcher '/WEB-INF/orders.jsp'
+2024-10-18 00:10:27 [http-nio-8080-exec-6] INFO  by.bsuir.filter.AuthFilter - [AuthFilter] The user credentials are invalid
+2024-10-18 00:19:57 [http-nio-8080-exec-10] INFO  by.bsuir.servlet.HotelsServlet - [HotelsServlet] [GET] RequestDispatcher '/WEB-INF/hotels.jsp'
+2024-10-18 00:20:11 [http-nio-8080-exec-10] INFO  by.bsuir.filter.AuthFilter - [AuthFilter] The user credentials are invalid
+2024-10-18 00:20:11 [http-nio-8080-exec-9] INFO  by.bsuir.servlet.IntroServlet - [IntroServlet] [GET] RequestDispatcher '/WEB-INF/intro.jsp'
+2024-10-18 00:20:12 [http-nio-8080-exec-1] INFO  by.bsuir.servlet.LoginServlet - [LoginServlet] [GET] RequestDispatcher '/WEB-INF/login.jsp'
+2024-10-18 00:20:17 [http-nio-8080-exec-3] INFO  by.bsuir.servlet.LoginServlet - [LoginServlet] [POST] Session InactiveInterval is -1 seconds
+2024-10-18 00:20:17 [http-nio-8080-exec-3] INFO  by.bsuir.servlet.LoginServlet - [HotelsServlet] [POST] Redirect to '/'
+2024-10-18 00:20:17 [http-nio-8080-exec-8] INFO  by.bsuir.servlet.HomeServlet - [HomeServlet] [GET] Redirect to '/hotels' from '/'
+2024-10-18 00:20:18 [http-nio-8080-exec-4] INFO  by.bsuir.servlet.HotelsServlet - [HotelsServlet] [GET] RequestDispatcher '/WEB-INF/hotels.jsp'
+2024-10-18 00:20:23 [http-nio-8080-exec-7] INFO  by.bsuir.filter.AuthFilter - [AuthFilter] The user credentials are valid
+2024-10-18 00:20:23 [http-nio-8080-exec-7] ERROR by.bsuir.servlet.OrderServlet - [OrderServlet] [GET] RequestDispatcher '/WEB-INF/orders.jsp'
+2024-10-18 00:20:24 [http-nio-8080-exec-6] INFO  by.bsuir.filter.AuthFilter - [AuthFilter] The user credentials are valid
+2024-10-18 00:20:24 [http-nio-8080-exec-6] INFO  by.bsuir.servlet.RoomsServlet - [RoomsServlet] [GET] RequestDispatcher '/WEB-INF/rooms.jsp'
+2024-10-18 00:20:27 [http-nio-8080-exec-5] INFO  by.bsuir.filter.AuthFilter - [AuthFilter] The user credentials are valid
+2024-10-18 00:20:28 [http-nio-8080-exec-5] INFO  by.bsuir.servlet.OrderServlet - [OrderServlet] [POST] Gonna to path 'orders/save'
+2024-10-18 00:20:28 [http-nio-8080-exec-5] INFO  by.bsuir.servlet.OrderServlet - [OrderServlet] [POST] Redirect to '/'
+2024-10-18 00:20:28 [http-nio-8080-exec-11] INFO  by.bsuir.filter.AuthFilter - [AuthFilter] The user credentials are valid
+2024-10-18 00:20:28 [http-nio-8080-exec-11] ERROR by.bsuir.servlet.OrderServlet - [OrderServlet] [GET] RequestDispatcher '/WEB-INF/orders.jsp'
