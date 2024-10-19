@@ -66,7 +66,7 @@ public class MenuServiceImpl implements MenuService {
             switch (selectedPage) {
                 case 0:
                     authService.logout();
-                    showAuthMenu(authService);
+                    return;
                 case 1:
                     libraryService.displayBooksWithPagination();
                     break;
