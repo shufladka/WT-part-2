@@ -1,5 +1,8 @@
 package by.bsuir.domain;
 
+/**
+ * Перечисление "Тип книги"
+ */
 public enum BookType {
     PAPER("Бумажная книга"),
     ELECTRONIC("Электронная книга");

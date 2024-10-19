@@ -2,6 +2,9 @@ package by.bsuir.domain;
 
 import java.util.Date;
 
+/**
+ * Сущность "Книга"
+ */
 public class Book {
     private Integer id;
     private String title;

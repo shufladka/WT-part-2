@@ -1,7 +1,8 @@
 package by.bsuir.domain;
 
-import java.util.Date;
-
+/**
+ * Сущность "Пользователь"
+ */
 public class User {
     private Integer id;
     private String username;

@@ -1,5 +1,8 @@
 package by.bsuir.domain;
 
+/**
+ * Перечисление "Жанр"
+ */
 public enum Genre {
     DETECTIVE("Детектив"),
     ROMANCE("Роман"),

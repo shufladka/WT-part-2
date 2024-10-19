@@ -10,6 +10,10 @@ import java.util.Scanner;
 
 public class MenuServiceImpl implements MenuService {
 
+    /**
+     * Метод для отображения меню подсистемы авторизации
+     * @param authService Сущность подсистемы авторизации
+     * */
     @Override
     public void showAuthMenu(AuthService authService) {
         Scanner scanner = new Scanner(System.in);
@@ -44,6 +48,12 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    /**
+     * Метод для отображения главного меню
+     * @param authService Сущность подсистемы авторизации
+     * @param libraryService Сущность подсистемы библиотеки
+     * @param postService Сущность подсистемы работы с почтой
+     * */
     @Override
     public void showMainMenu(AuthService authService, LibraryService libraryService, PostService postService) {
         Scanner scanner = new Scanner(System.in);
@@ -73,7 +83,7 @@ public class MenuServiceImpl implements MenuService {
                 case 2:
                     System.out.print("\tВведите идентификатор интересующей книги: ");
                     selectedBook = scanner.nextInt();
-                    libraryService.getBookById(selectedBook);
+                    libraryService.displayBookById(selectedBook);
                     break;
                 case 3:
                     libraryService.addBook(authService, postService, role);

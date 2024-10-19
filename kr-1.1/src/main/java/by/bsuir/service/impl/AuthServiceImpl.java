@@ -18,10 +18,13 @@ import java.util.Scanner;
 
 public class AuthServiceImpl implements AuthService {
     private User authentificatedUser = new User();
-    private static final String credentialsUrl = "https://6a821cd8fdaa5103.mokky.dev/credentials";
+    private static final String credentialsUrl = "https://6a821cd8fdaa5103.mokky.dev/credentials/";
 
     public AuthServiceImpl() {}
 
+    /**
+     * Метод для регистрации в системе
+     * */
     @Override
     public void registration() {
         Scanner scanner = new Scanner(System.in);
@@ -51,6 +54,11 @@ public class AuthServiceImpl implements AuthService {
         saveUserToApi(user);
     }
 
+    /**
+     * Метод для экранирования кириллицы в ответе формата JSON
+     * @param json Исходная строка
+     * @return String
+     * */
     private String escapeCyrillicSymbol(String json) {
         StringBuilder escapedJson = new StringBuilder();
 
@@ -69,7 +77,10 @@ public class AuthServiceImpl implements AuthService {
         return escapedJson.toString();
     }
 
-    // Функция для сохранения пользователя в файл на mokky.dev
+    /**
+     * Метод для сохранения пользователя в файл на mokky.dev
+     * @param user Сущность пользователя
+     * */
     private void saveUserToApi(User user) {
 
         // Сериализация новой книги в JSON
@@ -93,6 +104,11 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    /**
+     * Метод для получения целочисленного ответа от сервера
+     * @param unicodeUserJson Сериализированные данные пользователя
+     * @return static int
+     * */
     private static int getResponseCode(String unicodeUserJson) throws IOException {
         URL url = new URL(AuthServiceImpl.credentialsUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -110,7 +126,10 @@ public class AuthServiceImpl implements AuthService {
         return connection.getResponseCode();
     }
 
-    // Функция для загрузки списка пользователей из JSON файла
+    /**
+     * Метод для загрузки списка пользователей из JSON файла
+     * @return List of users
+     * */
     public List<User> loadUsersFromApi() {
         Gson gson = new Gson();
 
@@ -138,6 +157,9 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    /**
+     * Метод для авторизации в системе
+     * */
     @Override
     public void login() {
         Scanner scanner = new Scanner(System.in);
@@ -156,24 +178,42 @@ public class AuthServiceImpl implements AuthService {
                 .forEach(this::setAuthentificatedUser);
     }
 
+    /**
+     * Метод для выхода из аккаунта
+     * */
     @Override
     public void logout() {
         authentificatedUser = null;
     }
 
+    /**
+     * Метод для проверки наличия авторизации в системе
+     * @param user Сущность пользователя
+     * @return void
+     * */
     @Override
     public boolean isLoggedIn(User user) {
         return authentificatedUser.equals(user);
     }
 
+    /**
+     * Метод для проверки наличия прав администратора
+     * @param user Сущность пользователя
+     * @return void
+     * */
     @Override
     public boolean isAdmin(User user) {
         return user.getRole().equals(Role.ADMIN);
     }
 
-    // Метод для хеширования пароля с использованием SHA-256
-    private static String hashPassword(String password) {
+    /**
+     * Метод для хеширования пароля с использованием SHA-256
+     * @param password Пароль пользователя
+     * @return String
+     * */
+    private String hashPassword(String password) {
         try {
+            
             // Получаем экземпляр алгоритма SHA-256
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
@@ -187,7 +227,11 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    // Вспомогательный метод для преобразования байтов в шестнадцатеричную строку
+    /**
+     * Вспомогательный метод для преобразования байтов в шестнадцатеричную строку
+     * @param hash Хэш-код пароля
+     * @return static String
+     * */
     private static String bytesToHex(byte[] hash) {
         StringBuilder hexString = new StringBuilder(2 * hash.length);
         for (byte b : hash) {
@@ -200,17 +244,28 @@ public class AuthServiceImpl implements AuthService {
         return hexString.toString();
     }
 
-    // Проверка пароля
-    public static boolean verifyPassword(String enteredPassword, String storedHash) {
+    /**
+     * Метод для проверки пароля
+     * @return boolean
+     * */
+    public boolean verifyPassword(String enteredPassword, String storedHash) {
         String hashedEnteredPassword = hashPassword(enteredPassword);
         return hashedEnteredPassword.equals(storedHash);
     }
 
+    /**
+     * Метод для получения сущности авторизированного пользователя
+     * @return User
+     * */
     @Override
     public User getAuthentificatedUser() {
         return authentificatedUser;
     }
 
+    /**
+     * Метод для установления сущности авторизированного пользователя
+     * @param authentificatedUser Сущность авторизованного пользователя
+     * */
     public void setAuthentificatedUser(User authentificatedUser) {
         this.authentificatedUser = authentificatedUser;
     }

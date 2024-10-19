@@ -1,5 +1,8 @@
 package by.bsuir.domain;
 
+/**
+ * Перечисление "Роль"
+ */
 public enum Role {
     USER("Пользователь"),
     ADMIN("Администратор");

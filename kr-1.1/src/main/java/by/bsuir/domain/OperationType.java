@@ -1,5 +1,8 @@
 package by.bsuir.domain;
 
+/**
+ * Перечисление "Тип операции"
+ */
 public enum OperationType {
     CREATION("Создание"),
     UPDATE("Обновление");

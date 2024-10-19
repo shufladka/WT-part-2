@@ -13,4 +13,5 @@ public interface LibraryService {
     SecurityCode updateBook(Integer id, AuthService authService, PostService postService, Role role);
     SecurityCode removeBook(Integer id, Role role);
     void displayBooksWithPagination();
+    void displayBookById(int id);
 }

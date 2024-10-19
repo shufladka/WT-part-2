@@ -21,16 +21,29 @@ import java.util.*;
 
 public class LibraryServiceImpl implements LibraryService {
     private static final int BOOKS_PER_PAGE = 5; // Количество книг на одной странице
-    private static final String libraryUrl = "https://6a821cd8fdaa5103.mokky.dev/library";
+    private static final String libraryUrl = "https://6a821cd8fdaa5103.mokky.dev/library/";
     private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
+    /**
+     * Метод для добавления книги в библиотеку
+     * @param authService Сущность подсистемы авторизации
+     * @param postService Сущность подсистемы работы с почтой
+     * @param role Сущность перечисления "Роль"
+     * */
     @Override
     public void addBook(AuthService authService, PostService postService, Role role) {
         Book book = new Book();
         setBooksFields(book, authService, postService, role, OperationType.CREATION);
     }
 
-    // Функция для заполнения полей книги (вводить только латиницей)
+    /**
+     * Метод для заполнения полей книги (вводить только латиницей)
+     * @param book Объект сущности "Книга"
+     * @param authService Сущность подсистемы авторизации
+     * @param postService Сущность подсистемы работы с почтой
+     * @param role Сущность перечисления "Роль"
+     * @param operationType Сущность перечисления "Тип операции"
+     * */
     private void setBooksFields(Book book, AuthService authService, PostService postService,
                                 Role role, OperationType operationType) {
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
@@ -92,6 +105,11 @@ public class LibraryServiceImpl implements LibraryService {
         }
     }
 
+    /**
+     * Метод для экранирования кириллицы в ответе формата JSON
+     * @param json Исходная строка
+     * @return String
+     * */
     private String escapeCyrillicSymbol(String json) {
         StringBuilder escapedJson = new StringBuilder();
 
@@ -110,6 +128,12 @@ public class LibraryServiceImpl implements LibraryService {
         return escapedJson.toString();
     }
 
+    /**
+     * Метод для сохранения книги на сервер
+     * @param authService Сущность подсистемы авторизации
+     * @param postService Сущность подсистемы работы с почтой
+     * @param book Объект сущности "Книга"
+     * */
     private void saveBookToServer(AuthService authService, PostService postService, Book book) {
 
         // Сериализация новой книги в JSON
@@ -134,10 +158,17 @@ public class LibraryServiceImpl implements LibraryService {
         }
     }
 
-    private static int getResponseCode(String libraryUrl, String POST, String unicodeBookJson) throws IOException {
+    /**
+     * Метод для получения целочисленного ответа от сервера
+     * @param libraryUrl Ссылка на ресурс с книгами
+     * @param method Тип метода HTTP
+     * @param unicodeBookJson Сериализированные данные пользователя
+     * @return static int
+     * */
+    private static int getResponseCode(String libraryUrl, String method, String unicodeBookJson) throws IOException {
         URL url = new URL(libraryUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod(POST); // Используем POST для создания новой книги
+        connection.setRequestMethod(method); // Используем POST для создания новой книги
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setDoOutput(true);
 
@@ -151,7 +182,10 @@ public class LibraryServiceImpl implements LibraryService {
         return connection.getResponseCode();
     }
 
-    // Функция для загрузки списка книг из JSON файла
+    /**
+     * Метод для загрузки списка книг из JSON файла
+     * @return List of books
+     * */
     @Override
     public List<Book> getAllBooks() {
         Gson gson = new Gson();
@@ -180,12 +214,24 @@ public class LibraryServiceImpl implements LibraryService {
         }
     }
 
+    /**
+     * Метод для получения книги из всего списка книг по её уникальному идентификатору
+     * @return List of books
+     * */
     @Override
     public Book getBookById(Integer id) {
         List<Book> books = getAllBooks();
-        return books.stream().filter(book -> book.getId().equals(id)).findFirst().orElse(null);
+        return books.get(id);
     }
 
+    /**
+     * Метод для сохранения книги на сервер
+     * @param id Уникальный идентификатор
+     * @param authService Сущность подсистемы авторизации
+     * @param postService Сущность подсистемы работы с почтой
+     * @param role Сущность перечисления "Роль"
+     * @return SecurityCode
+     * */
     @Override
     public SecurityCode updateBook(Integer id, AuthService authService, PostService postService, Role role) {
 
@@ -200,6 +246,10 @@ public class LibraryServiceImpl implements LibraryService {
         return SecurityCode.DENIED;
     }
 
+    /**
+     * Метод для обновления данных о книге на сервере
+     * @param book Объект сущности "Книга"
+     * */
     private void updateBookOnServer(Book book) {
         try {
             
@@ -220,6 +270,12 @@ public class LibraryServiceImpl implements LibraryService {
         }
     }
 
+    /**
+     * Метод для обновления данных о книге на сервере
+     * @param id Уникальный идентификатор
+     * @param role Сущность перечисления "Роль"
+     * @return SecurityCode
+     * */
     @Override
     public SecurityCode removeBook(Integer id, Role role) {
 
@@ -252,7 +308,10 @@ public class LibraryServiceImpl implements LibraryService {
         return SecurityCode.DENIED;
     }
 
-    // Функция для вывода книг с постраничным просмотром (пагинацией)
+    /**
+     * Метод для вывода книг с постраничным просмотром (пагинацией)
+     * */
+    @Override
     public void displayBooksWithPagination() {
         List<Book> books = getAllBooks();
 
@@ -284,7 +343,26 @@ public class LibraryServiceImpl implements LibraryService {
         }
     }
 
-    // Функция для вывода одной страницы
+    /**
+     * Метод для конкретной книги по её идентификатору
+     * */
+    @Override
+    public void displayBookById(int id) {
+        Book book = getBookById(id);
+        LocalDate localDate = Instant.ofEpochMilli(book.getPublicationDate().getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        int year = localDate.getYear();
+
+        displayBook(book, year);
+    }
+
+    /**
+     * Метод для вывода одной страницы с книгами (с пагинацией)
+     * @param books Список объектов сущности "Книга"
+     * @param currentPage Идентификатор текущей страницы
+     * @param totalPages Идентификатор общего числа страниц
+     * */
     private void displayPage(List<Book> books, int currentPage, int totalPages) {
         System.out.println("\n\tСтраница " + currentPage + " из " + totalPages + ": ");
 
@@ -299,15 +377,24 @@ public class LibraryServiceImpl implements LibraryService {
                     .toLocalDate();
             int year = localDate.getYear();
 
-            System.out.println("\n\t" + book.getId() + ". \"" + book.getTitle() + "\",");
-            System.out.println("\tАвтор: " + book.getAuthor() + ",");
-            System.out.println("\tОписание: " + "\"" + book.getDescription() + "\",");
-            System.out.println("\tЖанр: " + book.getGenre().getName() + ",");
-            System.out.println("\tНоситель: " + book.getBookType().getDescription() + ",");
-            System.out.println("\tОпубликовал: " + book.getPublisher() + ",");
-            System.out.println("\tОпубликовано: " + year + ",");
-            System.out.println("\tISBN: " + book.getIsbn() + ",");
-            System.out.println("\tСтраниц: " + book.getPages() + ".");
+            displayBook(book, year);
         }
+    }
+
+    /**
+     * Метод для вывода одной книги
+     * @param book Объект сущности "Книга"
+     * @param year Идентификатор года
+     * */
+    private void displayBook(Book book, int year) {
+        System.out.println("\n\t" + book.getId() + ". \"" + book.getTitle() + "\",");
+        System.out.println("\tАвтор: " + book.getAuthor() + ",");
+        System.out.println("\tОписание: " + "\"" + book.getDescription() + "\",");
+        System.out.println("\tЖанр: " + book.getGenre().getName() + ",");
+        System.out.println("\tНоситель: " + book.getBookType().getDescription() + ",");
+        System.out.println("\tОпубликовал: " + book.getPublisher() + ",");
+        System.out.println("\tОпубликовано: " + year + ",");
+        System.out.println("\tISBN: " + book.getIsbn() + ",");
+        System.out.println("\tСтраниц: " + book.getPages() + ".");
     }
 }
