@@ -60,6 +60,7 @@ public class DispatcherServiceImpl implements DispatcherService {
             logger.error(e);
         }
 
+        // Обрабатываем очередь ожидающих кораблей
         processWaitingSync(port);
 
     }
@@ -94,25 +95,36 @@ public class DispatcherServiceImpl implements DispatcherService {
         Dock availableDock;
 
         try {
-            dockLock.lock(); // Блокируем доступ к причалам
-            try {
-                Thread.sleep(1000); // Симулируем задержку
 
-                availableDock = getAvailableDock(port); // Получаем доступный причал
+            // Блокируем доступ к причалам
+            dockLock.lock();
+            try {
+
+                // Симулируем задержку
+                Thread.sleep(1000);
+
+                // Получаем доступный причал
+                availableDock = getAvailableDock(port);
 
                 if (availableDock != null) {
                     ship.setDock(availableDock);
                     availableDock.setShip(ship);
                 } else {
-                    waitingShips.add(ship); // Добавляем в очередь, если нет свободного причала
+
+                    // Добавляем в очередь, если нет свободного причала
+                    waitingShips.add(ship);
                 }
             } finally {
-                dockLock.unlock(); // Всегда разблокируем в блоке finally
+
+                // Разблокируем поток
+                dockLock.unlock();
             }
 
             // Если назначен причал, обрабатываем работу с судном
             if (availableDock != null) {
-                Thread.sleep(ship.getNeededTime()); // Время, необходимое для обработки корабля
+
+                // Время, необходимое для обработки корабля
+                Thread.sleep(ship.getNeededTime());
 
                 // Обновляем информацию о складе
                 setUpdatedCapacityValue(port, ship.getCargo());
@@ -126,7 +138,8 @@ public class DispatcherServiceImpl implements DispatcherService {
             logger.error(e);
         }
 
-        processWaitingConc(port); // Обрабатываем очередь ожидающих кораблей
+        // Обрабатываем очередь ожидающих кораблей
+        processWaitingConc(port);
     }
 
     /**
@@ -136,22 +149,35 @@ public class DispatcherServiceImpl implements DispatcherService {
     public void processWaitingConc(Port port) {
         while (!waitingShips.isEmpty()) {
             try {
-                Thread.sleep(1000); // Симулируем задержку
 
-                dockLock.lock(); // Блокируем доступ к причалам
+                // Симулируем задержку
+                Thread.sleep(1000);
+
+                // Блокируем доступ к причалам
+                dockLock.lock();
                 try {
-                    Dock availableDock = getAvailableDock(port); // Получаем доступный причал
+
+                    // Получаем доступный причал
+                    Dock availableDock = getAvailableDock(port);
 
                     if (availableDock != null && !waitingShips.isEmpty()) {
-                        Ship ship = waitingShips.remove(0); // Берем первый корабль из очереди
-                        assignDockConc(port, ship); // Пытаемся назначить ему причал
+
+                        // Берем первый корабль из очереди
+                        Ship ship = waitingShips.remove(0);
+
+                        // Пытаемся назначить ему причал
+                        assignDockConc(port, ship);
                     }
                 } finally {
-                    dockLock.unlock(); // Всегда разблокируем в блоке finally
+
+                    // Разблокируем поток
+                    dockLock.unlock();
                 }
             } catch (InterruptedException e) {
                 logger.error(e);
-                Thread.currentThread().interrupt(); // Восстанавливаем статус прерывания
+
+                // Восстанавливаем статус прерывания
+                Thread.currentThread().interrupt();
             }
         }
     }

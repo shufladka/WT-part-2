@@ -2,7 +2,9 @@ package by.bsuir;
 
 import by.bsuir.domain.*;
 import by.bsuir.service.DispatcherService;
+import by.bsuir.service.MenuService;
 import by.bsuir.service.impl.DispatcherServiceImpl;
+import by.bsuir.service.impl.MenuServiceImpl;
 
 import java.util.List;
 
@@ -29,33 +31,7 @@ import java.util.List;
 * */
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Dock dock1 = new Dock(1, "first dock");
-        Dock dock2 = new Dock(2, "second dock");
-
-        Ship ship1 = new Ship(1, "first ship", 1800.0, Priority.LOW, 3000);
-        Ship ship2 = new Ship(2, "second ship", 2400.0, Priority.MEDIUM, 4000);
-        Ship ship3 = new Ship(3, "third ship", 4800.0, Priority.HIGH, 5000);
-
-        Warehouse warehouse = new Warehouse(1, "first warehouse", 50000.0, 0.0);
-
-        Port port = new Port(1, "first port", List.of(dock1, dock2), warehouse);
-
-
-        DispatcherService dispatcherService = new DispatcherServiceImpl();
-
-        // Создаем потоки для назначения причалов
-        Thread thread1 = new Thread(() -> dispatcherService.assignDockConc(port, ship1));
-        Thread thread2 = new Thread(() -> dispatcherService.assignDockConc(port, ship2));
-        Thread thread3 = new Thread(() -> dispatcherService.assignDockConc(port, ship3));
-
-        // Запускаем потоки
-        thread1.start();
-        thread2.start();
-        thread3.start();
-
-        // Ждем завершения всех потоков
-        thread1.join();
-        thread2.join();
-        thread3.join();
+        MenuService menuService = new MenuServiceImpl();
+        menuService.showMainMenu();
     }
 }
