@@ -2,6 +2,9 @@ package by.bsuir.domain;
 
 import java.util.List;
 
+/**
+ * Класс "Порт"
+ */
 public class Port {
     private int id;
     private String name;

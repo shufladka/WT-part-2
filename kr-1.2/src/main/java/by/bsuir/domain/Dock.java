@@ -1,5 +1,8 @@
 package by.bsuir.domain;
 
+/**
+ * Класс "Причал"
+ */
 public class Dock {
     private int id;
     private String name;

@@ -1,5 +1,8 @@
 package by.bsuir.domain;
 
+/**
+ * Перечисления "Операция"
+ */
 public enum Operation {
     LOADING("Загрузка"),
     UNLOADING("Разгрузка");

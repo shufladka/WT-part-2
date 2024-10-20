@@ -1,5 +1,8 @@
 package by.bsuir.domain;
 
+/**
+ * Класс "Склад"
+ */
 public class Warehouse {
     private int id;
     private String name;

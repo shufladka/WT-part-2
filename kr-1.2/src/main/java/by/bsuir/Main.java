@@ -41,7 +41,6 @@ public class Main {
         Port port = new Port(1, "first port", List.of(dock1, dock2), warehouse);
 
 
-
         DispatcherService dispatcherService = new DispatcherServiceImpl();
 
         // Создаем потоки для назначения причалов

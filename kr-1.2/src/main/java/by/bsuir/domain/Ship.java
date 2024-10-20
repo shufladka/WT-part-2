@@ -3,6 +3,9 @@ package by.bsuir.domain;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Класс "Корабль"
+ */
 public class Ship {
     private int id;
     private String name;
