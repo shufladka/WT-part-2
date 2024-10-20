@@ -18,6 +18,10 @@ public abstract class AbstractDaoImpl<T> implements Dao<T> {
         this.link = link;
     }
 
+    /**
+     * Метод для сохранения объекта некоторого универсального параметра
+     * @param t Объект некоторого класса T
+     * */
     @Override
     public void save(T t) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -40,6 +44,10 @@ public abstract class AbstractDaoImpl<T> implements Dao<T> {
         }
     }
 
+    /**
+     * Метод для получения списка объектов некоторого класса из JSON
+     * @return List of generics
+     * */
     @Override
     public List<T> findAll() {
         Gson gson = new Gson();
@@ -69,6 +77,30 @@ public abstract class AbstractDaoImpl<T> implements Dao<T> {
     }
 
     /**
+     * Метод для экранирования кириллицы в ответе формата JSON
+     * @param json Исходная строка
+     * @return String
+     * */
+    @Override
+    public String escapeCyrillicSymbol(String json) {
+        StringBuilder escapedJson = new StringBuilder();
+
+        for (char c : json.toCharArray()) {
+
+            // Если символ — кириллический, экранируем его
+            if (Character.UnicodeScript.of(c) == Character.UnicodeScript.CYRILLIC) {
+                escapedJson.append(String.format("\\u%04x", (int) c));
+            } else {
+
+                // В противном случае просто добавляем символ
+                escapedJson.append(c);
+            }
+        }
+
+        return escapedJson.toString();
+    }
+
+    /**
      * Метод для получения целочисленного ответа от сервера
      * @param urlLink Ссылка на ресурс
      * @param method Тип метода HTTP
@@ -91,28 +123,5 @@ public abstract class AbstractDaoImpl<T> implements Dao<T> {
 
         // Проверка кода ответа от сервера
         return connection.getResponseCode();
-    }
-
-    /**
-     * Метод для экранирования кириллицы в ответе формата JSON
-     * @param json Исходная строка
-     * @return String
-     * */
-    private String escapeCyrillicSymbol(String json) {
-        StringBuilder escapedJson = new StringBuilder();
-
-        for (char c : json.toCharArray()) {
-
-            // Если символ — кириллический, экранируем его
-            if (Character.UnicodeScript.of(c) == Character.UnicodeScript.CYRILLIC) {
-                escapedJson.append(String.format("\\u%04x", (int) c));
-            } else {
-
-                // В противном случае просто добавляем символ
-                escapedJson.append(c);
-            }
-        }
-
-        return escapedJson.toString();
     }
 }

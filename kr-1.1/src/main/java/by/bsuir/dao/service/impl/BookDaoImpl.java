@@ -19,6 +19,10 @@ public class BookDaoImpl extends AbstractDaoImpl<Book> implements BookDao {
         super(Links.BOOKS);
     }
 
+    /**
+     * Метод для обновления книги на сервере
+     * @param book Объект класса "Книга"
+     */
     @Override
     public void update(Book book) {
         try {
@@ -40,6 +44,12 @@ public class BookDaoImpl extends AbstractDaoImpl<Book> implements BookDao {
         }
     }
 
+    /**
+     * Метод для удаления книги из электронной библиотеки
+     * @param id Идентификатор книги
+     * @param role Роль пользователя
+     * @return SecurityCode
+     */
     @Override
     public SecurityCode remove(Integer id, Role role) {
 

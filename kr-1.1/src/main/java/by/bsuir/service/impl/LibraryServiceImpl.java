@@ -19,7 +19,15 @@ public class LibraryServiceImpl implements LibraryService {
 
     DaoFactory dao = DaoFactory.getInstance();
     BookDao bookDao = dao.getBookDao();
-    private static final int BOOKS_PER_PAGE = 5; // Количество книг на одной странице
+
+    /**
+     * Количество книг на одной странице
+     */
+    private static final int BOOKS_PER_PAGE = 5;
+
+    /**
+     * Формат даты
+     */
     private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     /**
@@ -47,19 +55,19 @@ public class LibraryServiceImpl implements LibraryService {
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
         System.out.print("Введите название книги (заголовок): ");
-        book.setTitle(escapeCyrillicSymbol(scanner.nextLine()));
+        book.setTitle(bookDao.escapeCyrillicSymbol(scanner.nextLine()));
 
         System.out.print("Введите описание книги: ");
-        book.setDescription(escapeCyrillicSymbol(scanner.nextLine()));
+        book.setDescription(bookDao.escapeCyrillicSymbol(scanner.nextLine()));
 
         System.out.print("Введите ФИО автора: ");
-        book.setAuthor(escapeCyrillicSymbol(scanner.nextLine()));
+        book.setAuthor(bookDao.escapeCyrillicSymbol(scanner.nextLine()));
 
         System.out.print("Введите название компании-издателя: ");
-        book.setPublisher(escapeCyrillicSymbol(scanner.nextLine()));
+        book.setPublisher(bookDao.escapeCyrillicSymbol(scanner.nextLine()));
 
         System.out.print("Введите идентификатор ISBN: ");
-        book.setIsbn(escapeCyrillicSymbol(scanner.nextLine()));
+        book.setIsbn(bookDao.escapeCyrillicSymbol(scanner.nextLine()));
 
         System.out.print("Введите количество страниц: ");
         String pages = scanner.nextLine();
@@ -101,29 +109,6 @@ public class LibraryServiceImpl implements LibraryService {
                 postService.notificationForAdmin(book);
             }
         }
-    }
-
-    /**
-     * Метод для экранирования кириллицы в ответе формата JSON
-     * @param json Исходная строка
-     * @return String
-     * */
-    private String escapeCyrillicSymbol(String json) {
-        StringBuilder escapedJson = new StringBuilder();
-
-        for (char c : json.toCharArray()) {
-            
-            // Если символ — кириллический, экранируем его
-            if (Character.UnicodeScript.of(c) == Character.UnicodeScript.CYRILLIC) {
-                escapedJson.append(String.format("\\u%04x", (int) c));
-            } else {
-                
-                // В противном случае просто добавляем символ
-                escapedJson.append(c);
-            }
-        }
-
-        return escapedJson.toString();
     }
 
     /**

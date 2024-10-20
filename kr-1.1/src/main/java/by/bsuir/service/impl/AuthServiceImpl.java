@@ -16,6 +16,10 @@ public class AuthServiceImpl implements AuthService {
 
     DaoFactory dao = DaoFactory.getInstance();
     UserDao userDao = dao.getUserDao();
+
+    /**
+     * Объект авторизованного пользователя
+     */
     private User authentificatedUser = new User();
 
     public AuthServiceImpl() {}
