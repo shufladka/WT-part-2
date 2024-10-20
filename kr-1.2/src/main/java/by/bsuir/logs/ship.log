@@ -10,3 +10,27 @@
 2024-10-20 12:19:26 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 added to the dock "first dock"
 2024-10-20 12:19:28 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 left the port
 2024-10-20 12:19:30 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 left the port
+2024-10-20 12:50:06 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №1 added to the dock "first dock"
+2024-10-20 12:50:07 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 added to the dock "second dock"
+2024-10-20 12:50:09 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №1 left the port
+2024-10-20 12:50:10 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 added to the dock "first dock"
+2024-10-20 12:50:12 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 left the port
+2024-10-20 12:50:14 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 left the port
+2024-10-20 12:50:49 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №1 added to the dock "first dock"
+2024-10-20 12:50:50 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 added to the dock "second dock"
+2024-10-20 12:50:52 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №1 left the port
+2024-10-20 12:50:53 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 added to the dock "first dock"
+2024-10-20 12:50:54 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 left the port
+2024-10-20 12:50:58 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 left the port
+2024-10-20 12:52:43 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №1 added to the dock "first dock"
+2024-10-20 12:52:44 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 added to the dock "second dock"
+2024-10-20 12:52:46 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №1 left the port
+2024-10-20 12:52:47 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 added to the dock "first dock"
+2024-10-20 12:52:48 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 left the port
+2024-10-20 12:52:52 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 left the port
+2024-10-20 12:53:55 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №1 added to the dock "first dock"
+2024-10-20 12:53:56 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 added to the dock "second dock"
+2024-10-20 12:53:58 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №1 left the port
+2024-10-20 12:53:59 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 added to the dock "first dock"
+2024-10-20 12:54:00 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 left the port
+2024-10-20 12:54:04 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 left the port

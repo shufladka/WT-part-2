@@ -4,3 +4,15 @@
 2024-10-20 12:19:25 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 1800.0
 2024-10-20 12:19:28 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 6600.0
 2024-10-20 12:19:30 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 9000.0
+2024-10-20 12:50:09 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 1800.0
+2024-10-20 12:50:12 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 6600.0
+2024-10-20 12:50:14 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 9000.0
+2024-10-20 12:50:52 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 1800.0
+2024-10-20 12:50:54 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 4200.0
+2024-10-20 12:50:58 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 9000.0
+2024-10-20 12:52:46 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 1800.0
+2024-10-20 12:52:48 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 4200.0
+2024-10-20 12:52:52 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 9000.0
+2024-10-20 12:53:58 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 1800.0
+2024-10-20 12:54:00 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 4200.0
+2024-10-20 12:54:04 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 9000.0

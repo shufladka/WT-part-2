@@ -44,9 +44,9 @@ public class Main {
         DispatcherService dispatcherService = new DispatcherServiceImpl();
 
         // Создаем потоки для назначения причалов
-        Thread thread1 = new Thread(() -> dispatcherService.assignDockToShip(port, ship1));
-        Thread thread2 = new Thread(() -> dispatcherService.assignDockToShip(port, ship2));
-        Thread thread3 = new Thread(() -> dispatcherService.assignDockToShip(port, ship3));
+        Thread thread1 = new Thread(() -> dispatcherService.assignDockConc(port, ship1));
+        Thread thread2 = new Thread(() -> dispatcherService.assignDockConc(port, ship2));
+        Thread thread3 = new Thread(() -> dispatcherService.assignDockConc(port, ship3));
 
         // Запускаем потоки
         thread1.start();

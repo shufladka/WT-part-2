@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class DispatcherServiceImpl implements DispatcherService {
 
@@ -17,12 +19,17 @@ public class DispatcherServiceImpl implements DispatcherService {
     private final List<Ship> waitingShips = new ArrayList<>();
 
     /**
-     * Метод для назначения причала текущему кораблю
+     * Блокировка для доступа к причалам (concurrent)
+     */
+    private final Lock dockLock = new ReentrantLock();
+
+    /**
+     * Метод для назначения причала текущему кораблю (synchronized)
      * @param port Объект класса "Порт"
      * @param ship Объект класса "Корабль"
      */
     @Override
-    public void assignDockToShip(Port port, Ship ship) {
+    public void assignDockSync(Port port, Ship ship) {
         Dock availableDock;
 
         try {
@@ -53,15 +60,15 @@ public class DispatcherServiceImpl implements DispatcherService {
             logger.error(e);
         }
 
-        processWaitingShips(port);
+        processWaitingSync(port);
 
     }
 
     /**
-     * Метод для обработки очереди ожидающих кораблей
+     * Метод для обработки очереди ожидающих кораблей (synchronized)
      * @param port Объект класса "Порт"
      */
-    public synchronized void processWaitingShips(Port port) {
+    public synchronized void processWaitingSync(Port port) {
         while (!waitingShips.isEmpty()) {
             try {
                 Thread.sleep(1000);
@@ -69,10 +76,82 @@ public class DispatcherServiceImpl implements DispatcherService {
 
                 if (availableDock != null) {
                     Ship ship = waitingShips.remove(0); // Берем первый корабль из очереди
-                    assignDockToShip(port, ship); // Пытаемся назначить ему причал
+                    assignDockSync(port, ship); // Пытаемся назначить ему причал
                 }
             } catch (InterruptedException e) {
                 logger.error(e);
+            }
+        }
+    }
+
+    /**
+     * Метод для назначения причала текущему кораблю (concurrent)
+     * @param port Объект класса "Порт"
+     * @param ship Объект класса "Корабль"
+     */
+    @Override
+    public void assignDockConc(Port port, Ship ship) {
+        Dock availableDock;
+
+        try {
+            dockLock.lock(); // Блокируем доступ к причалам
+            try {
+                Thread.sleep(1000); // Симулируем задержку
+
+                availableDock = getAvailableDock(port); // Получаем доступный причал
+
+                if (availableDock != null) {
+                    ship.setDock(availableDock);
+                    availableDock.setShip(ship);
+                } else {
+                    waitingShips.add(ship); // Добавляем в очередь, если нет свободного причала
+                }
+            } finally {
+                dockLock.unlock(); // Всегда разблокируем в блоке finally
+            }
+
+            // Если назначен причал, обрабатываем работу с судном
+            if (availableDock != null) {
+                Thread.sleep(ship.getNeededTime()); // Время, необходимое для обработки корабля
+
+                // Обновляем информацию о складе
+                setUpdatedCapacityValue(port, ship.getCargo());
+                logger.info("Current capacity: {}", port.getWarehouse().getCurrentCapacity());
+
+                // Освобождаем причал
+                ship.setDock(null);
+                availableDock.setShip(null);
+            }
+        } catch (InterruptedException e) {
+            logger.error(e);
+        }
+
+        processWaitingConc(port); // Обрабатываем очередь ожидающих кораблей
+    }
+
+    /**
+     * Метод для обработки очереди ожидающих кораблей
+     * @param port Объект класса "Порт"
+     */
+    public void processWaitingConc(Port port) {
+        while (!waitingShips.isEmpty()) {
+            try {
+                Thread.sleep(1000); // Симулируем задержку
+
+                dockLock.lock(); // Блокируем доступ к причалам
+                try {
+                    Dock availableDock = getAvailableDock(port); // Получаем доступный причал
+
+                    if (availableDock != null && !waitingShips.isEmpty()) {
+                        Ship ship = waitingShips.remove(0); // Берем первый корабль из очереди
+                        assignDockConc(port, ship); // Пытаемся назначить ему причал
+                    }
+                } finally {
+                    dockLock.unlock(); // Всегда разблокируем в блоке finally
+                }
+            } catch (InterruptedException e) {
+                logger.error(e);
+                Thread.currentThread().interrupt(); // Восстанавливаем статус прерывания
             }
         }
     }

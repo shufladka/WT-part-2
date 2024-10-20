@@ -7,7 +7,8 @@ import by.bsuir.domain.Ship;
 import java.util.List;
 
 public interface DispatcherService {
-    void assignDockToShip(Port port, Ship ship);
+    void assignDockSync(Port port, Ship ship);
+    void assignDockConc(Port port, Ship ship);
     void logCommonInformation();
     List<Dock> getFreeDocks(Port port);
     boolean isDockAvailable(Dock dock);
