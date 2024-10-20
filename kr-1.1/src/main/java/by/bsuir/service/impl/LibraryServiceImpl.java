@@ -1,16 +1,12 @@
 package by.bsuir.service.impl;
 
+import by.bsuir.dao.DaoFactory;
+import by.bsuir.dao.service.BookDao;
 import by.bsuir.domain.*;
 import by.bsuir.service.AuthService;
 import by.bsuir.service.LibraryService;
 import by.bsuir.service.PostService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,8 +16,10 @@ import java.time.ZoneId;
 import java.util.*;
 
 public class LibraryServiceImpl implements LibraryService {
+
+    DaoFactory dao = DaoFactory.getInstance();
+    BookDao bookDao = dao.getBookDao();
     private static final int BOOKS_PER_PAGE = 5; // Количество книг на одной странице
-    private static final String libraryUrl = "https://6a821cd8fdaa5103.mokky.dev/library/";
     private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     /**
@@ -135,51 +133,8 @@ public class LibraryServiceImpl implements LibraryService {
      * @param book Объект сущности "Книга"
      * */
     private void saveBookToServer(AuthService authService, PostService postService, Book book) {
-
-        // Сериализация новой книги в JSON
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String bookJson = gson.toJson(book);
-
-        // Преобразование только кириллицы в Unicode
-        String unicodeBookJson = escapeCyrillicSymbol(bookJson);
-
-        try {
-            
-            // Отправка новой книги на сервер
-            int responseCode = getResponseCode(libraryUrl, "POST", unicodeBookJson);
-            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
-                postService.notificationForUsers(authService);
-                System.out.println("Книга успешно добавлена на сервере.");
-            } else {
-                System.out.println("Ошибка при добавлении книги на сервере. Код ответа: " + responseCode);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Ошибка при отправке книги на сервер", e);
-        }
-    }
-
-    /**
-     * Метод для получения целочисленного ответа от сервера
-     * @param libraryUrl Ссылка на ресурс с книгами
-     * @param method Тип метода HTTP
-     * @param unicodeBookJson Сериализированные данные пользователя
-     * @return static int
-     * */
-    private static int getResponseCode(String libraryUrl, String method, String unicodeBookJson) throws IOException {
-        URL url = new URL(libraryUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod(method); // Используем POST для создания новой книги
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setDoOutput(true);
-
-        // Отправка данных
-        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8))) {
-            writer.write(unicodeBookJson);
-            writer.flush();
-        }
-
-        // Проверка кода ответа от сервера
-        return connection.getResponseCode();
+        bookDao.save(book);
+        postService.notificationForUsers(authService);
     }
 
     /**
@@ -188,30 +143,7 @@ public class LibraryServiceImpl implements LibraryService {
      * */
     @Override
     public List<Book> getAllBooks() {
-        Gson gson = new Gson();
-
-        try {
-            // Открываем соединение для получения списка книг
-            URL url = new URL(libraryUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-
-            // Проверяем код ответа от сервера
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                
-                // Читаем JSON
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                    return gson.fromJson(reader, new TypeToken<List<Book>>() {}.getType());
-                }
-            } else {
-                System.out.println("Ошибка: сервер вернул код " + responseCode);
-                return List.of();
-            }
-        } catch (IOException e) {
-            System.out.println("Ошибка при получении данных: " + e.getMessage());
-            return List.of();
-        }
+        return bookDao.findAll();
     }
 
     /**
@@ -251,23 +183,7 @@ public class LibraryServiceImpl implements LibraryService {
      * @param book Объект сущности "Книга"
      * */
     private void updateBookOnServer(Book book) {
-        try {
-            
-            // Сериализация данных в JSON
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String bookJson = gson.toJson(book);
-
-            // Формируем URL для обновления книги по ID
-            String urlString = libraryUrl + book.getId();
-            int responseCode = getResponseCode(urlString, "PATCH", bookJson);
-            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
-                System.out.println("Книга успешно обновлена на сервере.");
-            } else {
-                System.out.println("Ошибка при обновлении книги на сервере. Код ответа: " + responseCode);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Ошибка при обновлении книги на сервере", e);
-        }
+        bookDao.update(book);
     }
 
     /**
@@ -278,34 +194,7 @@ public class LibraryServiceImpl implements LibraryService {
      * */
     @Override
     public SecurityCode removeBook(Integer id, Role role) {
-
-        // Операция доступна только Администратору
-        if (role.equals(Role.ADMIN)) {
-            try {
-                // Формируем URL для удаления книги по ID
-                String urlString = libraryUrl + id;
-                URL url = new URL(urlString);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("DELETE");
-
-                // Проверка кода ответа от сервера
-                int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
-                    System.out.println("Книга с ID " + id + " успешно удалена.");
-                } else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
-                    System.out.println("Книга с ID " + id + " не найдена на сервере.");
-                } else {
-                    System.out.println("Ошибка при удалении книги. Код ответа: " + responseCode);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException("Ошибка при удалении книги с сервера", e);
-            }
-
-            return SecurityCode.ALLOWED;
-        }
-
-        System.out.println("\tОперация доступна только администратору.");
-        return SecurityCode.DENIED;
+        return bookDao.remove(id, role);
     }
 
     /**

@@ -1,15 +1,11 @@
 package by.bsuir.service.impl;
 
+import by.bsuir.dao.DaoFactory;
+import by.bsuir.dao.service.UserDao;
 import by.bsuir.domain.Role;
 import by.bsuir.domain.User;
 import by.bsuir.service.AuthService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,8 +13,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AuthServiceImpl implements AuthService {
+
+    DaoFactory dao = DaoFactory.getInstance();
+    UserDao userDao = dao.getUserDao();
     private User authentificatedUser = new User();
-    private static final String credentialsUrl = "https://6a821cd8fdaa5103.mokky.dev/credentials/";
 
     public AuthServiceImpl() {}
 
@@ -55,75 +53,11 @@ public class AuthServiceImpl implements AuthService {
     }
 
     /**
-     * Метод для экранирования кириллицы в ответе формата JSON
-     * @param json Исходная строка
-     * @return String
-     * */
-    private String escapeCyrillicSymbol(String json) {
-        StringBuilder escapedJson = new StringBuilder();
-
-        for (char c : json.toCharArray()) {
-
-            // Если символ — кириллический, экранируем его
-            if (Character.UnicodeScript.of(c) == Character.UnicodeScript.CYRILLIC) {
-                escapedJson.append(String.format("\\u%04x", (int) c));
-            } else {
-
-                // В противном случае просто добавляем символ
-                escapedJson.append(c);
-            }
-        }
-
-        return escapedJson.toString();
-    }
-
-    /**
      * Метод для сохранения пользователя в файл на mokky.dev
      * @param user Сущность пользователя
      * */
     private void saveUserToApi(User user) {
-
-        // Сериализация новой книги в JSON
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String userJson = gson.toJson(user);
-
-        // Преобразование только кириллицы в Unicode
-        String unicodeBookJson = escapeCyrillicSymbol(userJson);
-
-        try {
-
-            // Отправка новой книги на сервер
-            int responseCode = getResponseCode(unicodeBookJson);
-            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
-                System.out.println("Пользователь успешно добавлена на сервере.");
-            } else {
-                System.out.println("Ошибка при добавлении пользователя на сервере. Код ответа: " + responseCode);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Ошибка при отправке пользователя на сервер", e);
-        }
-    }
-
-    /**
-     * Метод для получения целочисленного ответа от сервера
-     * @param unicodeUserJson Сериализированные данные пользователя
-     * @return static int
-     * */
-    private static int getResponseCode(String unicodeUserJson) throws IOException {
-        URL url = new URL(AuthServiceImpl.credentialsUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST"); // Используем POST для создания нового пользователя
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setDoOutput(true);
-
-        // Отправка данных
-        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8))) {
-            writer.write(unicodeUserJson);
-            writer.flush();
-        }
-
-        // Проверка кода ответа от сервера
-        return connection.getResponseCode();
+        userDao.save(user);
     }
 
     /**
@@ -131,30 +65,7 @@ public class AuthServiceImpl implements AuthService {
      * @return List of users
      * */
     public List<User> loadUsersFromApi() {
-        Gson gson = new Gson();
-
-        try {
-            // Открываем соединение для получения списка книг
-            URL url = new URL(credentialsUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-
-            // Проверяем код ответа от сервера
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-
-                // Читаем JSON
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                    return gson.fromJson(reader, new TypeToken<List<User>>() {}.getType());
-                }
-            } else {
-                System.out.println("Ошибка: сервер вернул код " + responseCode);
-                return List.of();
-            }
-        } catch (IOException e) {
-            System.out.println("Ошибка при получении данных: " + e.getMessage());
-            return List.of();
-        }
+        return userDao.findAll();
     }
 
     /**
