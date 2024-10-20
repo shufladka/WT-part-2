@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"by.bsuir"},{"l":"by.bsuir.dao"},{"l":"by.bsuir.dao.service"},{"l":"by.bsuir.dao.service.impl"},{"l":"by.bsuir.domain"},{"l":"by.bsuir.service"},{"l":"by.bsuir.service.impl"}];updateSearchResults();
