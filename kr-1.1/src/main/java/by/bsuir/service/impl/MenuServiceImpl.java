@@ -15,7 +15,7 @@ public class MenuServiceImpl implements MenuService {
      * @param authService Сущность подсистемы авторизации
      * */
     @Override
-    public void showAuthMenu(AuthService authService) {
+    public void showAuthMenu(AuthService authService, LibraryService libraryService, PostService postService) {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -35,7 +35,7 @@ public class MenuServiceImpl implements MenuService {
                 case 1:
                     authService.login();
                     if (authService.isLoggedIn(authService.getAuthentificatedUser())) {
-                        return;
+                        showMainMenu(authService, libraryService, postService);
                     }
                     break;
                 case 2:

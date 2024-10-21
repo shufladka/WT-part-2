@@ -20,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
     /**
      * Объект авторизованного пользователя
      */
-    private User authentificatedUser = new User();
+    private User authentificatedUser = null;
 
     public AuthServiceImpl() {}
 

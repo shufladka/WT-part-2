@@ -29,7 +29,6 @@ public class Main {
         LibraryService libraryService = new LibraryServiceImpl();
         PostService postService = new PostServiceImpl();
 
-        menuService.showAuthMenu(authService);
-        menuService.showMainMenu(authService, libraryService, postService);
+        menuService.showAuthMenu(authService, libraryService, postService);
     }
 }
