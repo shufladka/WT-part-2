@@ -50,7 +50,6 @@ public class AuthServiceImpl implements AuthService {
 
         System.out.print("\tВведите email: ");
         user.setEmail(scanner.nextLine());
-        scanner.close();
 
         // Сохранение данных пользователя в файл на mokky.dev
         saveUserToApi(user);
