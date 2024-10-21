@@ -128,7 +128,7 @@ public class LibraryServiceImpl implements LibraryService {
      * */
     @Override
     public List<Book> getAllBooks() {
-        return bookDao.findAll();
+        return bookDao.findAll(Book.class);
     }
 
     /**

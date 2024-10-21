@@ -34,3 +34,19 @@
 2024-10-20 12:53:59 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 added to the dock "first dock"
 2024-10-20 12:54:00 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №2 left the port
 2024-10-20 12:54:04 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №3 left the port
+2024-10-20 14:02:49 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №0 added to the dock "0'st('th) dock"
+2024-10-20 14:02:50 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №0 left the port
+2024-10-20 14:02:50 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №1 added to the dock "0'st('th) dock"
+2024-10-20 14:02:51 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №2 added to the dock "1'st('th) dock"
+2024-10-20 14:02:53 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №1 left the port
+2024-10-20 14:02:54 [Thread-3] INFO  by.bsuir.domain.Ship - The ship №3 added to the dock "0'st('th) dock"
+2024-10-20 14:02:54 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №2 left the port
+2024-10-20 14:02:55 [Thread-3] INFO  by.bsuir.domain.Ship - The ship №3 left the port
+2024-10-20 14:03:15 [Thread-4] INFO  by.bsuir.domain.Ship - The ship №0 added to the dock "0'st('th) dock"
+2024-10-20 14:03:16 [Thread-4] INFO  by.bsuir.domain.Ship - The ship №0 left the port
+2024-10-20 14:03:16 [Thread-5] INFO  by.bsuir.domain.Ship - The ship №1 added to the dock "0'st('th) dock"
+2024-10-20 14:03:17 [Thread-6] INFO  by.bsuir.domain.Ship - The ship №2 added to the dock "1'st('th) dock"
+2024-10-20 14:03:19 [Thread-5] INFO  by.bsuir.domain.Ship - The ship №1 left the port
+2024-10-20 14:03:20 [Thread-7] INFO  by.bsuir.domain.Ship - The ship №3 added to the dock "0'st('th) dock"
+2024-10-20 14:03:21 [Thread-6] INFO  by.bsuir.domain.Ship - The ship №2 left the port
+2024-10-20 14:03:22 [Thread-7] INFO  by.bsuir.domain.Ship - The ship №3 left the port

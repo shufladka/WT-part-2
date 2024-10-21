@@ -69,7 +69,7 @@ public class AuthServiceImpl implements AuthService {
      * @return List of users
      * */
     public List<User> loadUsersFromApi() {
-        return userDao.findAll();
+        return userDao.findAll(User.class);
     }
 
     /**

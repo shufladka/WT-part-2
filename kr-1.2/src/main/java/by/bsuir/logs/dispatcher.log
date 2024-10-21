@@ -16,3 +16,11 @@
 2024-10-20 12:53:58 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 1800.0
 2024-10-20 12:54:00 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 4200.0
 2024-10-20 12:54:04 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 9000.0
+2024-10-20 14:02:50 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 3176.3811198907065
+2024-10-20 14:02:53 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 3979.719313032998
+2024-10-20 14:02:54 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 6999.673018160837
+2024-10-20 14:02:55 [Thread-3] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 8019.80370220516
+2024-10-20 14:03:16 [Thread-4] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 11196.184822095867
+2024-10-20 14:03:19 [Thread-5] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 11999.52301523816
+2024-10-20 14:03:21 [Thread-6] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 15019.476720365998
+2024-10-20 14:03:22 [Thread-7] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 16039.60740441032

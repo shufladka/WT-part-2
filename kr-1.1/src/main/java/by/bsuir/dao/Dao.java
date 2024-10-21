@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface Dao<T> {
     void save(T t);
-    List<T> findAll();
+    List<T> findAll(Class<T> genericClass);
     String escapeCyrillicSymbol(String json);
 }

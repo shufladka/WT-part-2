@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -46,10 +47,11 @@ public abstract class AbstractDaoImpl<T> implements Dao<T> {
 
     /**
      * Метод для получения списка объектов некоторого класса из JSON
+     * @param genericClass Класс шаблона
      * @return List of generics
      * */
     @Override
-    public List<T> findAll() {
+    public List<T> findAll(Class<T> genericClass) {
         Gson gson = new Gson();
 
         try {
@@ -64,7 +66,8 @@ public abstract class AbstractDaoImpl<T> implements Dao<T> {
 
                 // Читаем JSON
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                    return gson.fromJson(reader, new TypeToken<List<T>>() {}.getType());
+                    Type typeOfGeneric = TypeToken.getParameterized(List.class, genericClass).getType();
+                    return gson.fromJson(reader, typeOfGeneric);
                 }
             } else {
                 System.out.println("Ошибка: сервер вернул код " + responseCode);
