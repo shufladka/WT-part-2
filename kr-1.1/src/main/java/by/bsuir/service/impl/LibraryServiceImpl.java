@@ -92,20 +92,14 @@ public class LibraryServiceImpl implements LibraryService {
         book.setBookType(BookType.valueOf(bookTypeInput.toUpperCase()));
         
         if (role.equals(Role.ADMIN)) {
-
-            // Добавляем новую книгу в библиотеку
             if (operationType.equals(OperationType.CREATION)) {
                 saveBookToServer(authService, postService, book);
             } else
-
-                // Обновляем поля книги
                 if (operationType.equals(OperationType.UPDATE)) {
                 updateBookOnServer(book);
             }
         } else {
             if (role.equals(Role.USER)) {
-
-                // Уведомляем администратора о просьбе добавить новую книгу
                 postService.notificationForAdmin(book);
             }
         }
@@ -151,8 +145,6 @@ public class LibraryServiceImpl implements LibraryService {
      * */
     @Override
     public SecurityCode updateBook(Integer id, AuthService authService, PostService postService, Role role) {
-
-        // Операция доступна только Администратору
         if (role.equals(Role.ADMIN)) {
             Book book = getBookById(id);
             setBooksFields(book, authService, postService, role, OperationType.UPDATE);
@@ -199,8 +191,6 @@ public class LibraryServiceImpl implements LibraryService {
 
         int currentPage = 1;
         while (true) {
-            
-            // Выводим книги на текущей странице
             displayPage(books, currentPage, totalPages);
 
             System.out.print("\n\tВведите номер страницы (1-" + totalPages + ") или 0 для выхода: ");

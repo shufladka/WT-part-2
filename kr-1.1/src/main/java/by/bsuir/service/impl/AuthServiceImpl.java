@@ -46,12 +46,11 @@ public class AuthServiceImpl implements AuthService {
 
         System.out.print("\tВведите роль (например, ADMIN или USER): ");
         String roleInput = scanner.nextLine();
-        user.setRole(Role.valueOf(roleInput.toUpperCase())); // Преобразование строки в enum Role
+        user.setRole(Role.valueOf(roleInput.toUpperCase()));
 
         System.out.print("\tВведите email: ");
         user.setEmail(scanner.nextLine());
 
-        // Сохранение данных пользователя в файл на mokky.dev
         saveUserToApi(user);
     }
 
@@ -127,14 +126,8 @@ public class AuthServiceImpl implements AuthService {
      * */
     private String hashPassword(String password) {
         try {
-            
-            // Получаем экземпляр алгоритма SHA-256
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-
-            // Преобразуем пароль в байты и хешируем его
             byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-
-            // Преобразуем хешированный пароль в строку
             return bytesToHex(encodedHash);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Ошибка хеширования пароля", e);

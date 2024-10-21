@@ -54,7 +54,6 @@ public class PostServiceImpl implements PostService {
      * @param messageBody Тело письма
      */
     private void sendEmail(String recipient, String messageBody) {
-
         // Настройка свойств для подключения к SMTP-серверу
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.mail.ru");   // SMTP-сервер
@@ -76,14 +75,12 @@ public class PostServiceImpl implements PostService {
         });
 
         try {
-            // Создание email-сообщения
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email, username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
             message.setSubject("LIBRARY");
             message.setText(messageBody);
 
-            // Отправка email
             Transport.send(message);
             System.out.println("Email успешно отправлен!");
 
