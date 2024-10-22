@@ -1,12 +1,7 @@
 package by.bsuir;
 
-import by.bsuir.domain.*;
-import by.bsuir.service.DispatcherService;
 import by.bsuir.service.MenuService;
-import by.bsuir.service.impl.DispatcherServiceImpl;
 import by.bsuir.service.impl.MenuServiceImpl;
-
-import java.util.List;
 
 /*
 * Задание: Реализовать диспетчерскую систему, следящую за кораблями в порту.

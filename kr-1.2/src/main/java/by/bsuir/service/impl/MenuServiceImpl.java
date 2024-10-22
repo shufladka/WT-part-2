@@ -57,18 +57,7 @@ public class MenuServiceImpl implements MenuService {
                 case 5:
                     if (!dockList.isEmpty() && !shipList.isEmpty()) {
 
-                        List<Thread> threadList = new ArrayList<>();
-
-                        for (Ship ship : shipList) {
-                            if (MODE.equals("synchronized")) {
-                                Thread thread = new Thread(() -> dispatcherService.assignDockConc(port, ship));
-                                threadList.add(thread);
-                            }
-                            else if (MODE.equals("concurrent")) {
-                                Thread thread = new Thread(() -> dispatcherService.assignDockConc(port, ship));
-                                threadList.add(thread);
-                            }
-                        }
+                        List<Thread> threadList = launchThreads(shipList, dispatcherService, port);
 
                         for (Thread thread : threadList) {
                             thread.start();
@@ -84,6 +73,29 @@ public class MenuServiceImpl implements MenuService {
                     break;
             }
         }
+    }
+
+    /**
+     * Метод для работы с потоками системы диспетчеризации
+     * @param shipList Список объектов "Корабли"
+     * @param dispatcherService Сущность сервиса системы диспетчеризации
+     * @param port Объект класса "Порт"
+     * @return List of Threads
+     */
+    private List<Thread> launchThreads(List<Ship> shipList, DispatcherService dispatcherService, Port port) {
+        List<Thread> threadList = new ArrayList<>();
+
+        for (Ship ship : shipList) {
+            if (MODE.equals("synchronized")) {
+                Thread thread = new Thread(() -> dispatcherService.assignDockConc(port, ship));
+                threadList.add(thread);
+            }
+            else if (MODE.equals("concurrent")) {
+                Thread thread = new Thread(() -> dispatcherService.assignDockConc(port, ship));
+                threadList.add(thread);
+            }
+        }
+        return threadList;
     }
 
     /**
@@ -206,8 +218,7 @@ public class MenuServiceImpl implements MenuService {
         int neededTime = 100 + random.nextInt(5000 - 100 + 1);
 
         int id = shipList != null ? shipList.size() : 0;
-        Ship ship = new Ship(id, id + "'st('th) ship", cargo, priority, neededTime);
-        return ship;
+        return new Ship(id, id + "'st('th) ship", cargo, priority, neededTime);
     }
 
     /**

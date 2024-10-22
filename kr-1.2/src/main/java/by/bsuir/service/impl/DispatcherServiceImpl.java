@@ -51,7 +51,7 @@ public class DispatcherServiceImpl implements DispatcherService {
 
                 // Обновляем информацию о складе
                 setUpdatedCapacityValue(port, ship.getCargo());
-                logger.info("Current capacity: {}", port.getWarehouse().getCurrentCapacity());
+                logger.info("[SYNCHRONIZED] Current capacity: {}", port.getWarehouse().getCurrentCapacity());
 
                 ship.setDock(null);
                 availableDock.setShip(null);
@@ -76,8 +76,8 @@ public class DispatcherServiceImpl implements DispatcherService {
                 Dock availableDock = getAvailableDock(port);
 
                 if (availableDock != null) {
-                    Ship ship = waitingShips.remove(0); // Берем первый корабль из очереди
-                    assignDockSync(port, ship); // Пытаемся назначить ему причал
+                    Ship ship = waitingShips.remove(0);
+                    assignDockSync(port, ship);
                 }
             } catch (InterruptedException e) {
                 logger.error(e);
@@ -128,7 +128,7 @@ public class DispatcherServiceImpl implements DispatcherService {
 
                 // Обновляем информацию о складе
                 setUpdatedCapacityValue(port, ship.getCargo());
-                logger.info("Current capacity: {}", port.getWarehouse().getCurrentCapacity());
+                logger.info("[CONCURRENT] Current capacity: {}", port.getWarehouse().getCurrentCapacity());
 
                 // Освобождаем причал
                 ship.setDock(null);
@@ -183,12 +183,6 @@ public class DispatcherServiceImpl implements DispatcherService {
     }
 
     /**
-     * Метод для логирования общей информации
-     */
-    @Override
-    public void logCommonInformation() {}
-
-    /**
      * Метод для получения списка свободных причалов
      * @param port Объект класса "Порт"
      * @return List of docks
@@ -224,7 +218,7 @@ public class DispatcherServiceImpl implements DispatcherService {
         List<Dock> freeDocks = getFreeDocks(port);
         for (Dock dock : freeDocks) {
             if (isDockAvailable(dock)) {
-                availableDock = dock; // Вернуть первый доступный причал
+                availableDock = dock;
                 break;
             }
         }
