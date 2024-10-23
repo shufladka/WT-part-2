@@ -3,3 +3,120 @@
 2024-10-21 21:48:48 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 7209.748207117427
 2024-10-21 21:48:50 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 10374.39694769941
 2024-10-21 21:48:55 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - Current capacity: 11486.67302707837
+2024-10-23 21:29:15 [Thread-9] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 21:29:15 [Thread-11] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 21:29:15 [Thread-7] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 21:29:15 [Thread-6] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 21:29:15 [Thread-10] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 21:29:15 [Thread-8] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 21:29:17 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 46839.07424402557
+2024-10-23 21:29:19 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 47040.15444638275
+2024-10-23 21:29:20 [Thread-6] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 47040.15444638275 | WAITED: [Ship{id=4, name='4'st('th) ship', cargo=2111.2189121699594, dock=null, operation=UNLOADING, priority=HIGH, neededTime=4274}], BUSY: [[!!!by.bsuir.domain.Ship@2b9d599c=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:29:20 [Thread-10] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 47040.15444638275 | WAITED: [Ship{id=4, name='4'st('th) ship', cargo=2111.2189121699594, dock=null, operation=UNLOADING, priority=HIGH, neededTime=4274}], BUSY: [[!!!by.bsuir.domain.Ship@2b9d599c=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:29:20 [Thread-8] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 47040.15444638275 | WAITED: [Ship{id=4, name='4'st('th) ship', cargo=2111.2189121699594, dock=null, operation=UNLOADING, priority=HIGH, neededTime=4274}], BUSY: [[!!!by.bsuir.domain.Ship@2b9d599c=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:29:21 [Thread-5] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 50935.07069726694
+2024-10-23 21:29:23 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 47181.50493913683
+2024-10-23 21:29:24 [Thread-3] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 44605.98367284069
+2024-10-23 21:29:24 [Thread-12] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 44605.98367284069 | WAITED: [], BUSY: []]
+2024-10-23 21:29:29 [Thread-12] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 44605.98367284069 | WAITED: [], BUSY: [[!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:29:29 [Thread-5] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 46717.202585010644
+2024-10-23 21:31:11 [Thread-19] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 46717.202585010644 | WAITED: [], BUSY: []]
+2024-10-23 21:31:11 [Thread-20] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 46717.202585010644 | WAITED: [], BUSY: []]
+2024-10-23 21:31:11 [Thread-22] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 46717.202585010644 | WAITED: [], BUSY: []]
+2024-10-23 21:31:11 [Thread-23] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 46717.202585010644 | WAITED: [], BUSY: []]
+2024-10-23 21:31:11 [Thread-24] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 46717.202585010644 | WAITED: [], BUSY: []]
+2024-10-23 21:31:11 [Thread-21] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 46717.202585010644 | WAITED: [], BUSY: []]
+2024-10-23 21:31:14 [Thread-13] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 42963.63682688053
+2024-10-23 21:31:16 [Thread-20] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 42963.63682688053 | WAITED: [Ship{id=5, name='5'st('th) ship', cargo=3894.916250884189, dock=null, operation=UNLOADING, priority=MEDIUM, neededTime=3723}], BUSY: [[!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@5c5382cb=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:31:16 [Thread-22] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 42963.63682688053 | WAITED: [Ship{id=5, name='5'st('th) ship', cargo=3894.916250884189, dock=null, operation=UNLOADING, priority=MEDIUM, neededTime=3723}], BUSY: [[!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@5c5382cb=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:31:16 [Thread-24] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 42963.63682688053 | WAITED: [Ship{id=5, name='5'st('th) ship', cargo=3894.916250884189, dock=null, operation=UNLOADING, priority=MEDIUM, neededTime=3723}], BUSY: [[!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@5c5382cb=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:31:16 [Thread-21] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 42963.63682688053 | WAITED: [Ship{id=5, name='5'st('th) ship', cargo=3894.916250884189, dock=null, operation=UNLOADING, priority=MEDIUM, neededTime=3723}], BUSY: [[!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@5c5382cb=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:31:17 [Thread-15] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 43164.71702923771
+2024-10-23 21:31:17 [Thread-17] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 45275.935941407675
+2024-10-23 21:31:18 [Thread-14] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 42115.010185433246
+2024-10-23 21:31:18 [Thread-25] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 42115.010185433246 | WAITED: [Ship{id=3, name='3'st('th) ship', cargo=2575.5212662961394, dock=null, operation=LOADING, priority=HIGH, neededTime=3956}], BUSY: []]
+2024-10-23 21:31:23 [Thread-15] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 46009.92643631744
+2024-10-23 21:31:24 [Thread-26] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 46009.92643631744 | WAITED: [], BUSY: []]
+2024-10-23 21:31:29 [Thread-15] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 43434.405170021295
+2024-10-23 21:31:47 [Thread-33] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 43434.405170021295 | WAITED: [], BUSY: []]
+2024-10-23 21:31:47 [Thread-36] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 43434.405170021295 | WAITED: [], BUSY: []]
+2024-10-23 21:31:47 [Thread-35] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 43434.405170021295 | WAITED: [], BUSY: []]
+2024-10-23 21:31:47 [Thread-34] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 43434.405170021295 | WAITED: [], BUSY: []]
+2024-10-23 21:31:47 [Thread-38] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 43434.405170021295 | WAITED: [], BUSY: []]
+2024-10-23 21:31:47 [Thread-37] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 43434.405170021295 | WAITED: [], BUSY: []]
+2024-10-23 21:31:50 [Thread-27] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 39680.83941189118
+2024-10-23 21:31:52 [Thread-36] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 39680.83941189118 | WAITED: [Ship{id=5, name='5'st('th) ship', cargo=3894.916250884189, dock=null, operation=UNLOADING, priority=MEDIUM, neededTime=3723}], BUSY: [[!!!by.bsuir.domain.Ship@53e2ed31=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:31:52 [Thread-35] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 39680.83941189118 | WAITED: [Ship{id=5, name='5'st('th) ship', cargo=3894.916250884189, dock=null, operation=UNLOADING, priority=MEDIUM, neededTime=3723}], BUSY: [[!!!by.bsuir.domain.Ship@53e2ed31=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:31:52 [Thread-34] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 39680.83941189118 | WAITED: [Ship{id=5, name='5'st('th) ship', cargo=3894.916250884189, dock=null, operation=UNLOADING, priority=MEDIUM, neededTime=3723}], BUSY: [[!!!by.bsuir.domain.Ship@53e2ed31=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:31:52 [Thread-38] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 39680.83941189118 | WAITED: [Ship{id=5, name='5'st('th) ship', cargo=3894.916250884189, dock=null, operation=UNLOADING, priority=MEDIUM, neededTime=3723}], BUSY: [[!!!by.bsuir.domain.Ship@53e2ed31=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:31:53 [Thread-30] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 37105.31814559504
+2024-10-23 21:31:54 [Thread-28] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 33944.39238962061
+2024-10-23 21:31:54 [Thread-39] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 33944.39238962061 | WAITED: [Ship{id=2, name='2'st('th) ship', cargo=201.0802023571802, dock=null, operation=UNLOADING, priority=MEDIUM, neededTime=1511}], BUSY: [[!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 21:31:55 [Thread-31] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 36055.61130179057
+2024-10-23 21:31:59 [Thread-30] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 39950.527552674765
+2024-10-23 21:32:00 [Thread-40] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 39950.527552674765 | WAITED: [], BUSY: []]
+2024-10-23 21:32:02 [Thread-30] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 40151.607755031946
+2024-10-23 22:49:04 [Thread-46] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 40151.607755031946 | WAITED: [], BUSY: []]
+2024-10-23 22:49:04 [Thread-49] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 40151.607755031946 | WAITED: [], BUSY: []]
+2024-10-23 22:49:04 [Thread-47] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 40151.607755031946 | WAITED: [], BUSY: []]
+2024-10-23 22:49:04 [Thread-50] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 40151.607755031946 | WAITED: [], BUSY: []]
+2024-10-23 22:49:04 [Thread-48] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 40151.607755031946 | WAITED: [], BUSY: []]
+2024-10-23 22:49:07 [Thread-41] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 36398.04199690183
+2024-10-23 22:49:08 [Thread-42] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 33237.116240927404
+2024-10-23 22:49:09 [Thread-49] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 33237.116240927404 | WAITED: [], BUSY: [[!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@53e2ed31=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:49:09 [Thread-47] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 33237.116240927404 | WAITED: [], BUSY: [[!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@53e2ed31=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:49:09 [Thread-50] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 33237.116240927404 | WAITED: [], BUSY: [[!!!by.bsuir.domain.Ship@2e190ed5=>java.lang.StackOverflowError:null!!!], [!!!by.bsuir.domain.Ship@53e2ed31=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:49:10 [Thread-45] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 35348.33515309736
+2024-10-23 22:49:10 [Thread-43] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 35549.41535545454
+2024-10-23 22:49:12 [Thread-44] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 32973.8940891584
+2024-10-23 22:49:57 [Thread-4] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:49:57 [Thread-6] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:49:57 [Thread-7] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:49:57 [Thread-5] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:50:02 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 52996.64999421598
+2024-10-23 22:50:02 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 54261.57532273443
+2024-10-23 22:50:02 [Thread-8] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 54261.57532273443 | WAITED: [], BUSY: [[!!!by.bsuir.domain.Ship@21da7593=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:50:02 [Thread-6] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 54261.57532273443 | WAITED: [], BUSY: [[!!!by.bsuir.domain.Ship@21da7593=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:50:05 [Thread-3] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 56397.44593396709
+2024-10-23 22:50:07 [Thread-8] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 56397.44593396709 | WAITED: [], BUSY: [[!!!by.bsuir.domain.Ship@2f1d9fd8=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:50:08 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 61260.242011845556
+2024-10-23 22:51:17 [Thread-14] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 61260.242011845556 | WAITED: [], BUSY: []]
+2024-10-23 22:51:17 [Thread-15] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 61260.242011845556 | WAITED: [], BUSY: []]
+2024-10-23 22:51:17 [Thread-18] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 61260.242011845556 | WAITED: [], BUSY: []]
+2024-10-23 22:51:17 [Thread-17] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 61260.242011845556 | WAITED: [], BUSY: []]
+2024-10-23 22:51:17 [Thread-16] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 61260.242011845556 | WAITED: [], BUSY: []]
+2024-10-23 22:51:22 [Thread-13] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 65733.5502107364
+2024-10-23 22:51:22 [Thread-15] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 65733.5502107364 | WAITED: [Ship{id=3, name='3'st('th) ship', cargo=2135.870611232657, dock=null, operation=UNLOADING, priority=HIGH, neededTime=4749}, Ship{id=2, name='2'st('th) ship', cargo=1264.9253285184534, dock=null, operation=UNLOADING, priority=LOW, neededTime=3990}], BUSY: [[!!!by.bsuir.domain.Ship@2f1d9fd8=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:51:22 [Thread-14] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 65733.5502107364 | WAITED: [Ship{id=3, name='3'st('th) ship', cargo=2135.870611232657, dock=null, operation=UNLOADING, priority=HIGH, neededTime=4749}, Ship{id=2, name='2'st('th) ship', cargo=1264.9253285184534, dock=null, operation=UNLOADING, priority=LOW, neededTime=3990}], BUSY: [[!!!by.bsuir.domain.Ship@2f1d9fd8=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:51:23 [Thread-9] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 70596.34628861488
+2024-10-23 22:51:23 [Thread-19] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 70596.34628861488 | WAITED: [Ship{id=2, name='2'st('th) ship', cargo=1264.9253285184534, dock=null, operation=UNLOADING, priority=LOW, neededTime=3990}], BUSY: [[!!!by.bsuir.domain.Ship@7b50ec1c=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:51:24 [Thread-10] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 73592.99628283085
+2024-10-23 22:51:28 [Thread-19] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 73592.99628283085 | WAITED: [Ship{id=2, name='2'st('th) ship', cargo=1264.9253285184534, dock=null, operation=UNLOADING, priority=LOW, neededTime=3990}], BUSY: [[!!!by.bsuir.domain.Ship@21da7593=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:51:29 [Thread-13] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 75728.86689406351
+2024-10-23 22:51:30 [Thread-20] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 75728.86689406351 | WAITED: [], BUSY: []]
+2024-10-23 22:51:35 [Thread-13] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 76993.79222258196
+2024-10-23 22:51:35 [Thread-20] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 75728.86689406351 | WAITED: [], BUSY: [[!!!by.bsuir.domain.Ship@755da09f=>java.lang.StackOverflowError:null!!!][WH: {} | WAITED: {}, BUSY: {}]
+2024-10-23 22:52:05 [Thread-7] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:52:05 [Thread-5] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:52:05 [Thread-9] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:52:05 [Thread-8] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:52:05 [Thread-6] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:52:09 [Thread-4] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 47325.385289234226
+2024-10-23 22:52:10 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 49717.27578414451
+2024-10-23 22:52:10 [Thread-5] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 49717.27578414451 | WAITED: [Ship{id=3, name='3'st('th) ship', cargo=3758.9752977036205, dock=null, operation=UNLOADING, priority=HIGH, neededTime=632}, Ship{id=2, name='2'st('th) ship', cargo=1792.0593648001397, dock=null, operation=LOADING, priority=LOW, neededTime=936}], BUSY: [[!!!by.bsuir.domain.Ship@1f1b262f=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:52:11 [Thread-10] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 49717.27578414451 | WAITED: [Ship{id=2, name='2'st('th) ship', cargo=1792.0593648001397, dock=null, operation=LOADING, priority=LOW, neededTime=936}], BUSY: [[!!!by.bsuir.domain.Ship@1f1b262f=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:52:13 [Thread-1] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 48588.03734686675
+2024-10-23 22:52:13 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 52347.01264457037
+2024-10-23 22:52:14 [Thread-11] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 52347.01264457037 | WAITED: [], BUSY: []]
+2024-10-23 22:52:15 [Thread-0] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 50554.953279770234
+2024-10-23 22:54:15 [Thread-5] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:54:15 [Thread-6] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:54:15 [Thread-7] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:54:15 [Thread-4] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50000.0 | WAITED: [], BUSY: []]
+2024-10-23 22:54:19 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 50385.23680849064
+2024-10-23 22:54:20 [Thread-6] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 50385.23680849064 | WAITED: [Ship{id=1, name='1'st('th) ship', cargo=3608.5177355547194, dock=null, operation=LOADING, priority=LOW, neededTime=3686}, Ship{id=0, name='0'st('th) ship', cargo=1071.840065451937, dock=null, operation=UNLOADING, priority=HIGH, neededTime=2744}], BUSY: [[!!!by.bsuir.domain.Ship@4b683679=>java.lang.StackOverflowError:null!!!]]]
+2024-10-23 22:54:21 [Thread-3] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 45517.10100335949
+2024-10-23 22:54:21 [Thread-8] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 45517.10100335949 | WAITED: [Ship{id=0, name='0'st('th) ship', cargo=1071.840065451937, dock=null, operation=UNLOADING, priority=HIGH, neededTime=2744}], BUSY: []]
+2024-10-23 22:54:26 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 41908.58326780477
+2024-10-23 22:54:27 [Thread-9] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [WH: 41908.58326780477 | WAITED: [], BUSY: []]
+2024-10-23 22:54:31 [Thread-2] INFO  by.bsuir.service.impl.DispatcherServiceImpl - [SYNCHRONIZED] Current capacity: 42980.4233332567
