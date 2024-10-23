@@ -94,7 +94,7 @@ public class MenuServiceImpl implements MenuService {
 
         for (Ship ship : shipList) {
             if (MODE.equals("synchronized")) {
-                Thread thread = new Thread(() -> dispatcherService.assignDockConc(port, ship));
+                Thread thread = new Thread(() -> dispatcherService.assignDockSync(port, ship));
                 threadList.add(thread);
             }
             else if (MODE.equals("concurrent")) {

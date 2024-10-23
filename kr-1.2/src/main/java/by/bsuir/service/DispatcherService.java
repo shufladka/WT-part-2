@@ -38,4 +38,10 @@ public interface DispatcherService {
      * @return true || false
      */
     boolean isDockAvailable(Dock dock);
+
+    /**
+     * Метод для журналирования состояния работы диспетчерской системы
+     * @param port Объект класса "Порт"
+     */
+    void logCommonInfo(Port port);
 }
