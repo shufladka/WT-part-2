@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-/*
+/**
  * Задание: Реализовать клиент-серверное приложение с использованием технологии Sockets.
  * Общие требования к заданию:
  * · Клиент может запросить сервер распарсить xml-файл одним из трех видов парсеров: SAX, StAX, DOM.
@@ -27,6 +27,10 @@ public class MainClient {
     private static final String HOST = "localhost";
     private static final int PORT = 8085;
 
+    /**
+     * Главный метод программы
+     * @param args Передаваемые параметры
+     */
     public static void main(String[] args) {
         try (Socket socket = new Socket(HOST, PORT);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

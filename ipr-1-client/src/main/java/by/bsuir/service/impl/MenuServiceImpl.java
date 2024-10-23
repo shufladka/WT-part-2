@@ -15,12 +15,31 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Реализация интерфейса "Сервис меню"
+ */
 public class MenuServiceImpl implements MenuService {
 
+    /**
+     * Объект класса "Сканер" (для работы на чтение с устройства ввода)
+     */
     Scanner scanner = new Scanner(System.in);
+
+    /**
+     * Ссылка на XML-документ (задано значение по умолчанию)
+     */
     private String xmlFilePath = "E:\\IntellijIdeaProjects\\WT-part-2\\ipr-1-server\\src\\main\\resources\\wm.xml";
+
+    /**
+     * Тип парсера
+     */
     private String parserType;
 
+    /**
+     * Метод для отображения главного меню в консоль
+     * @param in Буфер введенного текста
+     * @param out Печать форматированного представления объектов в поток текстового вывода
+     */
     @Override
     public void showMainMenu(BufferedReader in, PrintWriter out) {
 
@@ -35,7 +54,9 @@ public class MenuServiceImpl implements MenuService {
 
             System.out.print("\n\tEnter a menu item (1-4) or 0 to exit: ");
             int selectedPage = scanner.nextInt();
-            scanner.nextLine();  // Очистка буфера
+
+            // Очистка буфера
+            scanner.nextLine();
 
             switch (selectedPage) {
                 case 0:
@@ -60,17 +81,27 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    /**
+     * Метод, которому делегируется работа с получением пользовательского адреса XML-документа
+     * @param scanner Экземпляр класса "Сканер"
+     */
     private void addXmlFilePath(Scanner scanner) {
         System.out.print("\n\tEnter a link to the XML document: ");
         xmlFilePath = scanner.nextLine();
         System.out.println("\tLink to XML document saved: " + xmlFilePath);
     }
 
+    /**
+     * Метод для работы с выбором типа парсера
+     * @param scanner Экземпляр класса "Сканер"
+     */
     private void selectParserType(Scanner scanner) {
         System.out.println("\n\tEnter parser type (SAX, StAX, DOM): ");
         System.out.print("\tEnter a menu item (1-3) or 0 to exit: ");
         int parser = scanner.nextInt();
-        scanner.nextLine();  // Очистка буфера
+
+        // Очистка буфера
+        scanner.nextLine();
 
         switch (parser) {
             case 0:
@@ -94,6 +125,9 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    /**
+     * Метод, которому делегирована работа по выводу текущих настроек в консоль
+     */
     private void showCurrentSettings() {
         System.out.println("\n\t====== CURRENT SETTINGS ======");
         System.out.println("\tLink to XML document: " + (xmlFilePath != null ? xmlFilePath : "Not set"));
@@ -101,9 +135,16 @@ public class MenuServiceImpl implements MenuService {
         System.out.println("\t====================================");
 
         System.out.print("\n\tEnter any symbol to continue: ");
-        scanner.nextLine();  // Очистка буфера
+
+        // Очистка буфера
+        scanner.nextLine();
     }
 
+    /**
+     * Метод для отправки данных на сервер
+     * @param in Буфер введенного текста
+     * @param out Печать форматированного представления объектов в поток текстового вывода
+     */
     private void sendDataToServer(BufferedReader in, PrintWriter out) {
         try {
             if (xmlFilePath == null || parserType == null) {
@@ -111,64 +152,83 @@ public class MenuServiceImpl implements MenuService {
                 return;
             }
 
-            // Отправляем путь к XML и тип парсера на сервер
+            // Отправляем путь к XML-документу на сервер
             out.println(xmlFilePath);
+
+            // Отправляем тип парсера на сервер
             out.println(parserType);
 
             // Ожидаем получения данных о стиральных машинах от сервера
             String input;
             while ((input = in.readLine()) != null) {
 
-                // Выход из цикла при получении специального сообщения
+                // Выход из цикла при получении специальной строки
                 if ("END_OF_RESPONSE".equals(input)) {
                     break;
                 }
 
+                // Десериализуем список объектов "Стиральная машина"
                 List<WashingMachine> wm = deserialize(input);
-                System.out.println(wm);
-                System.out.println("\n");
-                System.out.println(wm.get(0));
-            }
 
+                // Вывод списка объектов "Стиральная машина" в консоль
+                System.out.println(wm);
+            }
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
     // Метод для разбора данных о стиральной машине из строки
-    private List<WashingMachine> deserialize(String input) {
+
+    /**
+     * Метод для десериализации списка объектов "Стиральная машина"
+     * @param serverResponse Полученный ответ от сервера
+     * @return List of washing machines
+     */
+    private List<WashingMachine> deserialize(String serverResponse) {
         List<WashingMachine> washingMachines = new ArrayList<>();
 
-        // Регулярное выражение для парсинга строки
+        // Регулярное выражение для парсинга ответа от сервера в поиске стиральной машины
         String regex = "WashingMachine\\{id=(\\d+), brand='([^']+)', model='([^']+)', maxLoad=(\\d+\\.\\d+), dimensions=Dimensions\\{width=(\\d+\\.\\d+), height=(\\d+\\.\\d+), depth=(\\d+\\.\\d+), weight=(\\d+\\.\\d+)\\}, angularVelocity=(\\d+), amountOfPrograms=(\\d+), isConnectedToPhone=(true|false), energyEfficiency=([^,]+), controlType=([^}]+)\\}";
 
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = pattern.matcher(serverResponse);
 
         while (matcher.find()) {
             int id = Integer.parseInt(matcher.group(1));
-            WashingMachine washingMachine = getWashingMachine(matcher, id);
+            WashingMachine washingMachine = parseWashingMachine(matcher, id);
             washingMachines.add(washingMachine);
         }
 
         return washingMachines;
     }
 
-    private static WashingMachine getWashingMachine(Matcher matcher, int id) {
+    /**
+     * Метод для парсинга ответа от сервера со структурой стиральной машины
+     * @param matcher Строковое представление объекта
+     * @param id Идентификатор стиральной машины
+     * @return
+     */
+    private static WashingMachine parseWashingMachine(Matcher matcher, int id) {
         String brand = matcher.group(2);
         String model = matcher.group(3);
+
         Double maxLoad = Double.parseDouble(matcher.group(4));
+
         Double width = Double.parseDouble(matcher.group(5));
         Double height = Double.parseDouble(matcher.group(6));
         Double depth = Double.parseDouble(matcher.group(7));
         Double weight = Double.parseDouble(matcher.group(8));
-        int angularVelocity = Integer.parseInt(matcher.group(9));
-        int amountOfPrograms = Integer.parseInt(matcher.group(10));
-        boolean isConnectedToPhone = Boolean.parseBoolean(matcher.group(11));
-        EnergyEfficiency energyEfficiency = EnergyEfficiency.valueOf(matcher.group(12));
-        ControlType controlType = ControlType.valueOf(matcher.group(13));
 
         Dimensions dimensions = new Dimensions(width, height, depth, weight);
+
+        int angularVelocity = Integer.parseInt(matcher.group(9));
+        int amountOfPrograms = Integer.parseInt(matcher.group(10));
+
+        boolean isConnectedToPhone = Boolean.parseBoolean(matcher.group(11));
+
+        EnergyEfficiency energyEfficiency = EnergyEfficiency.valueOf(matcher.group(12));
+        ControlType controlType = ControlType.valueOf(matcher.group(13));
 
         return new WashingMachine(id, brand, model, maxLoad,
                 dimensions, angularVelocity, amountOfPrograms, isConnectedToPhone,
