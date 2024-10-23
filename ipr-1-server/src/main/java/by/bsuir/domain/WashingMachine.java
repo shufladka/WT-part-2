@@ -1,18 +1,73 @@
 package by.bsuir.domain;
 
-/** Стиральная машина */
+/**
+ * Класс "Стиральная машина"
+ */
 public class WashingMachine {
-    private int id;
-    private String brand;
-    private String model;
-    private Double maxLoad;
-    private Dimensions dimensions;      // Габариты
-    private int angularVelocity;        // Угловая скорость
-    private int amountOfPrograms;       // Количество программ стирки
-    private boolean isConnectedToPhone; // Возможно ли подключение к смартфону
-    private EnergyEfficiency energyEfficiency;  // Класс энергоэффективности
-    private ControlType controlType;    // Тип управления
 
+    /**
+     * Идентификатор
+     */
+    private int id;
+
+    /**
+     * Марка
+     */
+    private String brand;
+
+    /**
+     * Модель
+     */
+    private String model;
+
+    /**
+     * Максимальная загрузка
+     */
+    private Double maxLoad;
+
+    /**
+     * Габариты
+     */
+    private Dimensions dimensions;
+
+    /**
+     * Угловая скорость
+     */
+    private int angularVelocity;
+
+    /**
+     * Количество программ стирки
+     */
+    private int amountOfPrograms;
+
+    /**
+     * Возможно ли подключение к смартфону
+     */
+    private boolean isConnectedToPhone;
+
+    /**
+     * Класс энергоэффективности
+     */
+    private EnergyEfficiency energyEfficiency;
+
+    /**
+     * Тип управления
+     */
+    private ControlType controlType;
+
+    /**
+     * Конструктор класса "Стиральная машина"
+     * @param id Идентификатор
+     * @param brand Марка
+     * @param model Модель
+     * @param maxLoad Максимальная загрузка
+     * @param dimensions Габариты
+     * @param angularVelocity Угловая скорость
+     * @param amountOfPrograms Количество программ стирки
+     * @param isConnectedToPhone Возможно ли подключение к смартфону
+     * @param energyEfficiency Класс энергоэффективности
+     * @param controlType Тип управления
+     */
     public WashingMachine(int id, String brand, String model, Double maxLoad,
                           Dimensions dimensions, int angularVelocity, int amountOfPrograms,
                           boolean isConnectedToPhone, EnergyEfficiency energyEfficiency,
@@ -29,89 +84,104 @@ public class WashingMachine {
         this.controlType = controlType;
     }
 
+    /**
+     * Пустой конструктор класса "Стиральная машина"
+     */
     public WashingMachine() {
     }
 
-    public int getId() {
-        return id;
-    }
-
+    /**
+     * Метод для задания идентификатора
+     * @param id Идентификатор
+     */
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
+    /**
+     * Метод для задания марки
+     * @param brand Марка
+     */
     public void setBrand(String brand) {
         this.brand = brand;
     }
 
-    public String getModel() {
-        return model;
-    }
-
+    /**
+     * Метод для задания модели
+     * @param model Модель
+     */
     public void setModel(String model) {
         this.model = model;
     }
 
-    public Double getMaxLoad() {
-        return maxLoad;
-    }
-
+    /**
+     * Метод для задания максимальной загрузки
+     * @param maxLoad Максимальная загрузка
+     */
     public void setMaxLoad(Double maxLoad) {
         this.maxLoad = maxLoad;
     }
 
+    /**
+     * Метод для задания габаритных размеров
+     * @return Габаритные размеры
+     */
     public Dimensions getDimensions() {
         return dimensions;
     }
 
+    /**
+     * Метод для задания габаритных размеров
+     * @param dimensions Габаритные размеры
+     */
     public void setDimensions(Dimensions dimensions) {
         this.dimensions = dimensions;
     }
 
-    public int getAngularVelocity() {
-        return angularVelocity;
-    }
-
+    /**
+     * Метод для задания угловой скорости
+     * @param angularVelocity Угловая скорость
+     */
     public void setAngularVelocity(int angularVelocity) {
         this.angularVelocity = angularVelocity;
     }
 
-    public int getAmountOfPrograms() {
-        return amountOfPrograms;
-    }
-
+    /**
+     * Метод для задания количества программ
+     * @param amountOfPrograms Количество программ
+     */
     public void setAmountOfPrograms(int amountOfPrograms) {
         this.amountOfPrograms = amountOfPrograms;
     }
 
-    public boolean isConnectedToPhone() {
-        return isConnectedToPhone;
-    }
-
+    /**
+     * Метод для задания возможности подключения к смартфону
+     * @param connectedToPhone Возможность подключения к смартфону
+     */
     public void setConnectedToPhone(boolean connectedToPhone) {
         isConnectedToPhone = connectedToPhone;
     }
 
-    public EnergyEfficiency getEnergyEfficiency() {
-        return energyEfficiency;
-    }
-
+    /**
+     * Метод для задания класса энергоэффективности
+     * @param energyEfficiency Класс энергоэффективности
+     */
     public void setEnergyEfficiency(EnergyEfficiency energyEfficiency) {
         this.energyEfficiency = energyEfficiency;
     }
 
-    public ControlType getControlType() {
-        return controlType;
-    }
-
+    /**
+     * Метод для задания типа управления
+     * @param controlType Тип управления
+     */
     public void setControlType(ControlType controlType) {
         this.controlType = controlType;
     }
 
+    /**
+     * Метод для вывода информации о стиральной машине в консоль
+     * @return String
+     */
     @Override
     public String toString() {
         return "WashingMachine{" +

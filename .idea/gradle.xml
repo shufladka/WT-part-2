@@ -9,9 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/ipr-1" />
-            <option value="$PROJECT_DIR$/ipr-1-server" />
             <option value="$PROJECT_DIR$/ipr-1-client" />
+            <option value="$PROJECT_DIR$/ipr-1-server" />
             <option value="$PROJECT_DIR$/ipr-2" />
             <option value="$PROJECT_DIR$/kr-1.1" />
             <option value="$PROJECT_DIR$/kr-1.2" />
