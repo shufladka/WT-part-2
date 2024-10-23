@@ -3,4 +3,5 @@ include 'kr-1.1'
 include 'kr-1.2'
 include 'ipr-1'
 include 'ipr-2'
+include 'ipr-1-client'
 
