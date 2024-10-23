@@ -3,7 +3,7 @@ package by.bsuir;
 import by.bsuir.service.MenuService;
 import by.bsuir.service.impl.MenuServiceImpl;
 
-/*
+/**
 * Задание: Реализовать диспетчерскую систему, следящую за кораблями в порту.
 * Общие требования к заданию:
 * · У каждого порта есть склад и причалы.
@@ -25,6 +25,12 @@ import by.bsuir.service.impl.MenuServiceImpl;
 * **Второй вариант – возможности библиотеки java.ul.concurrent
 * */
 public class Main {
+
+    /**
+     * Главный метод программы
+     * @param args Входные параметры
+     * @throws InterruptedException Обработка ошибок
+     */
     public static void main(String[] args) throws InterruptedException {
         MenuService menuService = new MenuServiceImpl();
         menuService.showMainMenu();

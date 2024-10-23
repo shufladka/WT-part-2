@@ -9,12 +9,19 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Реализация "Сервиса меню"
+ */
 public class MenuServiceImpl implements MenuService {
 
+    /**
+     * Режим синхронизатора системы диспетчеризации
+     */
     private String MODE = "synchronized";
 
     /**
-     * Метод для главного меню
+     * Метод для отображения главного меню
+     * @throws InterruptedException Обработка ошибок
      */
     @Override
     public void showMainMenu() throws InterruptedException {
@@ -100,6 +107,8 @@ public class MenuServiceImpl implements MenuService {
 
     /**
      * Метод для отображения меню конфигурации причалов
+     * @param dockList Список причалов
+     * @return List of docks
      */
     private List<Dock> showDockMenu(List<Dock> dockList) {
         Scanner scanner = new Scanner(System.in);
@@ -150,6 +159,8 @@ public class MenuServiceImpl implements MenuService {
 
     /**
      * Метод для отображения меню конфигурации кораблей
+     * @param shipList Список кораблей
+     * @return ist of ships
      */
     private List<Ship> showShipMenu(List<Ship> shipList) {
         Scanner scanner = new Scanner(System.in);

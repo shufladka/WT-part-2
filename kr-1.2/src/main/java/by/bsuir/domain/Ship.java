@@ -7,15 +7,50 @@ import org.apache.logging.log4j.Logger;
  * Класс "Корабль"
  */
 public class Ship {
+
+    /**
+     * Идентификатор
+     */
     private int id;
+
+    /**
+     * Имя
+     */
     private String name;
+
+    /**
+     * Вес перевозимого груза
+     */
     private Double cargo;
+
+    /**
+     * Объект класса "Причал"
+     */
     private Dock dock;
+
+    /**
+     * Объект перечисления "Приоритет"
+     */
     private Priority priority;
+
+    /**
+     * Необходимое для разгрузки время
+     */
     private int neededTime;
 
+    /**
+     * Объект класса "Логгер"
+     */
     private static final Logger logger = LogManager.getLogger(Ship.class);
 
+    /**
+     * Конструктор класса "Корабль"
+     * @param id Идентификатор
+     * @param name Имя
+     * @param cargo Вес перевозимого груза
+     * @param priority Приоритет
+     * @param neededTime Необходимое для разгрузки время
+     */
     public Ship(int id, String name, Double cargo, Priority priority, int neededTime) {
         this.id = id;
         this.name = name;
@@ -25,36 +60,31 @@ public class Ship {
         this.neededTime = neededTime;
     }
 
+    /**
+     * Пустой конструктор класса "Корабль"
+     */
     public Ship() {}
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    /**
+     * Метод для получения имени корабля
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * Метод для получения веса перевозимого кораблем груза
+     * @return Double
+     */
     public Double getCargo() {
         return cargo;
     }
 
-    public void setCargo(Double cargo) {
-        this.cargo = cargo;
-    }
-
-    public Dock getDock() {
-        return dock;
-    }
-
+    /**
+     * Метод для задания кораблю причала
+     * @param dock Назначаемый причал
+     */
     public void setDock(Dock dock) {
         if (dock != null) {
             logger.info("The ship №{} added to the dock \"{}\"", this.id, dock.getName());
@@ -64,22 +94,18 @@ public class Ship {
         this.dock = dock;
     }
 
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
-    }
-
+    /**
+     * Метод для получения времени, необходимого для разгрузки корабля
+     * @return int
+     */
     public int getNeededTime() {
         return neededTime;
     }
 
-    public void setNeededTime(int neededTime) {
-        this.neededTime = neededTime;
-    }
-
+    /**
+     * Метод для вывода параметров экземпляра класса "Корабль"
+     * @return String
+     */
     @Override
     public String toString() {
         return "Ship{" +

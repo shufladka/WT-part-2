@@ -1,0 +1,10 @@
+2024-10-21 21:48:41 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №0 added to the dock "0'st('th) dock"
+2024-10-21 21:48:42 [Thread-3] INFO  by.bsuir.domain.Ship - The ship №3 added to the dock "1'st('th) dock"
+2024-10-21 21:48:43 [Thread-0] INFO  by.bsuir.domain.Ship - The ship №0 left the port
+2024-10-21 21:48:44 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №1 added to the dock "0'st('th) dock"
+2024-10-21 21:48:45 [Thread-3] INFO  by.bsuir.domain.Ship - The ship №3 left the port
+2024-10-21 21:48:47 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №2 added to the dock "1'st('th) dock"
+2024-10-21 21:48:48 [Thread-1] INFO  by.bsuir.domain.Ship - The ship №1 left the port
+2024-10-21 21:48:50 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №2 left the port
+2024-10-21 21:48:52 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №4 added to the dock "0'st('th) dock"
+2024-10-21 21:48:55 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №4 left the port

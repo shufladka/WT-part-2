@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Реализация "Сервиса системы диспетчеризации"
+ */
 public class DispatcherServiceImpl implements DispatcherService {
 
     private static final Logger logger = LogManager.getLogger(DispatcherServiceImpl.class);

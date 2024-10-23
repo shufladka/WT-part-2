@@ -6,11 +6,34 @@ import java.util.List;
  * Класс "Порт"
  */
 public class Port {
+
+    /**
+     * Идентификатор
+     */
     private int id;
+
+    /**
+     * Имя
+     */
     private String name;
+
+    /**
+     * Список причалов
+     */
     private List<Dock> docks;
+
+    /**
+     * Склад
+     */
     private Warehouse warehouse;
 
+    /**
+     * Конструктор класса "Порт"
+     * @param id Идентификатор
+     * @param name Имя
+     * @param docks Список причалов
+     * @param warehouse Склад
+     */
     public Port(int id, String name, List<Dock> docks, Warehouse warehouse) {
         this.id = id;
         this.name = name;
@@ -18,40 +41,34 @@ public class Port {
         this.warehouse = warehouse;
     }
 
-    public Port() {}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    /**
+     * Метод для получения имени объекта класса "Порт"
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * Метод для получения списка причалов
+     * @return List of docks
+     */
     public List<Dock> getDocks() {
         return docks;
     }
 
-    public void setDocks(List<Dock> docks) {
-        this.docks = docks;
-    }
-
+    /**
+     * Метод для получения назначенного объекта "Склад"
+     * @return Warehouse
+     */
     public Warehouse getWarehouse() {
         return warehouse;
     }
 
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
+    /**
+     * Метод для вывода параметров экземпляра класса "Порт"
+     * @return String
+     */
     @Override
     public String toString() {
         return "Port{" +

@@ -4,11 +4,34 @@ package by.bsuir.domain;
  * Класс "Склад"
  */
 public class Warehouse {
+
+    /**
+     * Идентификатор
+     */
     private int id;
+
+    /**
+     * Имя
+     */
     private String name;
+
+    /**
+     * Максимальная емкость
+     */
     private Double maxCapacity;
+
+    /**
+     * Текущая емкость
+     */
     private Double currentCapacity;
 
+    /**
+     * Конструктор класса "Склад"
+     * @param id Идентификатор
+     * @param name Имя
+     * @param maxCapacity Максимальная емкость
+     * @param currentCapacity Текущая емкость
+     */
     public Warehouse(int id, String name, Double maxCapacity, Double currentCapacity) {
         this.id = id;
         this.name = name;
@@ -16,40 +39,34 @@ public class Warehouse {
         this.currentCapacity = currentCapacity;
     }
 
-    public Warehouse() {}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    /**
+     * Метод для получения имени склада
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getMaxCapacity() {
-        return maxCapacity;
-    }
-
-    public void setMaxCapacity(Double maxCapacity) {
-        this.maxCapacity = maxCapacity;
-    }
-
+    /**
+     * Метод для получения текущей емкости склада
+     * @return Double
+     */
     public Double getCurrentCapacity() {
         return currentCapacity;
     }
 
+    /**
+     * Метод для задания текущей емкости склада
+     * @param currentCapacity Текущая емкость
+     */
     public void setCurrentCapacity(Double currentCapacity) {
         this.currentCapacity = currentCapacity;
     }
 
+    /**
+     * Метод для вывода параметров экземпляра класса "Склад"
+     * @return String
+     */
     @Override
     public String toString() {
         return "Warehouse{" +
