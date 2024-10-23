@@ -8,3 +8,85 @@
 2024-10-21 21:48:50 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №2 left the port
 2024-10-21 21:48:52 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №4 added to the dock "0'st('th) dock"
 2024-10-21 21:48:55 [Thread-2] INFO  by.bsuir.domain.Ship - The ship №4 left the port
+2024-10-23 21:29:16 [Thread-1] INFO  by.bsuir.domain.Ship - [LOADING] [3160.925755974429 tons] The ship №1 added to the dock "0'st('th) dock"
+2024-10-23 21:29:17 [Thread-1] INFO  by.bsuir.domain.Ship - [LOADED] The ship №1 left the port
+2024-10-23 21:29:17 [Thread-5] INFO  by.bsuir.domain.Ship - [UNLOADING] [3894.916250884189 tons] The ship №5 added to the dock "0'st('th) dock"
+2024-10-23 21:29:18 [Thread-2] INFO  by.bsuir.domain.Ship - [UNLOADING] [201.0802023571802 tons] The ship №2 added to the dock "1'st('th) dock"
+2024-10-23 21:29:19 [Thread-2] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №2 left the port
+2024-10-23 21:29:20 [Thread-3] INFO  by.bsuir.domain.Ship - [LOADING] [2575.5212662961394 tons] The ship №3 added to the dock "1'st('th) dock"
+2024-10-23 21:29:21 [Thread-5] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №5 left the port
+2024-10-23 21:29:21 [Thread-0] INFO  by.bsuir.domain.Ship - [LOADING] [3753.5657581301116 tons] The ship №0 added to the dock "0'st('th) dock"
+2024-10-23 21:29:23 [Thread-0] INFO  by.bsuir.domain.Ship - [LOADED] The ship №0 left the port
+2024-10-23 21:29:24 [Thread-3] INFO  by.bsuir.domain.Ship - [LOADED] The ship №3 left the port
+2024-10-23 21:29:25 [Thread-5] INFO  by.bsuir.domain.Ship - [UNLOADING] [2111.2189121699594 tons] The ship №4 added to the dock "0'st('th) dock"
+2024-10-23 21:29:29 [Thread-5] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №4 left the port
+2024-10-23 21:31:12 [Thread-13] INFO  by.bsuir.domain.Ship - [LOADING] [3753.5657581301116 tons] The ship №0 added to the dock "0'st('th) dock"
+2024-10-23 21:31:13 [Thread-17] INFO  by.bsuir.domain.Ship - [UNLOADING] [2111.2189121699594 tons] The ship №4 added to the dock "1'st('th) dock"
+2024-10-23 21:31:14 [Thread-13] INFO  by.bsuir.domain.Ship - [LOADED] The ship №0 left the port
+2024-10-23 21:31:15 [Thread-15] INFO  by.bsuir.domain.Ship - [UNLOADING] [201.0802023571802 tons] The ship №2 added to the dock "0'st('th) dock"
+2024-10-23 21:31:17 [Thread-15] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №2 left the port
+2024-10-23 21:31:17 [Thread-14] INFO  by.bsuir.domain.Ship - [LOADING] [3160.925755974429 tons] The ship №1 added to the dock "0'st('th) dock"
+2024-10-23 21:31:17 [Thread-17] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №4 left the port
+2024-10-23 21:31:18 [Thread-14] INFO  by.bsuir.domain.Ship - [LOADED] The ship №1 left the port
+2024-10-23 21:31:19 [Thread-15] INFO  by.bsuir.domain.Ship - [UNLOADING] [3894.916250884189 tons] The ship №5 added to the dock "0'st('th) dock"
+2024-10-23 21:31:23 [Thread-15] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №5 left the port
+2024-10-23 21:31:25 [Thread-15] INFO  by.bsuir.domain.Ship - [LOADING] [2575.5212662961394 tons] The ship №3 added to the dock "0'st('th) dock"
+2024-10-23 21:31:29 [Thread-15] INFO  by.bsuir.domain.Ship - [LOADED] The ship №3 left the port
+2024-10-23 21:31:48 [Thread-27] INFO  by.bsuir.domain.Ship - [LOADING] [3753.5657581301116 tons] The ship №0 added to the dock "0'st('th) dock"
+2024-10-23 21:31:49 [Thread-30] INFO  by.bsuir.domain.Ship - [LOADING] [2575.5212662961394 tons] The ship №3 added to the dock "1'st('th) dock"
+2024-10-23 21:31:50 [Thread-27] INFO  by.bsuir.domain.Ship - [LOADED] The ship №0 left the port
+2024-10-23 21:31:51 [Thread-31] INFO  by.bsuir.domain.Ship - [UNLOADING] [2111.2189121699594 tons] The ship №4 added to the dock "0'st('th) dock"
+2024-10-23 21:31:53 [Thread-30] INFO  by.bsuir.domain.Ship - [LOADED] The ship №3 left the port
+2024-10-23 21:31:53 [Thread-28] INFO  by.bsuir.domain.Ship - [LOADING] [3160.925755974429 tons] The ship №1 added to the dock "1'st('th) dock"
+2024-10-23 21:31:54 [Thread-28] INFO  by.bsuir.domain.Ship - [LOADED] The ship №1 left the port
+2024-10-23 21:31:55 [Thread-30] INFO  by.bsuir.domain.Ship - [UNLOADING] [3894.916250884189 tons] The ship №5 added to the dock "1'st('th) dock"
+2024-10-23 21:31:55 [Thread-31] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №4 left the port
+2024-10-23 21:31:59 [Thread-30] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №5 left the port
+2024-10-23 21:32:01 [Thread-30] INFO  by.bsuir.domain.Ship - [UNLOADING] [201.0802023571802 tons] The ship №2 added to the dock "0'st('th) dock"
+2024-10-23 21:32:02 [Thread-30] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №2 left the port
+2024-10-23 22:49:05 [Thread-41] INFO  by.bsuir.domain.Ship - [LOADING] [3753.5657581301116 tons] The ship №0 added to the dock "0'st('th) dock"
+2024-10-23 22:49:06 [Thread-45] INFO  by.bsuir.domain.Ship - [UNLOADING] [2111.2189121699594 tons] The ship №4 added to the dock "1'st('th) dock"
+2024-10-23 22:49:07 [Thread-42] INFO  by.bsuir.domain.Ship - [LOADING] [3160.925755974429 tons] The ship №1 added to the dock "2'st('th) dock"
+2024-10-23 22:49:07 [Thread-41] INFO  by.bsuir.domain.Ship - [LOADED] The ship №0 left the port
+2024-10-23 22:49:08 [Thread-42] INFO  by.bsuir.domain.Ship - [LOADED] The ship №1 left the port
+2024-10-23 22:49:08 [Thread-44] INFO  by.bsuir.domain.Ship - [LOADING] [2575.5212662961394 tons] The ship №3 added to the dock "0'st('th) dock"
+2024-10-23 22:49:09 [Thread-43] INFO  by.bsuir.domain.Ship - [UNLOADING] [201.0802023571802 tons] The ship №2 added to the dock "2'st('th) dock"
+2024-10-23 22:49:10 [Thread-45] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №4 left the port
+2024-10-23 22:49:10 [Thread-43] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №2 left the port
+2024-10-23 22:49:12 [Thread-44] INFO  by.bsuir.domain.Ship - [LOADED] The ship №3 left the port
+2024-10-23 22:49:58 [Thread-2] INFO  by.bsuir.domain.Ship - [UNLOADING] [1264.9253285184534 tons] The ship №2 added to the dock "0'st('th) dock"
+2024-10-23 22:49:59 [Thread-1] INFO  by.bsuir.domain.Ship - [UNLOADING] [2996.6499942159758 tons] The ship №1 added to the dock "1'st('th) dock"
+2024-10-23 22:50:00 [Thread-3] INFO  by.bsuir.domain.Ship - [UNLOADING] [2135.870611232657 tons] The ship №3 added to the dock "2'st('th) dock"
+2024-10-23 22:50:02 [Thread-1] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №1 left the port
+2024-10-23 22:50:02 [Thread-2] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №2 left the port
+2024-10-23 22:50:03 [Thread-0] INFO  by.bsuir.domain.Ship - [UNLOADING] [4862.79607787847 tons] The ship №0 added to the dock "0'st('th) dock"
+2024-10-23 22:50:05 [Thread-3] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №3 left the port
+2024-10-23 22:50:08 [Thread-0] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №0 left the port
+2024-10-23 22:51:18 [Thread-9] INFO  by.bsuir.domain.Ship - [UNLOADING] [4862.79607787847 tons] The ship №0 added to the dock "0'st('th) dock"
+2024-10-23 22:51:19 [Thread-13] INFO  by.bsuir.domain.Ship - [UNLOADING] [4473.3081988908525 tons] The ship №4 added to the dock "1'st('th) dock"
+2024-10-23 22:51:22 [Thread-13] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №4 left the port
+2024-10-23 22:51:22 [Thread-10] INFO  by.bsuir.domain.Ship - [UNLOADING] [2996.6499942159758 tons] The ship №1 added to the dock "1'st('th) dock"
+2024-10-23 22:51:23 [Thread-9] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №0 left the port
+2024-10-23 22:51:24 [Thread-13] INFO  by.bsuir.domain.Ship - [UNLOADING] [2135.870611232657 tons] The ship №3 added to the dock "0'st('th) dock"
+2024-10-23 22:51:24 [Thread-10] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №1 left the port
+2024-10-23 22:51:29 [Thread-13] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №3 left the port
+2024-10-23 22:51:31 [Thread-13] INFO  by.bsuir.domain.Ship - [UNLOADING] [1264.9253285184534 tons] The ship №2 added to the dock "0'st('th) dock"
+2024-10-23 22:51:35 [Thread-13] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №2 left the port
+2024-10-23 22:52:06 [Thread-0] INFO  by.bsuir.domain.Ship - [UNLOADING] [2391.8904949102866 tons] The ship №0 added to the dock "0'st('th) dock"
+2024-10-23 22:52:07 [Thread-4] INFO  by.bsuir.domain.Ship - [LOADING] [2674.614710765775 tons] The ship №4 added to the dock "1'st('th) dock"
+2024-10-23 22:52:09 [Thread-4] INFO  by.bsuir.domain.Ship - [LOADED] The ship №4 left the port
+2024-10-23 22:52:10 [Thread-0] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №0 left the port
+2024-10-23 22:52:10 [Thread-1] INFO  by.bsuir.domain.Ship - [LOADING] [1129.238437277759 tons] The ship №1 added to the dock "0'st('th) dock"
+2024-10-23 22:52:12 [Thread-0] INFO  by.bsuir.domain.Ship - [UNLOADING] [3758.9752977036205 tons] The ship №3 added to the dock "1'st('th) dock"
+2024-10-23 22:52:13 [Thread-1] INFO  by.bsuir.domain.Ship - [LOADED] The ship №1 left the port
+2024-10-23 22:52:13 [Thread-0] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №3 left the port
+2024-10-23 22:52:15 [Thread-0] INFO  by.bsuir.domain.Ship - [LOADING] [1792.0593648001397 tons] The ship №2 added to the dock "0'st('th) dock"
+2024-10-23 22:52:15 [Thread-0] INFO  by.bsuir.domain.Ship - [LOADED] The ship №2 left the port
+2024-10-23 22:54:16 [Thread-2] INFO  by.bsuir.domain.Ship - [UNLOADING] [385.23680849064147 tons] The ship №2 added to the dock "0'st('th) dock"
+2024-10-23 22:54:19 [Thread-2] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №2 left the port
+2024-10-23 22:54:19 [Thread-3] INFO  by.bsuir.domain.Ship - [LOADING] [4868.135805131152 tons] The ship №3 added to the dock "0'st('th) dock"
+2024-10-23 22:54:21 [Thread-3] INFO  by.bsuir.domain.Ship - [LOADED] The ship №3 left the port
+2024-10-23 22:54:22 [Thread-2] INFO  by.bsuir.domain.Ship - [LOADING] [3608.5177355547194 tons] The ship №1 added to the dock "0'st('th) dock"
+2024-10-23 22:54:26 [Thread-2] INFO  by.bsuir.domain.Ship - [LOADED] The ship №1 left the port
+2024-10-23 22:54:28 [Thread-2] INFO  by.bsuir.domain.Ship - [UNLOADING] [1071.840065451937 tons] The ship №0 added to the dock "0'st('th) dock"
+2024-10-23 22:54:31 [Thread-2] INFO  by.bsuir.domain.Ship - [UNLOADED] The ship №0 left the port
