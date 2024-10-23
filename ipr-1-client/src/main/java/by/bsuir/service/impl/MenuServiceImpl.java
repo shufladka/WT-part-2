@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class MenuServiceImpl implements MenuService {
 
     Scanner scanner = new Scanner(System.in);
-    private String xmlFilePath = "E:\\IntellijIdeaProjects\\WT-part-2\\ipr-1\\src\\main\\resources\\wm.xml";
+    private String xmlFilePath = "E:\\IntellijIdeaProjects\\WT-part-2\\ipr-1-client\\src\\main\\resources\\wm.xml";
     private String parserType;
 
     @Override
