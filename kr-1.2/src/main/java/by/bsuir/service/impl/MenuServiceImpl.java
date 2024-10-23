@@ -28,7 +28,7 @@ public class MenuServiceImpl implements MenuService {
         Scanner scanner = new Scanner(System.in);
 
         DispatcherService dispatcherService = new DispatcherServiceImpl();
-        Warehouse warehouse = new Warehouse(1, "The biggest warehouse", 100000.0, 0.0);
+        Warehouse warehouse = new Warehouse(1, "The biggest warehouse", 100000.0, 50000.0);
         List<Dock> dockList = new ArrayList<>();
         List<Ship> shipList = new ArrayList<>();
         Port port = new Port(1, "Atlanta port", dockList, warehouse);
@@ -160,7 +160,7 @@ public class MenuServiceImpl implements MenuService {
     /**
      * Метод для отображения меню конфигурации кораблей
      * @param shipList Список кораблей
-     * @return ist of ships
+     * @return List of ships
      */
     private List<Ship> showShipMenu(List<Ship> shipList) {
         Scanner scanner = new Scanner(System.in);
@@ -218,8 +218,15 @@ public class MenuServiceImpl implements MenuService {
 
         Double cargo = 200.00 + (5000.00 - 200.00) * random.nextDouble();
 
+        Operation operation = null;
+        int operationValue = random.nextInt(2);
+        switch (operationValue) {
+            case 0 -> operation = Operation.LOADING;
+            case 1 -> operation = Operation.UNLOADING;
+        }
+
         Priority priority = null;
-        int priorityValue = random.nextInt(3); // Получаем значение от 0 до 2
+        int priorityValue = random.nextInt(3);
         switch (priorityValue) {
             case 0 -> priority = Priority.LOW;
             case 1 -> priority = Priority.MEDIUM;
@@ -229,7 +236,7 @@ public class MenuServiceImpl implements MenuService {
         int neededTime = 100 + random.nextInt(5000 - 100 + 1);
 
         int id = shipList != null ? shipList.size() : 0;
-        return new Ship(id, id + "'st('th) ship", cargo, priority, neededTime);
+        return new Ship(id, id + "'st('th) ship", cargo, operation, priority, neededTime);
     }
 
     /**

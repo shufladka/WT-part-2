@@ -1,9 +1,6 @@
 package by.bsuir.service.impl;
 
-import by.bsuir.domain.Dock;
-import by.bsuir.domain.Port;
-import by.bsuir.domain.Ship;
-import by.bsuir.domain.Warehouse;
+import by.bsuir.domain.*;
 import by.bsuir.service.DispatcherService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class DispatcherServiceImpl implements DispatcherService {
 
-    private static final Logger logger = LogManager.getLogger(DispatcherServiceImpl.class);
+    private final Logger loggerDispatcher = LogManager.getLogger(DispatcherServiceImpl.class);
     private final List<Ship> waitingShips = new ArrayList<>();
 
     /**
@@ -53,14 +50,14 @@ public class DispatcherServiceImpl implements DispatcherService {
                 Thread.sleep(ship.getNeededTime());
 
                 // Обновляем информацию о складе
-                setUpdatedCapacityValue(port, ship.getCargo());
-                logger.info("[SYNCHRONIZED] Current capacity: {}", port.getWarehouse().getCurrentCapacity());
+                setUpdatedCapacityValue(port, ship.getCargo(), ship.getOperation());
+                loggerDispatcher.info("[SYNCHRONIZED] Current capacity: {}", port.getWarehouse().getCurrentCapacity());
 
                 ship.setDock(null);
                 availableDock.setShip(null);
             }
         } catch (InterruptedException e) {
-            logger.error(e);
+            loggerDispatcher.error(e);
         }
 
         // Обрабатываем очередь ожидающих кораблей
@@ -83,7 +80,7 @@ public class DispatcherServiceImpl implements DispatcherService {
                     assignDockSync(port, ship);
                 }
             } catch (InterruptedException e) {
-                logger.error(e);
+                loggerDispatcher.error(e);
             }
         }
     }
@@ -130,15 +127,15 @@ public class DispatcherServiceImpl implements DispatcherService {
                 Thread.sleep(ship.getNeededTime());
 
                 // Обновляем информацию о складе
-                setUpdatedCapacityValue(port, ship.getCargo());
-                logger.info("[CONCURRENT] Current capacity: {}", port.getWarehouse().getCurrentCapacity());
+                setUpdatedCapacityValue(port, ship.getCargo(), ship.getOperation());
+                loggerDispatcher.info("[CONCURRENT] Current capacity: {}", port.getWarehouse().getCurrentCapacity());
 
                 // Освобождаем причал
                 ship.setDock(null);
                 availableDock.setShip(null);
             }
         } catch (InterruptedException e) {
-            logger.error(e);
+            loggerDispatcher.error(e);
         }
 
         // Обрабатываем очередь ожидающих кораблей
@@ -177,7 +174,7 @@ public class DispatcherServiceImpl implements DispatcherService {
                     dockLock.unlock();
                 }
             } catch (InterruptedException e) {
-                logger.error(e);
+                loggerDispatcher.error(e);
 
                 // Восстанавливаем статус прерывания
                 Thread.currentThread().interrupt();
@@ -232,10 +229,15 @@ public class DispatcherServiceImpl implements DispatcherService {
      * Метод для обновления информации о текущем состоянии склада
      * @param port Объект класса "Порт"
      * @param cargo Объем груза, полученного от корабля
+     * @param operation Тип операции
      */
-    private void setUpdatedCapacityValue(Port port, Double cargo) {
+    private void setUpdatedCapacityValue(Port port, Double cargo, Operation operation) {
         Warehouse warehouse = port.getWarehouse();
         Double currentCapacity = warehouse.getCurrentCapacity();
-        warehouse.setCurrentCapacity(currentCapacity + cargo);
+        if (operation.equals(Operation.UNLOADING)) {
+            warehouse.setCurrentCapacity(currentCapacity + cargo);
+        } else if (operation.equals(Operation.LOADING)) {
+            warehouse.setCurrentCapacity(currentCapacity - cargo);
+        }
     }
 }

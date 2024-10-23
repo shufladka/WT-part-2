@@ -8,12 +8,12 @@ public enum Operation {
     /**
      * Тип операции "Загрузка"
      */
-    LOADING("Загрузка"),
+    LOADING("LOADING", "LOADED"),
 
     /**
      * Тип операции "Разгрузка"
      */
-    UNLOADING("Разгрузка");
+    UNLOADING("UNLOADING", "UNLOADED"),;
 
     /**
      * Имя
@@ -21,11 +21,18 @@ public enum Operation {
     private String name;
 
     /**
+     * Имя завершения операции
+     */
+    private String finishName;
+
+    /**
      * Конструктор перечисления "Операция"
      * @param name Имя операции
+     * @param finishName Имя завершения операции
      */
-    Operation(String name) {
+    Operation(String name, String finishName) {
         this.name = name;
+        this.finishName = finishName;
     }
 
     /**
@@ -34,5 +41,13 @@ public enum Operation {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Метод для получения имени завершения операции
+     * @return String
+     */
+    public String getFinishName() {
+        return finishName;
     }
 }

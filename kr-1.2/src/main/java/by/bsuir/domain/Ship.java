@@ -34,7 +34,12 @@ public class Ship {
     private Priority priority;
 
     /**
-     * Необходимое для разгрузки время
+     * Объект перечисления "Операция"
+     */
+    private Operation operation;
+
+    /**
+     * Необходимое для загрузки/разгрузки время
      */
     private int neededTime;
 
@@ -48,14 +53,16 @@ public class Ship {
      * @param id Идентификатор
      * @param name Имя
      * @param cargo Вес перевозимого груза
+     * @param operation Тип операции
      * @param priority Приоритет
      * @param neededTime Необходимое для разгрузки время
      */
-    public Ship(int id, String name, Double cargo, Priority priority, int neededTime) {
+    public Ship(int id, String name, Double cargo, Operation operation, Priority priority, int neededTime) {
         this.id = id;
         this.name = name;
         this.cargo = cargo;
         this.dock = null;
+        this.operation = operation;
         this.priority = priority;
         this.neededTime = neededTime;
     }
@@ -87,11 +94,19 @@ public class Ship {
      */
     public void setDock(Dock dock) {
         if (dock != null) {
-            logger.info("The ship №{} added to the dock \"{}\"", this.id, dock.getName());
+            logger.info("[{}] [{} tons] The ship №{} added to the dock \"{}\"", this.operation.getName(), this.cargo, this.id, dock.getName());
         } else {
-            logger.info("The ship №{} left the port", this.id);
+            logger.info("[{}] The ship №{} left the port", this.operation.getFinishName(), this.id);
         }
         this.dock = dock;
+    }
+
+    /**
+     * Метод для получения типа операции
+     * @return Operation
+     */
+    public Operation getOperation() {
+        return operation;
     }
 
     /**
@@ -113,6 +128,7 @@ public class Ship {
                 ", name='" + name + '\'' +
                 ", cargo=" + cargo +
                 ", dock=" + dock +
+                ", operation=" + operation +
                 ", priority=" + priority +
                 ", neededTime=" + neededTime +
                 '}';
