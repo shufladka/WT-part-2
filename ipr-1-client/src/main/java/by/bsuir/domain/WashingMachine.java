@@ -85,6 +85,86 @@ public class WashingMachine {
     }
 
     /**
+     * Метод для получения идентификатора
+     * @return int
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Метод для получения марки
+     * @return String
+     */
+    public String getBrand() {
+        return brand;
+    }
+
+    /**
+     * Метод для получения модели
+     * @return String
+     */
+    public String getModel() {
+        return model;
+    }
+
+    /**
+     * Метод для получения максимальной загрузки
+     * @return Double
+     */
+    public Double getMaxLoad() {
+        return maxLoad;
+    }
+
+    /**
+     * Метод для получения габаритных размеров
+     * @return Double
+     */
+    public Dimensions getDimensions() {
+        return dimensions;
+    }
+
+    /**
+     * Метод для получения угловой скорости
+     * @return int
+     */
+    public int getAngularVelocity() {
+        return angularVelocity;
+    }
+
+    /**
+     * Метод для получения количества программ
+     * @return int
+     */
+    public int getAmountOfPrograms() {
+        return amountOfPrograms;
+    }
+
+    /**
+     * Метод для получения наличия соединения с телефоном
+     * @return boolean
+     */
+    public boolean isConnectedToPhone() {
+        return isConnectedToPhone;
+    }
+
+    /**
+     * Метод для получения класса энергоэффективности
+     * @return EnergyEfficiency
+     */
+    public EnergyEfficiency getEnergyEfficiency() {
+        return energyEfficiency;
+    }
+
+    /**
+     * Метод для получения типа управления
+     * @return ControlType
+     */
+    public ControlType getControlType() {
+        return controlType;
+    }
+
+    /**
      * Метод для вывода информации о стиральной машине в консоль
      * @return String
      */

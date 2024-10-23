@@ -4,9 +4,9 @@ package by.bsuir.domain;
  * Перечисление "Тип управления"
  */
 public enum ControlType {
-    MECHANICAL("Механическое"),
-    ELECTRONIC("Электронное"),
-    TOUCH("Сенсорное");
+    MECHANICAL("MECHANICAL"),
+    ELECTRONIC("ELECTRONIC"),
+    TOUCH("TOUCH");
 
     /**
      * Описание

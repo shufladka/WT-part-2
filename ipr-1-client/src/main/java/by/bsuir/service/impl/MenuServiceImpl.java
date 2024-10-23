@@ -171,14 +171,12 @@ public class MenuServiceImpl implements MenuService {
                 List<WashingMachine> wm = deserialize(input);
 
                 // Вывод списка объектов "Стиральная машина" в консоль
-                System.out.println(wm);
+                displayWashingMachines(wm);
             }
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
-    // Метод для разбора данных о стиральной машине из строки
 
     /**
      * Метод для десериализации списка объектов "Стиральная машина"
@@ -233,5 +231,24 @@ public class MenuServiceImpl implements MenuService {
         return new WashingMachine(id, brand, model, maxLoad,
                 dimensions, angularVelocity, amountOfPrograms, isConnectedToPhone,
                 energyEfficiency, controlType);
+    }
+
+    /**
+     * Метод для вывода в консоль списка стиральных машин
+     * @param machines Список стиральных машин
+     */
+    private void displayWashingMachines(List<WashingMachine> machines) {
+        for (WashingMachine machine : machines) {
+            System.out.println("\n\t" + machine.getId() + ". " + machine.getBrand() + " " + machine.getModel() + ";");
+            System.out.println("\tMax. load: " + machine.getMaxLoad() + " kg;");
+            System.out.println("\tAngular velocity: " + machine.getAngularVelocity() + " rpm;");
+            System.out.println("\tNumber of programs: " + machine.getAmountOfPrograms() + ";");
+            System.out.println("\tDimensions: " + machine.getDimensions().getHeight() + "x"
+                                                + machine.getDimensions().getWidth() + "x"
+                                                + machine.getDimensions().getDepth() + ";");
+            System.out.println("\tConnection to smartphone: " + (machine.isConnectedToPhone() ? "Yes" : "No") + ";");
+            System.out.println("\tEnergy efficiency class: " + machine.getEnergyEfficiency().getSymbol() + ";");
+            System.out.println("\tControl type: " + machine.getControlType().getDescription() + ".");
+        }
     }
 }

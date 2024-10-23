@@ -40,6 +40,30 @@ public class Dimensions {
     }
 
     /**
+     * Метод для получения ширины
+     * @return Double
+     */
+    public Double getWidth() {
+        return width;
+    }
+
+    /**
+     * Метод для получения высоты
+     * @return Double
+     */
+    public Double getHeight() {
+        return height;
+    }
+
+    /**
+     * Метод для получения глубины
+     * @return Double
+     */
+    public Double getDepth() {
+        return depth;
+    }
+
+    /**
      * Метод для вывода информации о габаритных размерах в консоль
      * @return String
      */
