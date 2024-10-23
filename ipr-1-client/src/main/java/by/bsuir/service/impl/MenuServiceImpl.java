@@ -207,7 +207,7 @@ public class MenuServiceImpl implements MenuService {
      * Метод для парсинга ответа от сервера со структурой стиральной машины
      * @param matcher Строковое представление объекта
      * @param id Идентификатор стиральной машины
-     * @return
+     * @return WashingMachine
      */
     private static WashingMachine parseWashingMachine(Matcher matcher, int id) {
         String brand = matcher.group(2);
