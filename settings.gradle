@@ -4,4 +4,4 @@ include 'kr-1.2'
 include 'ipr-1'
 include 'ipr-2'
 include 'ipr-1-server'
-
+include 'ipr-1-client'
