@@ -16,18 +16,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Класс "Обработчик DOM-парсера"
+ */
 public class DOMHandler {
 
-    // Создание и нормализация XML-документа
+    /**
+     * Метод для создания и нормализации XML-документа
+     * @param xmlPath Путь к XML-документу
+     * @return Document
+     * @throws Exception Прокидывание всех ошибок
+     */
     public Document createDocument(String xmlPath) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new File(xmlPath));
-        doc.getDocumentElement().normalize(); // Нормализация структуры
+
+        // Нормализация структуры
+        doc.getDocumentElement().normalize();
         return doc;
     }
 
-    // Обработка списка узлов
+    /**
+     * Метод для обработки списка узлов
+     * @param nodeList Список узлов
+     * @return List of washing machines
+     */
     public List<WashingMachine> processNodeList(NodeList nodeList) {
         List<WashingMachine> washingMachines = new ArrayList<>();
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -40,6 +54,11 @@ public class DOMHandler {
         return washingMachines;
     }
 
+    /**
+     * Метод для обработки элементов (полей) стиральной машины
+     * @param element Элемент
+     * @return WashingMachine
+     */
     private WashingMachine processWashingMachineElement(Element element) {
         int id = Integer.parseInt(element.getAttribute("id"));
         String brand = getElementTextContent(element, "brand");
@@ -57,7 +76,11 @@ public class DOMHandler {
                 angularVelocity, amountOfPrograms, isConnectedToPhone, energyEfficiency, controlType);
     }
 
-    // Извлечение элементов габаритов стиральной машины
+    /**
+     * Метод для извлечения элементов габаритов стиральной машины
+     * @param element Элемент
+     * @return Dimensions
+     */
     private Dimensions extractDimensions(Element element) {
         Element dimensionsElement = (Element) element.getElementsByTagName("dimensions").item(0);
         double height = Double.parseDouble(Objects.requireNonNull(getElementTextContent(dimensionsElement, "height")));
@@ -67,7 +90,12 @@ public class DOMHandler {
         return new Dimensions(width, height, depth, weight);
     }
 
-    // Вспомогательный метод для получения текста элемента
+    /**
+     * Вспомогательный метод для получения текста элемента по тегу
+     * @param parent Родительский элемент
+     * @param tagName Имя тега
+     * @return String
+     */
     private String getElementTextContent(Element parent, String tagName) {
         NodeList nodeList = parent.getElementsByTagName(tagName);
         if (nodeList.getLength() > 0) {

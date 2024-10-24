@@ -10,8 +10,17 @@ import javax.xml.stream.XMLStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс "Обработчик StAX-парсера"
+ */
 public class StAXHandler {
 
+    /**
+     * Метод для обработки XML-документа
+     * @param reader Объект для чтения XML
+     * @return List of washing machines
+     * @throws Exception Прокидывание ошибок
+     */
     public List<WashingMachine> processXml(XMLStreamReader reader) throws Exception {
         List<WashingMachine> washingMachines = new ArrayList<>();
         WashingMachine washingMachine = null;
@@ -47,12 +56,24 @@ public class StAXHandler {
         return washingMachines;
     }
 
+    /**
+     * Метод для получения десериализованной стиральной машины
+     * @param reader Объект для чтения XML
+     * @return WashingMachine
+     */
     private WashingMachine createWashingMachine(XMLStreamReader reader) {
         WashingMachine washingMachine = new WashingMachine();
         washingMachine.setId(Integer.parseInt(reader.getAttributeValue(null, "id")));
         return washingMachine;
     }
 
+    /**
+     * Метод для заполнения полей объекта "Стиральная машина"
+     * @param reader Объект для чтения XML
+     * @param washingMachine Стиральная машина
+     * @param dimensions Габариты
+     * @param currentElement Текущий элемент
+     */
     private void processCharacterData(XMLStreamReader reader, WashingMachine washingMachine, Dimensions dimensions, String currentElement) {
         String data = reader.getText().trim();
         if (washingMachine != null && !data.isEmpty()) {

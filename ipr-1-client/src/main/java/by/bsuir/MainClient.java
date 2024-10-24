@@ -24,7 +24,15 @@ import java.net.Socket;
  * модификации её (с использованием DOM-парсера).
  */
 public class MainClient {
+
+    /**
+     * Адрес сервера
+     */
     private static final String HOST = "localhost";
+
+    /**
+     * Порт
+     */
     private static final int PORT = 8085;
 
     /**

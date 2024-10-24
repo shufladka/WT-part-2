@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/*
+/**
  * Задание: Реализовать клиент-серверное приложение и использованием технологии Sockets.
  * Общие требования к заданию:
  * · Клиент может запросить сервер распарсить xml-файл одним из трех видов парсеров: SAX, StAX, DOM.
@@ -22,8 +22,16 @@ import java.net.Socket;
  * модификации ее (с использованием DOM-парсера).
  */
 public class MainServer {
+
+    /**
+     * Порт
+     */
     private static final int PORT = 8085;
 
+    /**
+     * Главный метод программы
+     * @param args Передаваемые параметры
+     */
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Server started and listening on port " + PORT);

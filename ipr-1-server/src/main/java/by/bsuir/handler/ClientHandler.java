@@ -17,23 +17,43 @@ import java.io.*;
 import java.net.Socket;
 import java.util.List;
 
+/**
+ * Класс "Обработчик клиента"
+ */
 public class ClientHandler implements Runnable {
-    private final Socket clientSocket;
+
+    /**
+     * Объект класса "Сокет"
+     */
+    private final Socket socket;
+
+    /**
+     * Путь к XSD-схеме
+     */
     private static final String XSD_PATH = "E:\\IntellijIdeaProjects\\WT-part-2\\ipr-1-server\\src\\main\\resources\\wm.xsd";
 
-    public ClientHandler(Socket clientSocket) {
-        this.clientSocket = clientSocket;
+    /**
+     * Конструктор класса "Обработчик клиента"
+     * @param socket Сокет
+     */
+    public ClientHandler(Socket socket) {
+        this.socket = socket;
     }
 
+    /**
+     * Переопределение метода "Запуск" для работы с сокетом
+     */
     @Override
     public void run() {
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
 
             String xmlPath;
             String parserType;
 
+            // Бесконечный цикл
             while (true) {
+
                 // Чтение запроса с типом парсера и путём к XML-файлу
                 xmlPath = in.readLine();
                 if (xmlPath == null || xmlPath.equalsIgnoreCase("exit")) {
@@ -58,7 +78,7 @@ public class ClientHandler implements Runnable {
 
                 switch (parserType) {
                     case "SAX":
-                        result.append(parseXMLWithSAX(xmlPath));  // Собираем результат парсинга
+                        result.append(parseXMLWithSAX(xmlPath));
                         break;
                     case "StAX":
                         result.append(parseXMLWithStAX(xmlPath));
@@ -71,9 +91,11 @@ public class ClientHandler implements Runnable {
                         break;
                 }
 
-                // Отправка результата клиенту, добавляя символ завершения
+                // Отправка результата клиенту
                 out.println(result);
-                out.println("END_OF_RESPONSE");  // Специальное сообщение о завершении
+
+                // Добавляем сообщение о завершении передачи
+                out.println("END_OF_RESPONSE");
             }
         } catch (IOException e) {
             System.out.println("Error handling client connection: " + e.getMessage());
@@ -81,7 +103,7 @@ public class ClientHandler implements Runnable {
             System.out.println("Error while validating XML: " + e.getMessage());
         } finally {
             try {
-                clientSocket.close();
+                socket.close();
             } catch (IOException e) {
                 System.out.println("Error closing client socket: " + e.getMessage());
             }
@@ -89,6 +111,11 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Метод для парсинга XML-документа парсером SAX
+     * @param xmlPath Путь к XML-документу
+     * @return List of washing machines
+     */
     private List<WashingMachine> parseXMLWithSAX(String xmlPath) {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -110,6 +137,11 @@ public class ClientHandler implements Runnable {
         return null;
     }
 
+    /**
+     * Метод для парсинга XML-документа парсером StAX
+     * @param xmlPath Путь к XML-документу
+     * @return List of washing machines
+     */
     private List<WashingMachine> parseXMLWithStAX(String xmlPath) {
         try {
             XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -131,6 +163,11 @@ public class ClientHandler implements Runnable {
         return null;
     }
 
+    /**
+     * Метод для парсинга XML-документа парсером DOM
+     * @param xmlPath Путь к XML-документу
+     * @return List of washing machines
+     */
     public List<WashingMachine> parseXMLWithDOM(String xmlPath) {
         try {
 
@@ -149,6 +186,11 @@ public class ClientHandler implements Runnable {
         return null;
     }
 
+    /**
+     * Метод для валидации XML-документа по XSD-схеме
+     * @param xmlFilePath Путь к XML-документу
+     * @throws Exception Прокидывание всех ошибок
+     */
     private void validateXml(String xmlFilePath) throws Exception {
 
         // Создаем фабрику схем
