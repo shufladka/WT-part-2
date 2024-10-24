@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WashingMachineList>
+	<WashingMachine id="0">
+        <brand>LG</brand>
+        <model>F2J6NNFW</model>
+        <maxLoad>6.0</maxLoad>
+        <dimensions>
+            <height>85.0</height>
+            <width>60.0</width>
+            <depth>45.5</depth>
+            <weight>0.0</weight>
+        </dimensions>
+        <angularVelocity>1200</angularVelocity>
+        <amountOfPrograms>14</amountOfPrograms>
+        <isConnectedToPhone>true</isConnectedToPhone>
+        <energyEfficiency>A</energyEfficiency>
+        <controlType>ELECTRONIC</controlType>
+    </WashingMachine>
+	
+	<WashingMachine id="1">
+        <brand>BEKO</brand>
+        <model>WSPE6H616W</model>
+        <maxLoad>6.5</maxLoad>
+        <dimensions>
+            <height>84.0</height>
+            <width>59.6</width>
+            <depth>44.0</depth>
+            <weight>56.0</weight>
+        </dimensions>
+        <angularVelocity>1200</angularVelocity>
+        <amountOfPrograms>15</amountOfPrograms>
+        <isConnectedToPhone>true</isConnectedToPhone>
+        <energyEfficiency>A_3_PLUS</energyEfficiency>
+        <controlType>ELECTRONIC</controlType>
+    </WashingMachine>
+</WashingMachineList>

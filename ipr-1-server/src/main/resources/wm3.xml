@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WashingMachineList>
+	<WashingMachine id="5">
+        <brand>Candy</brand>
+        <model>CSW4 365D/2-07</model>
+        <maxLoad>8.0</maxLoad>
+        <dimensions>
+            <height>85.0</height>
+            <width>60.0</width>
+            <depth>44.0</depth>
+            <weight>64.0</weight>
+        </dimensions>
+        <angularVelocity>1300</angularVelocity>
+        <amountOfPrograms>14</amountOfPrograms>
+        <isConnectedToPhone>false</isConnectedToPhone>
+        <energyEfficiency>B</energyEfficiency>
+        <controlType>ELECTRONIC</controlType>
+    </WashingMachine>
+	
+	<WashingMachine id="6">
+        <brand>Indesit</brand>
+        <model>IWUB 4085</model>
+        <maxLoad>4.0</maxLoad>
+        <dimensions>
+            <height>85.0</height>
+            <width>59.5</width>
+            <depth>33.0</depth>
+            <weight>53.8</weight>
+        </dimensions>
+        <angularVelocity>800</angularVelocity>
+        <amountOfPrograms>14</amountOfPrograms>
+        <isConnectedToPhone>false</isConnectedToPhone>
+        <energyEfficiency>A_PLUS</energyEfficiency>
+        <controlType>ELECTRONIC</controlType>
+    </WashingMachine>
+	
+	<WashingMachine id="7">
+        <brand>Samsung</brand>
+        <model>WW70AG5S21EELD</model>
+        <maxLoad>7.0</maxLoad>
+        <dimensions>
+            <height>85.0</height>
+            <width>60.0</width>
+            <depth>45.0</depth>
+            <weight>51.0</weight>
+        </dimensions>
+        <angularVelocity>1200</angularVelocity>
+        <amountOfPrograms>14</amountOfPrograms>
+        <isConnectedToPhone>false</isConnectedToPhone>
+        <energyEfficiency>A_3_PLUS</energyEfficiency>
+        <controlType>ELECTRONIC</controlType>
+    </WashingMachine>
+	
+	<WashingMachine id="8">
+        <brand>Samsung</brand>
+        <model>WW70AG5S21EELD</model>
+        <maxLoad>7.0</maxLoad>
+        <dimensions>
+            <height>85.0</height>
+            <width>60.0</width>
+            <depth>45.0</depth>
+            <weight>51.0</weight>
+        </dimensions>
+        <angularVelocity>1200</angularVelocity>
+        <amountOfPrograms>14</amountOfPrograms>
+        <isConnectedToPhone>false</isConnectedToPhone>
+        <energyEfficiency>A_3_PLUS</energyEfficiency>
+        <controlType>ELECTRONIC</controlType>
+    </WashingMachine>
+</WashingMachineList>
