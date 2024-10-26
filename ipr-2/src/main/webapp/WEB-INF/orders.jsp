@@ -27,6 +27,7 @@
             String orderId = (String) request.getAttribute("order_id");
             String personId = (String) request.getAttribute("person_id");
             String isAdmin = (String) request.getAttribute("is_admin");
+            boolean isAdminValue = Boolean.parseBoolean(isAdmin);
 
             // Сортировка по order ID
             orderList.sort(Comparator.comparingInt(Order::getId).reversed());
@@ -49,7 +50,6 @@
             // Если указан personId, фильтруем заказы по id пользователя или показываем все для администратора
             if (personId != null && isAdmin != null) {
                 int personIdValue = Integer.parseInt(personId);
-                boolean isAdminValue = Boolean.parseBoolean(isAdmin);
 
                 for (Order order : orderList) {
                     if ((order.getPersonId() == personIdValue) || isAdminValue) {
